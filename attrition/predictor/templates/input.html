@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Attrition Prediction</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #241E24;
+            color: #3B2938;
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            background: #F4EFE6;
+            padding: 35px 45px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #3B2938;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 0;
+            color: #6B6065;
+            font-size: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 35px;
+            row-gap: 20px;
+        }
+
+        .form-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            color: #633F52;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 44px;
+            padding: 10px 12px;
+            background: #FBF8F2;
+            border: 1px solid #C9BDB0;
+            color: #3B2938;
+            border-radius: 5px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #A45D45;
+            box-shadow: 0 0 0 3px rgba(164, 93, 69, 0.12);
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            margin-top: 18px;
+            margin-bottom: 2px;
+            padding: 10px 0;
+            color: #8B5747;
+            border-bottom: 2px solid #C9BDB0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            margin-top: 35px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            height: 50px;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #633F52;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            background: #7B4D61;
+            box-shadow: 0 6px 15px rgba(99, 63, 82, 0.30);
+        }
+
+    
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+            }
+
+            .section-title {
+                grid-column: 1;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>EMPLOYEE ATTRITION PREDICTION</h1>
+
+        <p>
+            Enter employee information to predict the likelihood of attrition
+        </p>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form method="POST" action="{% url 'predict' %}">
+
+        {% csrf_token %}
+
+        <div class="form-grid">
+
+
+            <!-- ========================= -->
+            <!-- PERSONAL INFORMATION -->
+            <!-- ========================= -->
+
+            <div class="section-title">
+                Personal Information
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="age">
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    name="age"
+                    id="age"
+                    min="18"
+                    max="100"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="gender">
+                    Gender
+                </label>
+
+                <select
+                    name="gender"
+                    id="gender"
+                    required
+                >
+
+                    <option value="">
+                        Select Gender
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="marital_status">
+                    Marital Status
+                </label>
+
+                <select
+                    name="marital_status"
+                    id="marital_status"
+                    required
+                >
+
+                    <option value="">
+                        Select Status
+                    </option>
+
+                    <option value="Single">
+                        Single
+                    </option>
+
+                    <option value="Married">
+                        Married
+                    </option>
+
+                    <option value="Divorced">
+                        Divorced
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="number_of_dependents">
+                    Number of Dependents
+                </label>
+
+                <input
+                    type="number"
+                    name="number_of_dependents"
+                    id="number_of_dependents"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- JOB INFORMATION -->
+            <!-- ========================= -->
+
+            <div class="section-title">
+                Job Information
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="job_role">
+                    Job Role
+                </label>
+
+                <select name="job_role" id="job_role" required>
+
+    <option value="">
+        Select Job Role
+    </option>
+
+    <option value="Education">
+        Education
+    </option>
+
+    <option value="Finance">
+        Finance
+    </option>
+
+    <option value="Healthcare">
+        Healthcare
+    </option>
+
+    <option value="Media">
+        Media
+    </option>
+
+    <option value="Technology">
+        Technology
+    </option>
+
+    </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="job_level">
+                    Job Level
+                </label>
+
+                <select
+                    name="job_level"
+                    id="job_level"
+                    required
+                >
+
+                    <option value="">
+                        Select Job Level
+                    </option>
+
+                    <option value="Entry">
+                        Entry
+                    </option>
+
+                    <option value="Mid">
+                        Mid
+                    </option>
+
+                    <option value="Senior">
+                        Senior
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="years_at_company">
+                    Years at Company
+                </label>
+
+                <input
+                    type="number"
+                    name="years_at_company"
+                    id="years_at_company"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="monthly_income">
+                    Monthly Income
+                </label>
+
+                <input
+                    type="number"
+                    name="monthly_income"
+                    id="monthly_income"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="number_of_promotions">
+                    Number of Promotions
+                </label>
+
+                <input
+                    type="number"
+                    name="number_of_promotions"
+                    id="number_of_promotions"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="company_tenure">
+                    Company Tenure (In Months)
+                </label>
+
+                <input
+                    type="number"
+                    name="company_tenure"
+                    id="company_tenure"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- WORK ENVIRONMENT -->
+            <!-- ========================= -->
+
+            <div class="section-title">
+                Work Environment
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="overtime">
+                    Overtime
+                </label>
+
+                <select
+                    name="overtime"
+                    id="overtime"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="remote_work">
+                    Remote Work
+                </label>
+
+                <select
+                    name="remote_work"
+                    id="remote_work"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="company_size">
+                    Company Size
+                </label>
+
+                <select
+                    name="company_size"
+                    id="company_size"
+                    required
+                >
+
+                    <option value="">
+                        Select Company Size
+                    </option>
+
+                    <option value="Small">
+                        Small
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Large">
+                        Large
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="distance_from_home">
+                    Distance from Home
+                </label>
+
+                <input
+                    type="number"
+                    name="distance_from_home"
+                    id="distance_from_home"
+                    min="0"
+                    step="0.1"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="work_life_balance">
+                    Work-Life Balance
+                </label>
+
+                <select
+                    name="work_life_balance"
+                    id="work_life_balance"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Poor">
+                        Poor
+                    </option>
+
+                    <option value="Fair">
+                        Fair
+                    </option>
+
+                    <option value="Good">
+                        Good
+                    </option>
+
+                    <option value="Excellent">
+                        Excellent
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="job_satisfaction">
+                    Job Satisfaction
+                </label>
+
+                <select
+                    name="job_satisfaction"
+                    id="job_satisfaction"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                    <option value="Very High">
+                        Very High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- EDUCATION & PERFORMANCE -->
+            <!-- ========================= -->
+
+            <div class="section-title">
+                Education & Performance
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="education_level">
+                    Education Level
+                </label>
+
+                <select
+    name="education_level"
+    id="education_level"
+    required
+>
+    <option value="">
+        Select Education
+    </option>
+
+    <option value="High School">
+        High School
+    </option>
+
+    <option value="Associate Degree">
+        Associate Degree
+    </option>
+
+    <option value="Bachelorâ€™s Degree">
+        Bachelor's Degree
+    </option>
+
+    <option value="Masterâ€™s Degree">
+        Master's Degree
+    </option>
+
+    <option value="PhD">
+        PhD
+    </option>
+</select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="performance_rating">
+                    Performance Rating
+                </label>
+
+                <select
+    name="performance_rating"
+    id="performance_rating"
+    required
+>
+
+    <option value="">
+        Select Rating
+    </option>
+
+    <option value="Average">
+        Average
+    </option>
+
+    <option value="Below Average">
+        Below Average
+    </option>
+
+    <option value="High">
+        High
+    </option>
+
+    <option value="Low">
+        Low
+    </option>
+
+    </select>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- OPPORTUNITIES -->
+            <!-- ========================= -->
+
+            <div class="section-title">
+                Opportunities & Recognition
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="leadership_opportunities">
+                    Leadership Opportunities
+                </label>
+
+                <select
+                    name="leadership_opportunities"
+                    id="leadership_opportunities"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="innovation_opportunities">
+                    Innovation Opportunities
+                </label>
+
+                <select
+                    name="innovation_opportunities"
+                    id="innovation_opportunities"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="employee_recognition">
+                    Employee Recognition
+                </label>
+
+                <select
+                    name="employee_recognition"
+                    id="employee_recognition"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                    <option value="Very High">
+                        Very High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="company_reputation">
+                    Company Reputation
+                </label>
+
+                <select
+                    name="company_reputation"
+                    id="company_reputation"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Poor">
+                        Poor
+                    </option>
+
+                    <option value="Fair">
+                        Fair
+                    </option>
+
+                    <option value="Good">
+                        Good
+                    </option>
+
+                    <option value="Excellent">
+                        Excellent
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PREDICT BUTTON -->
+        <!-- ========================= -->
+
+        <div class="button-container">
+
+            <input
+                type="submit"
+                value="Predict Employee Attrition"
+            >
+
+        </div>
+
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
