@@ -24,32 +24,44 @@
             padding: 40px 15px;
         }
 
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
         .container {
             width: 100%;
-            max-width: 700px;
+            max-width: 720px;
             margin: auto;
             background: #F4EFE6;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            padding: 42px;
+            border-radius: 24px;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
         }
+
+
+        /* =========================
+           HEADER
+        ========================= */
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
 
         .header h1 {
-            margin: 0 0 10px;
+            margin: 0 0 9px;
             color: #3B2938;
             font-family: Georgia, 'Times New Roman', serif;
-            font-size: 28px;
+            font-size: 29px;
             letter-spacing: 1px;
         }
 
         .header p {
             margin: 0;
-            color: #6B6065;
+            color: #7A7075;
+            font-size: 14px;
+            letter-spacing: 0.3px;
         }
 
 
@@ -59,22 +71,53 @@
 
         .prediction-card {
             text-align: center;
-            padding: 30px 20px;
+            padding: 32px 28px;
             background: #E8E0D5;
-            border-radius: 15px;
+            border-radius: 18px;
+            border: 1px solid #D9CEC1;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
         }
 
+
         .prediction-title {
-            font-size: 16px;
-            color: #6B6065;
-            margin-bottom: 10px;
+            font-size: 14px;
+            color: #756A70;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: bold;
         }
+
+
+        /* =========================
+           PREDICTION TEXT
+        ========================= */
 
         .prediction {
             font-size: 32px;
             font-weight: bold;
             color: #633F52;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
+            line-height: 1.2;
+        }
+
+
+        /* =========================
+           PROBABILITY
+        ========================= */
+
+        .probability {
+            font-size: 30px;
+            font-weight: bold;
+            color: #633F52;
+            margin-top: 15px;
+        }
+
+
+        .probability-label {
+            font-size: 14px;
+            color: #756A70;
+            margin-top: 4px;
         }
 
 
@@ -84,25 +127,58 @@
 
         .meter-container {
             width: 100%;
-            height: 25px;
-            background: #D5CBC0;
+            height: 18px;
+            background: #D2C8BD;
             border-radius: 20px;
             overflow: hidden;
-            margin: 15px 0;
+            margin: 18px 0 8px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.10);
         }
+
 
         .meter {
             height: 100%;
-            background: #A45D45;
+            width: 0;
+            background: linear-gradient(
+                90deg,
+                #8B5747,
+                #A45D45
+            );
             border-radius: 20px;
-            transition: width 0.5s ease;
+            transition: width 0.8s ease;
         }
 
-        .probability {
-            font-size: 20px;
+
+        /* =========================
+           RISK LEVEL
+        ========================= */
+
+        .risk-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #D1C5B8;
+        }
+
+
+        .risk-label {
+            font-size: 13px;
+            color: #756A70;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
             font-weight: bold;
-            color: #633F52;
-            margin-top: 12px;
+        }
+
+
+        .risk-level {
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 30px;
+            background: #633F52;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.4px;
         }
 
 
@@ -112,12 +188,13 @@
 
         .explanation {
             margin-top: 25px;
-            padding: 20px;
+            padding: 20px 22px;
             border-left: 5px solid #A45D45;
             background: #FBF8F2;
-            border-radius: 8px;
+            border-radius: 10px;
             color: #5B5055;
-            line-height: 1.6;
+            line-height: 1.7;
+            box-shadow: 0 5px 15px rgba(59, 41, 56, 0.06);
         }
 
 
@@ -126,19 +203,31 @@
         ========================= */
 
         .suggestions {
-            margin-top: 25px;
+            margin-top: 28px;
+            padding: 22px;
+            background: #FBF8F2;
+            border-radius: 12px;
+            border: 1px solid #E0D6CA;
         }
+
 
         .suggestions h2 {
             color: #633F52;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 19px;
+            margin: 0 0 14px;
         }
 
+
         .suggestions ul {
-            padding-left: 20px;
+            padding-left: 21px;
+            margin: 0;
             color: #5B5055;
-            line-height: 1.8;
+            line-height: 1.9;
+        }
+
+
+        .suggestions li {
+            padding-left: 3px;
         }
 
 
@@ -150,24 +239,39 @@
             margin-top: 30px;
         }
 
+
         .button {
             display: block;
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background: #633F52;
             color: white;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 17px;
+            border-radius: 9px;
+            font-size: 16px;
             font-weight: bold;
-            transition: 0.3s;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
         }
+
 
         .button:hover {
             background: #7B4D61;
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(99, 63, 82, 0.30);
+            box-shadow: 0 8px 18px rgba(99, 63, 82, 0.30);
+        }
+
+
+        /* =========================
+           FOOTER TEXT
+        ========================= */
+
+        .footer-note {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 12px;
+            color: #8A7F83;
         }
 
 
@@ -177,8 +281,13 @@
 
         @media (max-width: 600px) {
 
+            body {
+                padding: 20px 10px;
+            }
+
             .container {
-                padding: 25px 20px;
+                padding: 28px 20px;
+                border-radius: 18px;
             }
 
             .header h1 {
@@ -187,6 +296,14 @@
 
             .prediction {
                 font-size: 27px;
+            }
+
+            .probability {
+                font-size: 27px;
+            }
+
+            .prediction-card {
+                padding: 27px 18px;
             }
 
         }
@@ -209,13 +326,15 @@
 
         <h1>EMPLOYEE ATTRITION RESULT</h1>
 
-        <p>Machine Learning Prediction</p>
+        <p>
+            Machine Learning Prediction
+        </p>
 
     </div>
 
 
     <!-- =========================
-         PREDICTION
+         PREDICTION CARD
     ========================= -->
 
     <div class="prediction-card">
@@ -226,9 +345,7 @@
 
 
         <div class="prediction">
-
-            {{ risk }}
-
+            {{ prediction }}
         </div>
 
 
@@ -250,8 +367,26 @@
 
 
         <div class="probability">
-
             {{ probability }}%
+        </div>
+
+
+        <div class="probability-label">
+            Estimated probability of employee leaving
+        </div>
+
+
+        <!-- RISK LEVEL -->
+
+        <div class="risk-section">
+
+            <div class="risk-label">
+                Risk Level
+            </div>
+
+            <div class="risk-level">
+                {{ risk }}
+            </div>
 
         </div>
 
@@ -293,7 +428,6 @@
         <h2>Suggested Actions</h2>
 
         <ul>
-
 
             <!-- HIGH RISK -->
 
@@ -365,7 +499,7 @@
 
 
     <!-- =========================
-         PREDICT ANOTHER EMPLOYEE
+         BUTTON
     ========================= -->
 
     <div class="button-container">
@@ -374,6 +508,11 @@
             Predict Another Employee
         </a>
 
+    </div>
+
+
+    <div class="footer-note">
+        Prediction generated using the trained machine learning model
     </div>
 
 
@@ -388,7 +527,9 @@
 
     const meter = document.querySelector(".meter");
 
-    const probability = meter.dataset.probability;
+    const probability = parseFloat(
+        meter.dataset.probability
+    );
 
     meter.style.width = probability + "%";
 
@@ -396,6 +537,5 @@
 
 
 </body>
-
 
 </html>

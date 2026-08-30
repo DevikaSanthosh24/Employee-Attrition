@@ -147,25 +147,25 @@ def predict(request):
         # --------------------------------
 
         prediction = model.predict(input_df)[0]
-        if prediction == 1:
+        print("\n========== DEBUG ==========")
+        print("Input after encoding:")
+        print(input_df.to_string(index=False))
+
+        print("\nPrediction:", prediction)
+
+        print("Model classes:", model.classes_)
+
+        print("Probabilities:", model.predict_proba(input_df)[0])
+
+        print("===========================\n")
+
+        if prediction == 0:
             prediction_text = "Likely to Leave"
         else:
             prediction_text = "Likely to Stay"
 
-
-        # --------------------------------
-        # GET ATTRITION PROBABILITY
-        # --------------------------------
-
-        probability = model.predict_proba(
-            input_df
-        )[0][1] * 100
-
-
-        probability = round(
-            float(probability),
-            2
-        )
+        probability = model.predict_proba(input_df)[0][0] * 100
+        probability = round(float(probability),2)
 
 
         # --------------------------------
