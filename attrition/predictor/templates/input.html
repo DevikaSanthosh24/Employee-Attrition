@@ -1,10 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Employee Attrition Prediction</title>
@@ -26,13 +25,15 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
             background: #F4EFE6;
-            padding: 35px 45px;
+            padding: 38px 45px;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
+
+        /* ================= HEADER ================= */
 
         .header {
             text-align: center;
@@ -40,10 +41,10 @@
         }
 
         .header h1 {
-            margin: 0 0 10px 0;
+            margin: 0 0 10px;
             color: #3B2938;
             font-family: Georgia, 'Times New Roman', serif;
-            font-size: 28px;
+            font-size: 30px;
             letter-spacing: 1px;
         }
 
@@ -53,6 +54,8 @@
             font-size: 15px;
         }
 
+        /* ================= FORM ================= */
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -61,7 +64,6 @@
         }
 
         .form-group {
-            width: 100%;
             display: flex;
             flex-direction: column;
         }
@@ -78,11 +80,15 @@
             width: 100%;
             height: 44px;
             padding: 10px 12px;
+
             background: #FBF8F2;
             border: 1px solid #C9BDB0;
+
             color: #3B2938;
-            border-radius: 5px;
+
+            border-radius: 7px;
             font-size: 15px;
+
             outline: none;
             transition: 0.3s;
         }
@@ -90,45 +96,84 @@
         input:focus,
         select:focus {
             border-color: #A45D45;
-            box-shadow: 0 0 0 3px rgba(164, 93, 69, 0.12);
+
+            box-shadow:
+                0 0 0 3px rgba(164, 93, 69, 0.12);
         }
+
+        /* ================= SECTION TITLES ================= */
 
         .section-title {
             grid-column: 1 / -1;
-            margin-top: 18px;
+
+            margin-top: 20px;
             margin-bottom: 2px;
-            padding: 10px 0;
+
+            padding: 12px 0;
+
             color: #8B5747;
+
             border-bottom: 2px solid #C9BDB0;
-            font-size: 18px;
+
+            font-size: 19px;
             font-weight: bold;
         }
 
+        .section-description {
+            grid-column: 1 / -1;
+
+            margin-top: -10px;
+            margin-bottom: 5px;
+
+            color: #7A7075;
+            font-size: 13px;
+        }
+
+        /* ================= BUTTON ================= */
+
         .button-container {
-            margin-top: 35px;
+            margin-top: 38px;
         }
 
         input[type="submit"] {
             width: 100%;
-            height: 50px;
-            padding: 12px;
+            height: 52px;
+
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+
             background: #633F52;
             color: white;
+
             font-size: 17px;
             font-weight: bold;
+
             cursor: pointer;
+
             transition: 0.3s;
         }
 
         input[type="submit"]:hover {
             transform: translateY(-2px);
+
             background: #7B4D61;
-            box-shadow: 0 6px 15px rgba(99, 63, 82, 0.30);
+
+            box-shadow:
+                0 6px 15px rgba(99, 63, 82, 0.30);
         }
 
-    
+        /* ================= FOOTER ================= */
+
+        .footer-note {
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #8A7F83;
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
 
         @media (max-width: 700px) {
 
@@ -137,7 +182,7 @@
             }
 
             .container {
-                padding: 25px 20px;
+                padding: 28px 20px;
             }
 
             .form-grid {
@@ -145,7 +190,8 @@
                 column-gap: 0;
             }
 
-            .section-title {
+            .section-title,
+            .section-description {
                 grid-column: 1;
             }
 
@@ -163,8 +209,7 @@
 
 <div class="container">
 
-
-    <!-- HEADER -->
+    <!-- ================= HEADER ================= -->
 
     <div class="header">
 
@@ -177,7 +222,7 @@
     </div>
 
 
-    <!-- FORM -->
+    <!-- ================= FORM ================= -->
 
     <form method="POST" action="{% url 'predict' %}">
 
@@ -186,14 +231,20 @@
         <div class="form-grid">
 
 
-            <!-- ========================= -->
+            <!-- ================================================= -->
             <!-- PERSONAL INFORMATION -->
-            <!-- ========================= -->
+            <!-- ================================================= -->
 
             <div class="section-title">
                 Personal Information
             </div>
 
+            <div class="section-description">
+                Basic demographic information about the employee.
+            </div>
+
+
+            <!-- AGE -->
 
             <div class="form-group">
 
@@ -207,11 +258,14 @@
                     id="age"
                     min="18"
                     max="100"
+                    placeholder="Enter age"
                     required
                 >
 
             </div>
 
+
+            <!-- GENDER -->
 
             <div class="form-group">
 
@@ -241,6 +295,8 @@
 
             </div>
 
+
+            <!-- MARITAL STATUS -->
 
             <div class="form-group">
 
@@ -275,6 +331,8 @@
             </div>
 
 
+            <!-- DEPENDENTS -->
+
             <div class="form-group">
 
                 <label for="number_of_dependents">
@@ -286,57 +344,64 @@
                     name="number_of_dependents"
                     id="number_of_dependents"
                     min="0"
+                    placeholder="Enter number"
                     required
                 >
 
             </div>
 
 
-            <!-- ========================= -->
-            <!-- JOB INFORMATION -->
-            <!-- ========================= -->
+            <!-- ================================================= -->
+            <!-- EMPLOYMENT INFORMATION -->
+            <!-- ================================================= -->
 
             <div class="section-title">
-                Job Information
+                Employment Information
             </div>
 
+            <div class="section-description">
+                Information about the employee's role and organization.
+            </div>
+
+
+            <!-- INDUSTRY -->
 
             <div class="form-group">
 
-                <label for="job_role">
-                    Job Role
-                </label>
+                <label for="job_role">Industry</label>
 
-                <select name="job_role" id="job_role" required>
+                <select name="job_role" id="job_role">
 
-    <option value="">
-        Select Job Role
-    </option>
+                    <option value="">
+                        Select Industry
+                    </option>
 
-    <option value="Education">
-        Education
-    </option>
+                    <option value="Technology">
+                        Technology
+                    </option>
 
-    <option value="Finance">
-        Finance
-    </option>
+                    <option value="Education">
+                        Education
+                    </option>
 
-    <option value="Healthcare">
-        Healthcare
-    </option>
+                    <option value="Finance">
+                        Finance
+                    </option>
 
-    <option value="Media">
-        Media
-    </option>
+                    <option value="Media">
+                        Media
+                    </option>
 
-    <option value="Technology">
-        Technology
-    </option>
+                    <option value="Healthcare">
+                        Healthcare
+                    </option>
 
-    </select>
+                </select>
 
             </div>
 
+
+            <!-- JOB LEVEL -->
 
             <div class="form-group">
 
@@ -371,6 +436,8 @@
             </div>
 
 
+            <!-- YEARS AT COMPANY -->
+
             <div class="form-group">
 
                 <label for="years_at_company">
@@ -382,11 +449,14 @@
                     name="years_at_company"
                     id="years_at_company"
                     min="0"
+                    placeholder="Enter years"
                     required
                 >
 
             </div>
 
+
+            <!-- MONTHLY INCOME -->
 
             <div class="form-group">
 
@@ -400,28 +470,14 @@
                     id="monthly_income"
                     min="0"
                     step="0.01"
+                    placeholder="Enter monthly income"
                     required
                 >
 
             </div>
 
 
-            <div class="form-group">
-
-                <label for="number_of_promotions">
-                    Number of Promotions
-                </label>
-
-                <input
-                    type="number"
-                    name="number_of_promotions"
-                    id="number_of_promotions"
-                    min="0"
-                    required
-                >
-
-            </div>
-
+            <!-- COMPANY TENURE -->
 
             <div class="form-group">
 
@@ -434,78 +490,14 @@
                     name="company_tenure"
                     id="company_tenure"
                     min="0"
+                    placeholder="Enter tenure"
                     required
                 >
 
             </div>
 
 
-            <!-- ========================= -->
-            <!-- WORK ENVIRONMENT -->
-            <!-- ========================= -->
-
-            <div class="section-title">
-                Work Environment
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="overtime">
-                    Overtime
-                </label>
-
-                <select
-                    name="overtime"
-                    id="overtime"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="remote_work">
-                    Remote Work
-                </label>
-
-                <select
-                    name="remote_work"
-                    id="remote_work"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
+            <!-- COMPANY SIZE -->
 
             <div class="form-group">
 
@@ -540,6 +532,83 @@
             </div>
 
 
+            <!-- ================================================= -->
+            <!-- WORK ENVIRONMENT -->
+            <!-- ================================================= -->
+
+            <div class="section-title">
+                Work Environment
+            </div>
+
+            <div class="section-description">
+                Information about workload, working conditions and flexibility.
+            </div>
+
+
+            <!-- OVERTIME -->
+
+            <div class="form-group">
+
+                <label for="overtime">
+                    Overtime
+                </label>
+
+                <select
+                    name="overtime"
+                    id="overtime"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- REMOTE WORK -->
+
+            <div class="form-group">
+
+                <label for="remote_work">
+                    Remote Work
+                </label>
+
+                <select
+                    name="remote_work"
+                    id="remote_work"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DISTANCE -->
+
             <div class="form-group">
 
                 <label for="distance_from_home">
@@ -552,11 +621,14 @@
                     id="distance_from_home"
                     min="0"
                     step="0.1"
+                    placeholder="Enter distance"
                     required
                 >
 
             </div>
 
+
+            <!-- WORK LIFE BALANCE -->
 
             <div class="form-group">
 
@@ -595,6 +667,21 @@
             </div>
 
 
+            <!-- ================================================= -->
+            <!-- PERFORMANCE & SATISFACTION -->
+            <!-- ================================================= -->
+
+            <div class="section-title">
+                Performance & Satisfaction
+            </div>
+
+            <div class="section-description">
+                Information about employee satisfaction, performance and development.
+            </div>
+
+
+            <!-- JOB SATISFACTION -->
+
             <div class="form-group">
 
                 <label for="job_satisfaction">
@@ -632,53 +719,7 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- EDUCATION & PERFORMANCE -->
-            <!-- ========================= -->
-
-            <div class="section-title">
-                Education & Performance
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="education_level">
-                    Education Level
-                </label>
-
-                <select
-    name="education_level"
-    id="education_level"
-    required
->
-    <option value="">
-        Select Education
-    </option>
-
-    <option value="High School">
-        High School
-    </option>
-
-    <option value="Associate Degree">
-        Associate Degree
-    </option>
-
-    <option value="Bachelorâ€™s Degree">
-        Bachelor's Degree
-    </option>
-
-    <option value="Masterâ€™s Degree">
-        Master's Degree
-    </option>
-
-    <option value="PhD">
-        PhD
-    </option>
-</select>
-
-            </div>
-
+            <!-- PERFORMANCE -->
 
             <div class="form-group">
 
@@ -687,44 +728,87 @@
                 </label>
 
                 <select
-    name="performance_rating"
-    id="performance_rating"
-    required
->
+                    name="performance_rating"
+                    id="performance_rating"
+                    required
+                >
 
-    <option value="">
-        Select Rating
-    </option>
+                    <option value="">
+                        Select Rating
+                    </option>
 
-    <option value="Average">
-        Average
-    </option>
+                    <option value="Low">
+                        Low
+                    </option>
 
-    <option value="Below Average">
-        Below Average
-    </option>
+                    <option value="Below Average">
+                        Below Average
+                    </option>
 
-    <option value="High">
-        High
-    </option>
+                    <option value="Average">
+                        Average
+                    </option>
 
-    <option value="Low">
-        Low
-    </option>
+                    <option value="High">
+                        High
+                    </option>
 
-    </select>
+                </select>
 
             </div>
 
 
-            <!-- ========================= -->
-            <!-- OPPORTUNITIES -->
-            <!-- ========================= -->
+            <!-- PROMOTIONS -->
+
+            <div class="form-group">
+
+                <label for="number_of_promotions">
+                    Number of Promotions
+                </label>
+
+                <input
+                    type="number"
+                    name="number_of_promotions"
+                    id="number_of_promotions"
+                    min="0"
+                    placeholder="Enter number"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EDUCATION -->
+
+
+            <div class="form-group">
+                <label for="education_level">Education Level</label>
+
+                <select name="education_level" id="education_level" required>
+                <option value="">Select Education Level</option>
+                <option value="High School">High School</option>
+                <option value="Associate Degree">Associate Degree</option>
+                <option value="Bachelorâ€™s Degree">Bachelor’s Degree</option>
+                <option value="Masterâ€™s Degree">Master’s Degree</option>
+                <option value="PhD">PhD</option>
+                </select>
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- OPPORTUNITIES & RECOGNITION -->
+            <!-- ================================================= -->
 
             <div class="section-title">
                 Opportunities & Recognition
             </div>
 
+            <div class="section-description">
+                Information about career opportunities, innovation and recognition.
+            </div>
+
+
+            <!-- LEADERSHIP -->
 
             <div class="form-group">
 
@@ -755,6 +839,8 @@
             </div>
 
 
+            <!-- INNOVATION -->
+
             <div class="form-group">
 
                 <label for="innovation_opportunities">
@@ -784,42 +870,7 @@
             </div>
 
 
-            <div class="form-group">
-
-                <label for="employee_recognition">
-                    Employee Recognition
-                </label>
-
-                <select
-                    name="employee_recognition"
-                    id="employee_recognition"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="Low">
-                        Low
-                    </option>
-
-                    <option value="Medium">
-                        Medium
-                    </option>
-
-                    <option value="High">
-                        High
-                    </option>
-
-                    <option value="Very High">
-                        Very High
-                    </option>
-
-                </select>
-
-            </div>
-
+            <!-- COMPANY REPUTATION -->
 
             <div class="form-group">
 
@@ -858,12 +909,45 @@
             </div>
 
 
+            <!-- EMPLOYEE RECOGNITION -->
+
+            <div class="form-group">
+
+                <label for="employee_recognition">
+                    Employee Recognition
+                </label>
+
+                <select
+                    name="employee_recognition"
+                    id="employee_recognition"
+                    required
+                >
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
         </div>
 
 
-        <!-- ========================= -->
-        <!-- PREDICT BUTTON -->
-        <!-- ========================= -->
+        <!-- ================= PREDICT BUTTON ================= -->
 
         <div class="button-container">
 
@@ -874,11 +958,17 @@
 
         </div>
 
-
     </form>
+
+
+    <div class="footer-note">
+        Prediction generated using the trained machine learning model
+    </div>
+
 
 </div>
 
 </body>
 
 </html>
+```
