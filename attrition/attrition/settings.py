@@ -126,3 +126,12 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+# ============================================================
+# AUTHENTICATION SETTINGS
+# ============================================================
+
+LOGIN_URL = "/admin-login/"
+
+LOGIN_REDIRECT_URL = "/dashboard/"
+
+LOGOUT_REDIRECT_URL = "/admin-login/"

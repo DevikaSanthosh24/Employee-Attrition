@@ -1,10 +1,12 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Employee Attrition Prediction</title>
 
@@ -15,137 +17,219 @@
         }
 
         body {
+
             background: #241E24;
+
             color: #3B2938;
-            font-family: 'Trebuchet MS', Arial, sans-serif;
+
+            font-family:
+                'Trebuchet MS',
+                Arial,
+                sans-serif;
+
             margin: 0;
+
             min-height: 100vh;
+
             padding: 40px 15px;
         }
 
         .container {
+
             width: 100%;
+
             max-width: 1000px;
+
             margin: auto;
+
             background: #F4EFE6;
+
             padding: 38px 45px;
+
             border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.3);
         }
 
         /* ================= HEADER ================= */
 
         .header {
+
             text-align: center;
+
             margin-bottom: 35px;
         }
 
         .header h1 {
+
             margin: 0 0 10px;
+
             color: #3B2938;
-            font-family: Georgia, 'Times New Roman', serif;
+
+            font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+
             font-size: 30px;
+
             letter-spacing: 1px;
         }
 
         .header p {
+
             margin: 0;
+
             color: #6B6065;
+
             font-size: 15px;
+        }
+
+        /* ================= ERROR ================= */
+
+        .error-message {
+
+            margin-bottom: 25px;
+
+            padding: 14px 18px;
+
+            background: #F8E9E3;
+
+            color: #8B3E2F;
+
+            border: 1px solid #C98B77;
+
+            border-radius: 8px;
+
+            font-size: 14px;
         }
 
         /* ================= FORM ================= */
 
         .form-grid {
+
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
             column-gap: 35px;
+
             row-gap: 20px;
         }
 
         .form-group {
+
             display: flex;
+
             flex-direction: column;
         }
 
         label {
+
             font-weight: bold;
+
             color: #633F52;
+
             margin-bottom: 7px;
+
             font-size: 14px;
         }
 
         input,
         select {
+
             width: 100%;
+
             height: 44px;
+
             padding: 10px 12px;
 
             background: #FBF8F2;
+
             border: 1px solid #C9BDB0;
 
             color: #3B2938;
 
             border-radius: 7px;
+
             font-size: 15px;
 
             outline: none;
+
             transition: 0.3s;
         }
 
         input:focus,
         select:focus {
+
             border-color: #A45D45;
 
             box-shadow:
-                0 0 0 3px rgba(164, 93, 69, 0.12);
+                0 0 0 3px
+                rgba(164, 93, 69, 0.12);
         }
 
         /* ================= SECTION TITLES ================= */
 
         .section-title {
+
             grid-column: 1 / -1;
 
             margin-top: 20px;
+
             margin-bottom: 2px;
 
             padding: 12px 0;
 
             color: #8B5747;
 
-            border-bottom: 2px solid #C9BDB0;
+            border-bottom:
+                2px solid #C9BDB0;
 
             font-size: 19px;
+
             font-weight: bold;
         }
 
         .section-description {
+
             grid-column: 1 / -1;
 
             margin-top: -10px;
+
             margin-bottom: 5px;
 
             color: #7A7075;
+
             font-size: 13px;
         }
 
         /* ================= BUTTON ================= */
 
         .button-container {
+
             margin-top: 38px;
         }
 
         input[type="submit"] {
+
             width: 100%;
+
             height: 52px;
 
             border: none;
+
             border-radius: 8px;
 
             background: #633F52;
+
             color: white;
 
             font-size: 17px;
+
             font-weight: bold;
 
             cursor: pointer;
@@ -154,22 +238,27 @@
         }
 
         input[type="submit"]:hover {
-            transform: translateY(-2px);
+
+            transform:
+                translateY(-2px);
 
             background: #7B4D61;
 
             box-shadow:
-                0 6px 15px rgba(99, 63, 82, 0.30);
+                0 6px 15px
+                rgba(99, 63, 82, 0.30);
         }
 
         /* ================= FOOTER ================= */
 
         .footer-note {
+
             text-align: center;
 
             margin-top: 18px;
 
             color: #8A7F83;
+
             font-size: 12px;
         }
 
@@ -178,26 +267,33 @@
         @media (max-width: 700px) {
 
             body {
+
                 padding: 20px 10px;
             }
 
             .container {
+
                 padding: 28px 20px;
             }
 
             .form-grid {
+
                 grid-template-columns: 1fr;
+
                 column-gap: 0;
             }
 
             .section-title,
             .section-description {
+
                 grid-column: 1;
             }
 
             .header h1 {
+
                 font-size: 23px;
             }
+
         }
 
     </style>
@@ -207,26 +303,46 @@
 
 <body>
 
+
 <div class="container">
+
 
     <!-- ================= HEADER ================= -->
 
     <div class="header">
 
-        <h1>EMPLOYEE ATTRITION PREDICTION</h1>
+        <h1>
+            EMPLOYEE ATTRITION PREDICTION
+        </h1>
 
         <p>
-            Enter employee information to predict the likelihood of attrition
+            Enter employee information to predict
+            the likelihood of attrition
         </p>
 
     </div>
 
 
+    <!-- ================= ERROR MESSAGE ================= -->
+
+    {% if error %}
+
+        <div class="error-message">
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
     <!-- ================= FORM ================= -->
 
-    <form method="POST" action="{% url 'predict' %}">
+    <form method="POST"
+          action="{% url 'predict' %}">
 
         {% csrf_token %}
+
 
         <div class="form-grid">
 
@@ -236,11 +352,17 @@
             <!-- ================================================= -->
 
             <div class="section-title">
+
                 Personal Information
+
             </div>
 
+
             <div class="section-description">
-                Basic demographic information about the employee.
+
+                Basic demographic information about
+                the employee.
+
             </div>
 
 
@@ -356,11 +478,17 @@
             <!-- ================================================= -->
 
             <div class="section-title">
+
                 Employment Information
+
             </div>
 
+
             <div class="section-description">
-                Information about the employee's role and organization.
+
+                Information about the employee's role
+                and organization.
+
             </div>
 
 
@@ -368,9 +496,15 @@
 
             <div class="form-group">
 
-                <label for="job_role">Industry</label>
+                <label for="job_role">
+                    Industry
+                </label>
 
-                <select name="job_role" id="job_role">
+                <select
+                    name="job_role"
+                    id="job_role"
+                    required
+                >
 
                     <option value="">
                         Select Industry
@@ -537,11 +671,17 @@
             <!-- ================================================= -->
 
             <div class="section-title">
+
                 Work Environment
+
             </div>
 
+
             <div class="section-description">
-                Information about workload, working conditions and flexibility.
+
+                Information about workload, working
+                conditions and flexibility.
+
             </div>
 
 
@@ -672,11 +812,17 @@
             <!-- ================================================= -->
 
             <div class="section-title">
+
                 Performance & Satisfaction
+
             </div>
 
+
             <div class="section-description">
-                Information about employee satisfaction, performance and development.
+
+                Information about employee satisfaction,
+                performance and development.
+
             </div>
 
 
@@ -780,18 +926,46 @@
 
             <!-- EDUCATION -->
 
-
             <div class="form-group">
-                <label for="education_level">Education Level</label>
 
-                <select name="education_level" id="education_level" required>
-                <option value="">Select Education Level</option>
-                <option value="High School">High School</option>
-                <option value="Associate Degree">Associate Degree</option>
-                <option value="Bachelorâ€™s Degree">Bachelor’s Degree</option>
-                <option value="Masterâ€™s Degree">Master’s Degree</option>
-                <option value="PhD">PhD</option>
+                <label for="education_level">
+                    Education Level
+                </label>
+
+                <select
+                    name="education_level"
+                    id="education_level"
+                    required
+                >
+
+                    <option value="">
+                        Select Education Level
+                    </option>
+
+                    <option value="High School">
+                        High School
+                    </option>
+
+                    <option value="Associate Degree">
+                        Associate Degree
+                    </option>
+
+                    <!-- IMPORTANT:
+                         Use normal apostrophe ' -->
+                    <option value="Bachelor's Degree">
+                        Bachelor's Degree
+                    </option>
+
+                    <option value="Master's Degree">
+                        Master's Degree
+                    </option>
+
+                    <option value="PhD">
+                        PhD
+                    </option>
+
                 </select>
+
             </div>
 
 
@@ -800,11 +974,17 @@
             <!-- ================================================= -->
 
             <div class="section-title">
+
                 Opportunities & Recognition
+
             </div>
 
+
             <div class="section-description">
-                Information about career opportunities, innovation and recognition.
+
+                Information about career opportunities,
+                innovation and recognition.
+
             </div>
 
 
@@ -958,17 +1138,21 @@
 
         </div>
 
+
     </form>
 
 
     <div class="footer-note">
-        Prediction generated using the trained machine learning model
+
+        Prediction generated using the trained
+        machine learning model
+
     </div>
 
 
 </div>
 
+
 </body>
 
 </html>
-```
