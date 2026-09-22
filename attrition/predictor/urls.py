@@ -5,11 +5,22 @@ from . import views
 urlpatterns = [
 
     # ========================================================
-    # HOME / NEW PREDICTION PAGE
+    # ADMIN LOGIN
     # ========================================================
 
     path(
         "",
+        views.admin_login,
+        name="admin_login"
+    ),
+
+
+    # ========================================================
+    # NEW PREDICTION PAGE
+    # ========================================================
+
+    path(
+        "new-prediction/",
         views.home,
         name="home"
     ),
@@ -45,17 +56,6 @@ urlpatterns = [
         "industry-predictions/",
         views.industry_predictions,
         name="industry_predictions"
-    ),
-
-
-    # ========================================================
-    # ADMIN LOGIN
-    # ========================================================
-
-    path(
-        "admin-login/",
-        views.admin_login,
-        name="admin_login"
     ),
 
 
