@@ -12,7 +12,8 @@
 
     <title>Attrition Prediction Result</title>
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'style.css' %}">
 
 </head>
 
@@ -23,51 +24,55 @@
 <div class="container result-container">
 
 
-    <!-- ================= HEADER ================= -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <div class="header">
 
+        <div class="small-heading">
+            ML ANALYSIS
+        </div>
+
         <h1>
-            EMPLOYEE ATTRITION RESULT
+            ATTRITION
+            <span>RESULT</span>
         </h1>
 
         <p>
-            Machine Learning Prediction
+            Employee attrition prediction generated
+            using the trained machine learning model.
         </p>
 
     </div>
 
 
-    <!-- ================= PREDICTION CARD ================= -->
+    <!-- =====================================================
+         MAIN RESULT
+         ===================================================== -->
 
     <div class="prediction-card">
 
 
-        <!-- STAY / LEAVE ICON -->
+        <!-- INDICATOR -->
 
         {% if prediction == "Employee likely to LEAVE" %}
 
             <div class="result-indicator leave">
-
-                ⚠
-
+                !
             </div>
 
         {% else %}
 
             <div class="result-indicator stay">
-
                 ✓
-
             </div>
 
         {% endif %}
 
 
         <div class="prediction-title">
-
             Prediction
-
         </div>
 
 
@@ -78,6 +83,10 @@
         </div>
 
 
+        <!-- =================================================
+             PROBABILITY
+             ================================================= -->
+
         <div class="prediction-title">
 
             Attrition Probability
@@ -85,15 +94,12 @@
         </div>
 
 
-        <!-- RISK METER -->
-
         <div class="meter-container">
 
             <div
                 class="meter"
                 data-probability="{{ probability }}"
-            >
-            </div>
+            ></div>
 
         </div>
 
@@ -112,10 +118,11 @@
         </div>
 
 
-        <!-- RISK LEVEL -->
+        <!-- =================================================
+             RISK
+             ================================================= -->
 
         <div class="risk-section">
-
 
             <div class="risk-label">
 
@@ -127,27 +134,21 @@
             {% if risk == "High Risk" %}
 
                 <div class="risk-level risk-high">
-
-                    🔴 High Risk
-
+                    High Risk
                 </div>
 
 
             {% elif risk == "Moderate Risk" %}
 
                 <div class="risk-level risk-moderate">
-
-                    🟠 Moderate Risk
-
+                    Moderate Risk
                 </div>
 
 
             {% else %}
 
                 <div class="risk-level risk-low">
-
-                    🟢 Low Risk
-
+                    Low Risk
                 </div>
 
             {% endif %}
@@ -159,12 +160,19 @@
     </div>
 
 
-    <!-- ================= WHAT THIS MEANS ================= -->
+    <!-- =====================================================
+         WHAT THIS MEANS
+         ===================================================== -->
 
     <div class="meaning">
 
+        <div class="card-label">
+            INTERPRETATION
+        </div>
+
+
         <h2>
-            💡 What this means
+            What this means
         </h2>
 
 
@@ -174,9 +182,7 @@
 
                 The model estimates a relatively high
                 probability that this employee may leave
-                the organization. HR may want to review
-                the employee's workload, satisfaction,
-                career growth and engagement.
+                the organization.
 
             </p>
 
@@ -185,11 +191,9 @@
 
             <p>
 
-                The model identifies some potential risk
-                of employee attrition. Monitoring employee
-                satisfaction, workload and career
-                development may help reduce the
-                possibility of leaving.
+                The model identifies a moderate level
+                of potential attrition risk for this
+                employee.
 
             </p>
 
@@ -200,9 +204,7 @@
 
                 The model estimates a relatively low
                 probability that this employee may leave
-                the organization. Continuing good
-                engagement, recognition and career
-                development can help maintain retention.
+                the organization.
 
             </p>
 
@@ -212,59 +214,20 @@
     </div>
 
 
-    <!-- ================= EXPLANATION ================= -->
-
-    <div class="explanation">
-
-
-        {% if risk == "High Risk" %}
-
-            ⚠
-
-            <strong>
-                Attention recommended:
-            </strong>
-
-            This employee has a higher likelihood
-            of leaving the organization.
-
-
-        {% elif risk == "Moderate Risk" %}
-
-            ⚠
-
-            <strong>
-                Monitor the situation:
-            </strong>
-
-            This employee has a moderate likelihood
-            of leaving the organization.
-
-
-        {% else %}
-
-            ✓
-
-            <strong>
-                Positive indication:
-            </strong>
-
-            This employee has a lower likelihood
-            of leaving the organization.
-
-        {% endif %}
-
-
-    </div>
-
-
-    <!-- ================= SUGGESTED ACTIONS ================= -->
+    <!-- =====================================================
+         SUGGESTED ACTIONS
+         ===================================================== -->
 
     <div class="suggestions">
 
 
+        <div class="card-label">
+            HR INSIGHTS
+        </div>
+
+
         <h2>
-            📋 Suggested Actions
+            Suggested Actions
         </h2>
 
 
@@ -274,61 +237,57 @@
             {% if risk == "High Risk" %}
 
                 <li>
-                    Discuss workload and overtime concerns
+                    Review workload and overtime concerns.
                 </li>
 
                 <li>
-                    Identify reasons for low job satisfaction
+                    Discuss job satisfaction and workplace concerns.
                 </li>
 
                 <li>
-                    Discuss career growth and promotion
-                    opportunities
+                    Review career growth and promotion opportunities.
                 </li>
 
                 <li>
-                    Provide employee recognition and
-                    retention support
+                    Consider recognition and retention initiatives.
                 </li>
 
 
             {% elif risk == "Moderate Risk" %}
 
                 <li>
-                    Review workload and work-life balance
+                    Review workload and work-life balance.
                 </li>
 
                 <li>
-                    Discuss career growth and promotion
-                    opportunities
+                    Discuss career growth opportunities.
                 </li>
 
                 <li>
-                    Increase employee recognition and rewards
+                    Review employee recognition.
                 </li>
 
                 <li>
-                    Check for job satisfaction concerns
+                    Monitor job satisfaction.
                 </li>
 
 
             {% else %}
 
                 <li>
-                    Continue recognizing good performance
+                    Continue recognizing good performance.
                 </li>
 
                 <li>
-                    Maintain a healthy work-life balance
+                    Maintain a healthy work-life balance.
                 </li>
 
                 <li>
-                    Provide opportunities for career
-                    development
+                    Provide opportunities for career development.
                 </li>
 
                 <li>
-                    Encourage continued employee engagement
+                    Encourage continued employee engagement.
                 </li>
 
             {% endif %}
@@ -340,26 +299,39 @@
     </div>
 
 
-    <!-- ================= BACK BUTTON ================= -->
+    <!-- =====================================================
+         BUTTONS
+         ===================================================== -->
 
     <div class="button-container">
 
+
         <a
             href="{% url 'home' %}"
-            class="button"
+            class="button predict-button"
         >
-
             ← Predict Another Employee
-
         </a>
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="button dashboard-button"
+        >
+            View Dashboard
+        </a>
+
 
     </div>
 
 
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <div class="footer-note">
 
-        Prediction generated using the trained
-        machine learning model
+        Employee Attrition Prediction System
 
     </div>
 
@@ -367,7 +339,9 @@
 </div>
 
 
-<!-- ================= RISK METER JAVASCRIPT ================= -->
+<!-- =========================================================
+     RISK METER JAVASCRIPT
+     ========================================================= -->
 
 <script>
 
@@ -375,22 +349,26 @@
         document.querySelector(".meter");
 
 
-    const probability =
-        parseFloat(
-            meter.dataset.probability
-        );
+    if (meter) {
+
+        const probability =
+            parseFloat(
+                meter.dataset.probability
+            );
 
 
-    if (!isNaN(probability)) {
+        if (!isNaN(probability)) {
 
-        meter.style.width =
-            Math.min(
-                Math.max(
-                    probability,
-                    0
-                ),
-                100
-            ) + "%";
+            meter.style.width =
+                Math.min(
+                    Math.max(
+                        probability,
+                        0
+                    ),
+                    100
+                ) + "%";
+
+        }
 
     }
 

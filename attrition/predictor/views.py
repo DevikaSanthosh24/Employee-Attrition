@@ -1048,3 +1048,9 @@ def industry_predictions(request):
             industry_data
         }
     )
+# ============================================================
+# OPENING PAGE
+# ============================================================
+
+def opening(request):
+    return render(request, "opening.html")

@@ -2,871 +2,1344 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Employee Attrition Prediction</title>
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
 
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: #241E24;
+            color: #3B2938;
+
+            font-family: "Trebuchet MS", Arial, sans-serif;
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
+
+        .prediction-page {
+            min-height: 100vh;
+            padding: 38px 22px;
+        }
+
+        .prediction-container {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+
+            background: #F4EFE6;
+
+            border-radius: 24px;
+
+            padding: 42px 48px 48px;
+
+            box-shadow:
+                0 18px 50px rgba(0, 0, 0, 0.20);
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .prediction-header {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .prediction-eyebrow {
+            margin: 0 0 8px;
+
+            color: #633F52;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .prediction-header h1 {
+            margin: 0;
+
+            color: #3B2938;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(30px, 4vw, 45px);
+            line-height: 1.12;
+        }
+
+        .prediction-header p {
+            max-width: 650px;
+
+            margin: 13px auto 0;
+
+            color: #6F626A;
+
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           ERROR MESSAGE
+        ========================================================= */
+
+        .error-message {
+            margin-bottom: 25px;
+
+            padding: 14px 18px;
+
+            border-radius: 10px;
+
+            background: #f8dede;
+            border: 1px solid #d99b9b;
+
+            color: #7d2929;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           FORM SECTION
+        ========================================================= */
+
+        .form-section {
+            margin-bottom: 22px;
+
+            padding: 27px 29px 30px;
+
+            background: #FFFCF7;
+
+            border: 1px solid #DED3C7;
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 18px rgba(59, 41, 56, 0.055);
+        }
+
+
+        /* =========================================================
+           SECTION HEADER
+        ========================================================= */
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .section-number {
+            flex-shrink: 0;
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: #3B2938;
+            color: #F4EFE6;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            margin: 0;
+
+            color: #3B2938;
+
+            font-size: 23px;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            margin: 5px 0 0;
+
+            color: #786B73;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           FORM GRID
+        ========================================================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 20px 28px;
+        }
+
+
+        /* =========================================================
+           FORM GROUP
+        ========================================================= */
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+
+            color: #4E3948;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            height: 50px;
+
+            padding: 0 15px;
+
+            border: 1px solid #D3C5B8;
+            border-radius: 10px;
+
+            background: #FFFDF9;
+
+            color: #3B2938;
+
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #A2989F;
+        }
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #BBAAB1;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #633F52;
+
+            background: #FFFFFF;
+
+            box-shadow:
+                0 0 0 3px rgba(99, 63, 82, 0.12);
+        }
+
+        .form-help {
+            margin-top: 6px;
+
+            color: #82757D;
+
+            font-size: 11.5px;
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           REQUIRED INDICATOR
+        ========================================================= */
+
+        .required {
+            color: #9A5369;
+        }
+
+
+        /* =========================================================
+           PREDICT BUTTON
+        ========================================================= */
+
+        .button-area {
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 28px;
+        }
+
+        .predict-button {
+            min-width: 220px;
+            height: 53px;
+
+            padding: 0 28px;
+
+            border: none;
+            border-radius: 11px;
+
+            background: #3B2938;
+            color: #F4EFE6;
+
+            font-family: "Trebuchet MS", Arial, sans-serif;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .predict-button:hover {
+            background: #633F52;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(59, 41, 56, 0.20);
+        }
+
+        .predict-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           FOOTER NOTE
+        ========================================================= */
+
+        .form-note {
+            margin-top: 17px;
+
+            text-align: center;
+
+            color: #82757D;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .prediction-page {
+                padding: 20px 12px;
+            }
+
+            .prediction-container {
+                padding: 30px 20px 35px;
+
+                border-radius: 18px;
+            }
+
+            .form-section {
+                padding: 23px 20px 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+
+                gap: 17px;
+            }
+
+            .section-title {
+                font-size: 21px;
+            }
+
+            .prediction-header h1 {
+                font-size: 31px;
+            }
+
+            .button-area {
+                justify-content: stretch;
+            }
+
+            .predict-button {
+                width: 100%;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .prediction-container {
+                padding: 25px 15px 30px;
+            }
+
+            .form-section {
+                padding: 20px 16px 22px;
+            }
+
+            .section-header {
+                gap: 11px;
+            }
+
+            .section-number {
+                width: 37px;
+                height: 37px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            .prediction-header h1 {
+                font-size: 27px;
+            }
+
+            .prediction-header p {
+                font-size: 13px;
+            }
+        }
+
+    </style>
 </head>
 
 
 <body>
 
+<div class="prediction-page">
 
-<div class="container input-container">
-
-
-    <!-- ================= HEADER ================= -->
-
-    <div class="header">
-
-        <h1>
-            EMPLOYEE ATTRITION PREDICTION
-        </h1>
-
-        <p>
-            Enter employee information to predict
-            the likelihood of attrition
-        </p>
-
-    </div>
+    <div class="prediction-container">
 
 
-    <!-- ================= ERROR MESSAGE ================= -->
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
 
-    {% if error %}
+        <div class="prediction-header">
+
+            <p class="prediction-eyebrow">
+                HR Analytics
+            </p>
+
+            <h1>
+                Employee Attrition Prediction
+            </h1>
+
+            <p>
+                Enter employee information to estimate the likelihood
+                of attrition using the trained machine learning model.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             ERROR
+        ====================================================== -->
+
+        {% if error %}
 
         <div class="error-message">
-
             {{ error }}
-
         </div>
 
-    {% endif %}
+        {% endif %}
 
 
-    <!-- ================= FORM ================= -->
+        <!-- =====================================================
+             FORM
+        ====================================================== -->
 
-    <form method="POST"
-          action="{% url 'predict' %}">
+        <form method="POST" action="{% url 'predict' %}">
 
-        {% csrf_token %}
-
-
-        <div class="form-grid">
+            {% csrf_token %}
 
 
-            <!-- ================================================= -->
-            <!-- PERSONAL INFORMATION -->
-            <!-- ================================================= -->
+            <!-- =================================================
+                 01 PERSONAL INFORMATION
+            ================================================== -->
 
-            <div class="section-title">
+            <section class="form-section">
 
-                Personal Information
+                <div class="section-header">
 
-            </div>
+                    <div class="section-number">
+                        01
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Personal Information
+                        </h2>
+
+                        <p class="section-description">
+                            Basic demographic information about the employee.
+                        </p>
+                    </div>
+
+                </div>
 
 
-            <div class="section-description">
-
-                Basic demographic information about
-                the employee.
-
-            </div>
+                <div class="form-grid">
 
 
-            <!-- AGE -->
+                    <!-- AGE -->
 
-            <div class="form-group">
+                    <div class="form-group">
 
-                <label for="age">
-                    Age
-                </label>
+                        <label for="age">
+                            Age <span class="required">*</span>
+                        </label>
 
-                <input
-                    type="number"
-                    name="age"
-                    id="age"
-                    min="18"
-                    max="100"
-                    placeholder="Enter age"
-                    required
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            min="18"
+                            max="100"
+                            placeholder="Enter age"
+                            required
+                        >
+
+                        <span class="form-help">
+                            Employee's current age.
+                        </span>
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label for="gender">
+                            Gender <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="gender"
+                            name="gender"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Gender
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- MARITAL STATUS -->
+
+                    <div class="form-group">
+
+                        <label for="marital_status">
+                            Marital Status <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="marital_status"
+                            name="marital_status"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Status
+                            </option>
+
+                            <option value="Single">
+                                Single
+                            </option>
+
+                            <option value="Married">
+                                Married
+                            </option>
+
+                            <option value="Divorced">
+                                Divorced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DEPENDENTS -->
+
+                    <div class="form-group">
+
+                        <label for="number_of_dependents">
+                            Number of Dependents <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="number_of_dependents"
+                            name="number_of_dependents"
+                            min="0"
+                            placeholder="Enter number"
+                            required
+                        >
+
+                        <span class="form-help">
+                            People financially supported by the employee.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 02 EMPLOYMENT INFORMATION
+            ================================================== -->
+
+            <section class="form-section">
+
+                <div class="section-header">
+
+                    <div class="section-number">
+                        02
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Employment Information
+                        </h2>
+
+                        <p class="section-description">
+                            Information about the employee's role and organization.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- INDUSTRY / JOB ROLE -->
+
+                    <div class="form-group">
+
+                        <label for="job_role">
+                            Industry <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="job_role"
+                            name="job_role"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Industry
+                            </option>
+
+                            <option value="Technology">
+                                Technology
+                            </option>
+
+                            <option value="Education">
+                                Education
+                            </option>
+
+                            <option value="Finance">
+                                Finance
+                            </option>
+
+                            <option value="Media">
+                                Media
+                            </option>
+
+                            <option value="Healthcare">
+                                Healthcare
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- JOB LEVEL -->
+
+                    <div class="form-group">
+
+                        <label for="job_level">
+                            Job Level <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="job_level"
+                            name="job_level"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Job Level
+                            </option>
+
+                            <option value="Entry">
+                                Entry
+                            </option>
+
+                            <option value="Mid">
+                                Mid
+                            </option>
+
+                            <option value="Senior">
+                                Senior
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- YEARS AT COMPANY -->
+
+                    <div class="form-group">
+
+                        <label for="years_at_company">
+                            Years at Company <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="years_at_company"
+                            name="years_at_company"
+                            min="0"
+                            step="1"
+                            placeholder="Enter years"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MONTHLY INCOME -->
+
+                    <div class="form-group">
+
+                        <label for="monthly_income">
+                            Monthly Income <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="monthly_income"
+                            name="monthly_income"
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter monthly income"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- COMPANY TENURE -->
+
+                    <div class="form-group">
+
+                        <label for="company_tenure">
+                            Company Tenure (Months) <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="company_tenure"
+                            name="company_tenure"
+                            min="0"
+                            placeholder="Enter tenure in months"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- COMPANY SIZE -->
+
+                    <div class="form-group">
+
+                        <label for="company_size">
+                            Company Size <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="company_size"
+                            name="company_size"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Company Size
+                            </option>
+
+                            <option value="Small">
+                                Small
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="Large">
+                                Large
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- OVERTIME -->
+
+                    <div class="form-group">
+
+                        <label for="overtime">
+                            Overtime <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="overtime"
+                            name="overtime"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Overtime Status
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- REMOTE WORK -->
+
+                    <div class="form-group">
+
+                        <label for="remote_work">
+                            Remote Work <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="remote_work"
+                            name="remote_work"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Remote Work Status
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 03 WORK ENVIRONMENT
+            ================================================== -->
+
+            <section class="form-section">
+
+                <div class="section-header">
+
+                    <div class="section-number">
+                        03
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Work Environment
+                        </h2>
+
+                        <p class="section-description">
+                            Factors related to the employee's workplace experience.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- DISTANCE -->
+
+                    <div class="form-group">
+
+                        <label for="distance_from_home">
+                            Distance from Home <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="distance_from_home"
+                            name="distance_from_home"
+                            min="0"
+                            step="0.1"
+                            placeholder="Enter distance"
+                            required
+                        >
+
+                        <span class="form-help">
+                            Distance between home and workplace.
+                        </span>
+
+                    </div>
+
+
+                    <!-- WORK LIFE BALANCE -->
+
+                    <div class="form-group">
+
+                        <label for="work_life_balance">
+                            Work-Life Balance <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="work_life_balance"
+                            name="work_life_balance"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Rating
+                            </option>
+
+                            <option value="Poor">
+                                Poor
+                            </option>
+
+                            <option value="Fair">
+                                Fair
+                            </option>
+
+                            <option value="Good">
+                                Good
+                            </option>
+
+                            <option value="Excellent">
+                                Excellent
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- JOB SATISFACTION -->
+
+                    <div class="form-group">
+
+                        <label for="job_satisfaction">
+                            Job Satisfaction <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="job_satisfaction"
+                            name="job_satisfaction"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Satisfaction
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Very High">
+                                Very High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LEADERSHIP -->
+
+                    <div class="form-group">
+
+                        <label for="leadership_opportunities">
+                            Leadership Opportunities <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="leadership_opportunities"
+                            name="leadership_opportunities"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Option
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                        </select>
+
+                        <span class="form-help">
+                            Opportunities to lead projects or teams.
+                        </span>
+
+                    </div>
+
+
+                    <!-- INNOVATION -->
+
+                    <div class="form-group">
+
+                        <label for="innovation_opportunities">
+                            Innovation Opportunities <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="innovation_opportunities"
+                            name="innovation_opportunities"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Option
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                        </select>
+
+                        <span class="form-help">
+                            Opportunities to introduce ideas and improvements.
+                        </span>
+
+                    </div>
+
+
+                    <!-- COMPANY REPUTATION -->
+
+                    <div class="form-group">
+
+                        <label for="company_reputation">
+                            Company Reputation <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="company_reputation"
+                            name="company_reputation"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Rating
+                            </option>
+
+                            <option value="Poor">
+                                Poor
+                            </option>
+
+                            <option value="Fair">
+                                Fair
+                            </option>
+
+                            <option value="Good">
+                                Good
+                            </option>
+
+                            <option value="Excellent">
+                                Excellent
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- EMPLOYEE RECOGNITION -->
+
+                    <div class="form-group">
+
+                        <label for="employee_recognition">
+                            Employee Recognition <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="employee_recognition"
+                            name="employee_recognition"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Recognition Level
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 04 PERFORMANCE
+            ================================================== -->
+
+            <section class="form-section">
+
+                <div class="section-header">
+
+                    <div class="section-number">
+                        04
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Performance & Growth
+                        </h2>
+
+                        <p class="section-description">
+                            Information related to performance, education and career development.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- PERFORMANCE RATING -->
+
+                    <div class="form-group">
+
+                        <label for="performance_rating">
+                            Performance Rating <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="performance_rating"
+                            name="performance_rating"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Performance
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Below Average">
+                                Below Average
+                            </option>
+
+                            <option value="Average">
+                                Average
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PROMOTIONS -->
+
+                    <div class="form-group">
+
+                        <label for="number_of_promotions">
+                            Number of Promotions <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="number_of_promotions"
+                            name="number_of_promotions"
+                            min="0"
+                            placeholder="Enter number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EDUCATION -->
+
+                    <div class="form-group">
+
+                        <label for="education_level">
+                            Education Level <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="education_level"
+                            name="education_level"
+                            required
+                        >
+
+                            <option value="" selected disabled>
+                                Select Education
+                            </option>
+
+                            <option value="High School">
+                                High School
+                            </option>
+
+                            <option value="Associate Degree">
+                                Associate Degree
+                            </option>
+
+                            <option value="Bachelor's Degree">
+                                Bachelor's Degree
+                            </option>
+
+                            <option value="Master's Degree">
+                                Master's Degree
+                            </option>
+
+                            <option value="PhD">
+                                PhD
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PREDICT BUTTON
+            ================================================== -->
+
+            <div class="button-area">
+
+                <button
+                    type="submit"
+                    class="predict-button"
                 >
+                    Predict Attrition
+                    <span style="margin-left: 8px;">→</span>
+                </button>
 
             </div>
 
 
-            <!-- GENDER -->
-
-            <div class="form-group">
-
-                <label for="gender">
-                    Gender
-                </label>
-
-                <select
-                    name="gender"
-                    id="gender"
-                    required
-                >
-
-                    <option value="">
-                        Select Gender
-                    </option>
-
-                    <option value="Female">
-                        Female
-                    </option>
-
-                    <option value="Male">
-                        Male
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- MARITAL STATUS -->
-
-            <div class="form-group">
-
-                <label for="marital_status">
-                    Marital Status
-                </label>
-
-                <select
-                    name="marital_status"
-                    id="marital_status"
-                    required
-                >
-
-                    <option value="">
-                        Select Status
-                    </option>
-
-                    <option value="Single">
-                        Single
-                    </option>
-
-                    <option value="Married">
-                        Married
-                    </option>
-
-                    <option value="Divorced">
-                        Divorced
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- DEPENDENTS -->
-
-            <div class="form-group">
-
-                <label for="number_of_dependents">
-                    Number of Dependents
-                </label>
-
-                <input
-                    type="number"
-                    name="number_of_dependents"
-                    id="number_of_dependents"
-                    min="0"
-                    placeholder="Enter number"
-                    required
-                >
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- EMPLOYMENT INFORMATION -->
-            <!-- ================================================= -->
-
-            <div class="section-title">
-
-                Employment Information
-
-            </div>
-
-
-            <div class="section-description">
-
-                Information about the employee's role
-                and organization.
-
-            </div>
-
-
-            <!-- INDUSTRY -->
-
-            <div class="form-group">
-
-                <label for="job_role">
-                    Industry
-                </label>
-
-                <select
-                    name="job_role"
-                    id="job_role"
-                    required
-                >
-
-                    <option value="">
-                        Select Industry
-                    </option>
-
-                    <option value="Technology">
-                        Technology
-                    </option>
-
-                    <option value="Education">
-                        Education
-                    </option>
-
-                    <option value="Finance">
-                        Finance
-                    </option>
-
-                    <option value="Media">
-                        Media
-                    </option>
-
-                    <option value="Healthcare">
-                        Healthcare
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- JOB LEVEL -->
-
-            <div class="form-group">
-
-                <label for="job_level">
-                    Job Level
-                </label>
-
-                <select
-                    name="job_level"
-                    id="job_level"
-                    required
-                >
-
-                    <option value="">
-                        Select Job Level
-                    </option>
-
-                    <option value="Entry">
-                        Entry
-                    </option>
-
-                    <option value="Mid">
-                        Mid
-                    </option>
-
-                    <option value="Senior">
-                        Senior
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- YEARS AT COMPANY -->
-
-            <div class="form-group">
-
-                <label for="years_at_company">
-                    Years at Company
-                </label>
-
-                <input
-                    type="number"
-                    name="years_at_company"
-                    id="years_at_company"
-                    min="0"
-                    placeholder="Enter years"
-                    required
-                >
-
-            </div>
-
-
-            <!-- MONTHLY INCOME -->
-
-            <div class="form-group">
-
-                <label for="monthly_income">
-                    Monthly Income
-                </label>
-
-                <input
-                    type="number"
-                    name="monthly_income"
-                    id="monthly_income"
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter monthly income"
-                    required
-                >
-
-            </div>
-
-
-            <!-- COMPANY TENURE -->
-
-            <div class="form-group">
-
-                <label for="company_tenure">
-                    Company Tenure (In Months)
-                </label>
-
-                <input
-                    type="number"
-                    name="company_tenure"
-                    id="company_tenure"
-                    min="0"
-                    placeholder="Enter tenure"
-                    required
-                >
-
-            </div>
-
-
-            <!-- COMPANY SIZE -->
-
-            <div class="form-group">
-
-                <label for="company_size">
-                    Company Size
-                </label>
-
-                <select
-                    name="company_size"
-                    id="company_size"
-                    required
-                >
-
-                    <option value="">
-                        Select Company Size
-                    </option>
-
-                    <option value="Small">
-                        Small
-                    </option>
-
-                    <option value="Medium">
-                        Medium
-                    </option>
-
-                    <option value="Large">
-                        Large
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- WORK ENVIRONMENT -->
-            <!-- ================================================= -->
-
-            <div class="section-title">
-
-                Work Environment
-
-            </div>
-
-
-            <div class="section-description">
-
-                Information about workload, working
-                conditions and flexibility.
-
-            </div>
-
-
-            <!-- OVERTIME -->
-
-            <div class="form-group">
-
-                <label for="overtime">
-                    Overtime
-                </label>
-
-                <select
-                    name="overtime"
-                    id="overtime"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- REMOTE WORK -->
-
-            <div class="form-group">
-
-                <label for="remote_work">
-                    Remote Work
-                </label>
-
-                <select
-                    name="remote_work"
-                    id="remote_work"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- DISTANCE -->
-
-            <div class="form-group">
-
-                <label for="distance_from_home">
-                    Distance from Home
-                </label>
-
-                <input
-                    type="number"
-                    name="distance_from_home"
-                    id="distance_from_home"
-                    min="0"
-                    step="0.1"
-                    placeholder="Enter distance"
-                    required
-                >
-
-            </div>
-
-
-            <!-- WORK LIFE BALANCE -->
-
-            <div class="form-group">
-
-                <label for="work_life_balance">
-                    Work-Life Balance
-                </label>
-
-                <select
-                    name="work_life_balance"
-                    id="work_life_balance"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="Poor">
-                        Poor
-                    </option>
-
-                    <option value="Fair">
-                        Fair
-                    </option>
-
-                    <option value="Good">
-                        Good
-                    </option>
-
-                    <option value="Excellent">
-                        Excellent
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- PERFORMANCE & SATISFACTION -->
-            <!-- ================================================= -->
-
-            <div class="section-title">
-
-                Performance & Satisfaction
-
-            </div>
-
-
-            <div class="section-description">
-
-                Information about employee satisfaction,
-                performance and development.
-
-            </div>
-
-
-            <!-- JOB SATISFACTION -->
-
-            <div class="form-group">
-
-                <label for="job_satisfaction">
-                    Job Satisfaction
-                </label>
-
-                <select
-                    name="job_satisfaction"
-                    id="job_satisfaction"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="Low">
-                        Low
-                    </option>
-
-                    <option value="Medium">
-                        Medium
-                    </option>
-
-                    <option value="High">
-                        High
-                    </option>
-
-                    <option value="Very High">
-                        Very High
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- PERFORMANCE -->
-
-            <div class="form-group">
-
-                <label for="performance_rating">
-                    Performance Rating
-                </label>
-
-                <select
-                    name="performance_rating"
-                    id="performance_rating"
-                    required
-                >
-
-                    <option value="">
-                        Select Rating
-                    </option>
-
-                    <option value="Low">
-                        Low
-                    </option>
-
-                    <option value="Below Average">
-                        Below Average
-                    </option>
-
-                    <option value="Average">
-                        Average
-                    </option>
-
-                    <option value="High">
-                        High
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- PROMOTIONS -->
-
-            <div class="form-group">
-
-                <label for="number_of_promotions">
-                    Number of Promotions
-                </label>
-
-                <input
-                    type="number"
-                    name="number_of_promotions"
-                    id="number_of_promotions"
-                    min="0"
-                    placeholder="Enter number"
-                    required
-                >
-
-            </div>
-
-
-            <!-- EDUCATION -->
-
-            <div class="form-group">
-
-                <label for="education_level">
-                    Education Level
-                </label>
-
-                <select
-                    name="education_level"
-                    id="education_level"
-                    required
-                >
-
-                    <option value="">
-                        Select Education Level
-                    </option>
-
-                    <option value="High School">
-                        High School
-                    </option>
-
-                    <option value="Associate Degree">
-                        Associate Degree
-                    </option>
-
-                    <option value="Bachelor's Degree">
-                        Bachelor's Degree
-                    </option>
-
-                    <option value="Master's Degree">
-                        Master's Degree
-                    </option>
-
-                    <option value="PhD">
-                        PhD
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- OPPORTUNITIES & RECOGNITION -->
-            <!-- ================================================= -->
-
-            <div class="section-title">
-
-                Opportunities & Recognition
-
-            </div>
-
-
-            <div class="section-description">
-
-                Information about career opportunities,
-                innovation and recognition.
-
-            </div>
-
-
-            <!-- LEADERSHIP -->
-
-            <div class="form-group">
-
-                <label for="leadership_opportunities">
-                    Leadership Opportunities
-                </label>
-
-                <select
-                    name="leadership_opportunities"
-                    id="leadership_opportunities"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- INNOVATION -->
-
-            <div class="form-group">
-
-                <label for="innovation_opportunities">
-                    Innovation Opportunities
-                </label>
-
-                <select
-                    name="innovation_opportunities"
-                    id="innovation_opportunities"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- COMPANY REPUTATION -->
-
-            <div class="form-group">
-
-                <label for="company_reputation">
-                    Company Reputation
-                </label>
-
-                <select
-                    name="company_reputation"
-                    id="company_reputation"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="Poor">
-                        Poor
-                    </option>
-
-                    <option value="Fair">
-                        Fair
-                    </option>
-
-                    <option value="Good">
-                        Good
-                    </option>
-
-                    <option value="Excellent">
-                        Excellent
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- EMPLOYEE RECOGNITION -->
-
-            <div class="form-group">
-
-                <label for="employee_recognition">
-                    Employee Recognition
-                </label>
-
-                <select
-                    name="employee_recognition"
-                    id="employee_recognition"
-                    required
-                >
-
-                    <option value="">
-                        Select
-                    </option>
-
-                    <option value="Low">
-                        Low
-                    </option>
-
-                    <option value="Medium">
-                        Medium
-                    </option>
-
-                    <option value="High">
-                        High
-                    </option>
-
-                </select>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- ================= PREDICT BUTTON ================= -->
-
-        <div class="button-container">
-
-            <input
-                type="submit"
-                value="Predict Employee Attrition"
-            >
-
-        </div>
-
-
-    </form>
-
-
-    <div class="footer-note">
-
-        Prediction generated using the trained
-        machine learning model
+            <p class="form-note">
+                Prediction is generated using the trained employee attrition machine learning model.
+            </p>
+
+        </form>
 
     </div>
-
 
 </div>
 
-
 </body>
-
 </html>
