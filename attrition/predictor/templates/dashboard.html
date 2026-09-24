@@ -891,7 +891,7 @@
         .prediction-table {
             width: 100%;
 
-            min-width: 800px;
+            min-width: 920px;
 
             border-collapse: collapse;
         }
@@ -1681,6 +1681,10 @@
 
                             <th>Date</th>
 
+                            <!-- Employee ID added -->
+
+                            <th>Employee ID</th>
+
                             <th>Age</th>
 
                             <th>Industry</th>
@@ -1713,6 +1717,23 @@
 
                             <td>
                                 {{ p.created_at|date:"d M Y, H:i" }}
+                            </td>
+
+
+                            <!-- Employee ID -->
+
+                            <td>
+
+                                {% if p.employee_reference %}
+
+                                    {{ p.employee_reference }}
+
+                                {% else %}
+
+                                    —
+
+                                {% endif %}
+
                             </td>
 
 
@@ -1769,12 +1790,6 @@
                                     </span>
 
                                     <div class="probability-bar">
-
-                                        <!--
-                                            IMPORTANT:
-                                            We use data-probability instead
-                                            of putting Django inside CSS.
-                                        -->
 
                                         <div
                                             class="probability-fill"
@@ -1882,14 +1897,14 @@
 
     /* =====================================================
        PROBABILITY BARS
-       
+
        Django value is stored in data-probability.
        JavaScript applies it to the width.
-       
+
        This avoids putting:
-       
+
        {{ p.probability }}
-       
+
        directly inside CSS.
     ===================================================== */
 
@@ -2013,6 +2028,7 @@
             "#D29A43 " +
             highAngle +
             "deg " +
+
             moderateAngle +
             "deg, " +
 

@@ -12,7 +12,465 @@
 
     <title>Admin Login</title>
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'style.css' %}">
+
+    <style>
+
+        /* =====================================================
+           ADMIN LOGIN PAGE
+        ===================================================== */
+
+        .login-page {
+
+            min-height: 100vh;
+
+            margin: 0;
+
+            padding: 30px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(99, 63, 82, 0.55),
+                    transparent 38%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(59, 41, 56, 0.70),
+                    transparent 42%
+                ),
+                #241E24;
+
+            font-family:
+                Trebuchet MS,
+                Arial,
+                sans-serif;
+
+            color: #F4EFE6;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .login-page *,
+        .login-page *::before,
+        .login-page *::after {
+
+            box-sizing: border-box;
+
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ===================================================== */
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 440px;
+
+            padding: 42px 42px 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(59, 41, 56, 0.98),
+                    rgba(36, 30, 36, 0.98)
+                );
+
+            border:
+                1px solid rgba(244, 239, 230, 0.13);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        .login-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #9b7b91,
+                    #633F52,
+                    #9b7b91
+                );
+
+        }
+
+
+        /* =====================================================
+           ICON
+        ===================================================== */
+
+        .login-icon {
+
+            width: 62px;
+
+            height: 62px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                rgba(244, 239, 230, 0.08);
+
+            border:
+                1px solid rgba(244, 239, 230, 0.12);
+
+            font-size: 27px;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .login-header {
+
+            margin-bottom: 32px;
+
+        }
+
+
+        .login-label {
+
+            margin-bottom: 9px;
+
+            color:
+                rgba(244, 239, 230, 0.55);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            font-weight: 600;
+
+        }
+
+
+        .login-header h1 {
+
+            margin: 0 0 10px;
+
+            color: #F4EFE6;
+
+            font-family: Georgia, serif;
+
+            font-size: 36px;
+
+            line-height: 1.05;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .login-header p {
+
+            margin: 0;
+
+            color:
+                rgba(244, 239, 230, 0.62);
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .login-error {
+
+            margin-bottom: 20px;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            border-left:
+                3px solid #b45a5a;
+
+            background:
+                rgba(180, 90, 90, 0.14);
+
+            color: #f0c6c6;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .login-form-group {
+
+            margin-bottom: 21px;
+
+        }
+
+
+        .login-form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #F4EFE6;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .login-input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 15px;
+
+            border:
+                1px solid rgba(244, 239, 230, 0.15);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background:
+                rgba(244, 239, 230, 0.07);
+
+            color: #F4EFE6;
+
+            font-family:
+                Trebuchet MS,
+                Arial,
+                sans-serif;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .login-input::placeholder {
+
+            color:
+                rgba(244, 239, 230, 0.35);
+
+        }
+
+
+        .login-input:focus {
+
+            border-color: #9b7b91;
+
+            background:
+                rgba(244, 239, 230, 0.10);
+
+            box-shadow:
+                0 0 0 3px rgba(155, 123, 145, 0.12);
+
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .login-submit {
+
+            width: 100%;
+
+            height: 49px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #633F52,
+                    #7b5369
+                );
+
+            color: #F4EFE6;
+
+            font-family:
+                Trebuchet MS,
+                Arial,
+                sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.18);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .login-submit:hover {
+
+            transform: translateY(-2px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #70485d,
+                    #8a6076
+                );
+
+            box-shadow:
+                0 12px 25px rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        .login-submit:active {
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .login-footer {
+
+            margin-top: 28px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(244, 239, 230, 0.08);
+
+            text-align: center;
+
+            color:
+                rgba(244, 239, 230, 0.38);
+
+            font-size: 11px;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .login-security {
+
+            margin-top: 17px;
+
+            text-align: center;
+
+            color:
+                rgba(244, 239, 230, 0.35);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .login-page {
+
+                padding: 20px 15px;
+
+            }
+
+
+            .login-card {
+
+                padding: 32px 25px 25px;
+
+                border-radius: 18px;
+
+            }
+
+
+            .login-header h1 {
+
+                font-size: 31px;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -20,113 +478,150 @@
 <body class="login-page">
 
 
-<div class="login-container">
+    <div class="login-card">
 
 
-    <!-- ================= ADMIN ICON ================= -->
+        <!-- =================================================
+             ADMIN ICON
+        ================================================= -->
 
-    <div class="admin-icon">
+        <div class="login-icon">
 
-        🔐
+            🔐
 
-    </div>
+        </div>
 
 
-    <!-- ================= HEADER ================= -->
+        <!-- =================================================
+             HEADER
+        ================================================= -->
 
-    <div class="header">
+        <div class="login-header">
 
-        <h1>
-            ADMIN LOGIN
-        </h1>
+            <div class="login-label">
 
-        <p>
+                SECURE ACCESS
+
+            </div>
+
+
+            <h1>
+
+                ADMIN LOGIN
+
+            </h1>
+
+
+            <p>
+
+                Employee Attrition Prediction System
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             ERROR
+        ================================================= -->
+
+        {% if error %}
+
+            <div class="login-error">
+
+                {{ error }}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             LOGIN FORM
+        ================================================= -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="login-form-group">
+
+                <label for="username">
+
+                    Username
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="login-input"
+                    placeholder="Enter admin username"
+                    required
+                    autofocus
+                >
+
+            </div>
+
+
+            <div class="login-form-group">
+
+                <label for="password">
+
+                    Password
+
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="login-input"
+                    placeholder="Enter admin password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-submit">
+
+                LOGIN
+
+            </button>
+
+        </form>
+
+
+        <!-- =================================================
+             SECURITY NOTE
+        ================================================= -->
+
+        <div class="login-security">
+
+            Authorized administrator access only
+
+        </div>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================= -->
+
+        <div class="login-footer">
+
             Employee Attrition Prediction System
-        </p>
+
+        </div>
+
 
     </div>
-
-
-    <!-- ================= ERROR ================= -->
-
-    {% if error %}
-
-        <div class="error">
-
-            {{ error }}
-
-        </div>
-
-    {% endif %}
-
-
-    <!-- ================= LOGIN FORM ================= -->
-
-    <form method="POST">
-
-        {% csrf_token %}
-
-
-        <div class="form-group">
-
-            <label for="username">
-
-                Username
-
-            </label>
-
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter admin username"
-                required
-                autofocus
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="password">
-
-                Password
-
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter admin password"
-                required
-            >
-
-        </div>
-
-
-        <button
-            type="submit"
-            class="login-button">
-
-            LOGIN
-
-        </button>
-
-    </form>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <div class="footer">
-
-        Employee Attrition Prediction System
-
-    </div>
-
-
-</div>
 
 
 </body>

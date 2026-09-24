@@ -5,6 +5,7 @@ import joblib
 import pandas as pd
 import os
 import xgboost as xgb
+import shap
 
 from .models import Prediction
 
@@ -63,6 +64,26 @@ encoders = model_data["encoders"]
 target_encoder = model_data.get(
     "target_encoder"
 )
+
+
+# ============================================================
+# CREATE SHAP EXPLAINER
+# ============================================================
+
+try:
+
+    shap_explainer = shap.TreeExplainer(
+        model
+    )
+
+except Exception as e:
+
+    shap_explainer = None
+
+    print(
+        "SHAP explainer could not be created:",
+        str(e)
+    )
 
 
 # ============================================================
@@ -250,6 +271,181 @@ def normalize_text(value):
 
 
 # ============================================================
+# CREATE SHAP EXPLANATION
+# ============================================================
+
+def create_shap_explanation(input_df):
+
+    """
+    Creates a local SHAP explanation for one employee.
+
+    The XGBoost model predicts:
+
+        0 = Leave
+        1 = Stay
+
+    For a binary XGBoost classifier, SHAP values represent
+    contributions toward the model's output.
+
+    Positive SHAP value:
+        pushes the model toward STAY.
+
+    Negative SHAP value:
+        pushes the model toward LEAVE.
+
+    Therefore, for displaying attrition/leave contribution,
+    we reverse the sign.
+    """
+
+    if shap_explainer is None:
+
+        return []
+
+
+    try:
+
+        # ----------------------------------------------------
+        # Calculate SHAP values
+        # ----------------------------------------------------
+
+        shap_values = shap_explainer.shap_values(
+            input_df
+        )
+
+
+        # ----------------------------------------------------
+        # Handle different SHAP output formats
+        # ----------------------------------------------------
+
+        if isinstance(
+            shap_values,
+            list
+        ):
+
+            if len(shap_values) > 0:
+
+                leave_values = shap_values[0][0]
+
+            else:
+
+                return []
+
+        else:
+
+            leave_values = shap_values[0]
+
+
+        # ----------------------------------------------------
+        # Convert contribution toward model output
+        # into contribution toward LEAVE
+        # ----------------------------------------------------
+
+        leave_contributions = -leave_values
+
+
+        # ----------------------------------------------------
+        # Create explanation list
+        # ----------------------------------------------------
+
+        explanations = []
+
+
+        for index, feature in enumerate(
+            feature_names
+        ):
+
+            contribution = float(
+                leave_contributions[index]
+            )
+
+
+            value = input_df.iloc[
+                0,
+                index
+            ]
+
+
+            # ------------------------------------------------
+            # Determine direction
+            # ------------------------------------------------
+
+            if contribution > 0:
+
+                direction = "increase"
+
+                direction_text = (
+                    "Increases attrition risk"
+                )
+
+            else:
+
+                direction = "decrease"
+
+                direction_text = (
+                    "Decreases attrition risk"
+                )
+
+
+            explanations.append({
+
+                "feature":
+                feature,
+
+                "value":
+                str(value),
+
+                "contribution":
+                round(
+                    abs(contribution),
+                    4
+                ),
+
+                "direction":
+                direction,
+
+                "direction_text":
+                direction_text,
+
+            })
+
+
+        # ----------------------------------------------------
+        # Sort by strongest contribution
+        # ----------------------------------------------------
+
+        explanations = sorted(
+            explanations,
+            key=lambda x:
+            x["contribution"],
+            reverse=True
+        )
+
+
+        # ----------------------------------------------------
+        # Display only the top 6 factors
+        # ----------------------------------------------------
+
+        return explanations[:6]
+
+
+    except Exception as e:
+
+        print(
+            "\n========== SHAP ERROR =========="
+        )
+
+        print(
+            str(e)
+        )
+
+        print(
+            "================================\n"
+        )
+
+        return []
+
+
+# ============================================================
 # PREDICTION
 # ============================================================
 
@@ -262,6 +458,24 @@ def predict(request):
             request,
             "input.html"
         )
+
+
+    # ========================================================
+    # GET EMPLOYEE REFERENCE
+    # ========================================================
+
+    # This is optional and is NOT part of the ML input.
+    employee_reference = normalize_text(
+        request.POST.get(
+            "employee_reference"
+        )
+    )
+
+
+    # Keep blank reference as None
+    if employee_reference == "":
+
+        employee_reference = None
 
 
     # ========================================================
@@ -569,6 +783,11 @@ def predict(request):
     )
 
     print(
+        "Employee Reference:",
+        employee_reference
+    )
+
+    print(
         "Input after encoding:"
     )
 
@@ -665,12 +884,34 @@ def predict(request):
 
 
     # ========================================================
+    # SHAP EXPLANATION
+    # ========================================================
+
+    shap_explanation = (
+        create_shap_explanation(
+            input_df
+        )
+    )
+
+
+    # ========================================================
     # SAVE PREDICTION
     # ========================================================
 
     try:
 
         Prediction.objects.create(
+
+            # ------------------------------------------------
+            # Employee reference
+            # ------------------------------------------------
+
+            employee_reference=employee_reference,
+
+
+            # ------------------------------------------------
+            # Employee details
+            # ------------------------------------------------
 
             age=int(
                 data["Age"]
@@ -760,6 +1001,11 @@ def predict(request):
                 data["Employee Recognition"]
             ),
 
+
+            # ------------------------------------------------
+            # Prediction output
+            # ------------------------------------------------
+
             prediction=prediction_text,
 
             probability=probability,
@@ -789,11 +1035,17 @@ def predict(request):
         request,
         "result.html",
         {
-            "risk": risk,
+            "risk":
+            risk,
 
-            "probability": probability,
+            "probability":
+            probability,
 
-            "prediction": prediction_text,
+            "prediction":
+            prediction_text,
+
+            "shap_explanation":
+            shap_explanation,
         }
     )
 
@@ -1048,9 +1300,15 @@ def industry_predictions(request):
             industry_data
         }
     )
+
+
 # ============================================================
 # OPENING PAGE
 # ============================================================
 
 def opening(request):
-    return render(request, "opening.html")
+
+    return render(
+        request,
+        "opening.html"
+    )

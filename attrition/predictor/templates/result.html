@@ -13,7 +13,7 @@
     <title>Attrition Prediction Result</title>
 
     <link rel="stylesheet"
-          href="{% static 'style.css' %}">
+          href="{% static 'css/style.css' %}">
 
 </head>
 
@@ -26,7 +26,7 @@
 
     <!-- =====================================================
          HEADER
-         ===================================================== -->
+    ===================================================== -->
 
     <div class="header">
 
@@ -35,13 +35,17 @@
         </div>
 
         <h1>
+
             ATTRITION
             <span>RESULT</span>
+
         </h1>
 
         <p>
+
             Employee attrition prediction generated
             using the trained machine learning model.
+
         </p>
 
     </div>
@@ -49,30 +53,34 @@
 
     <!-- =====================================================
          MAIN RESULT
-         ===================================================== -->
+    ===================================================== -->
 
     <div class="prediction-card">
 
 
-        <!-- INDICATOR -->
-
         {% if prediction == "Employee likely to LEAVE" %}
 
             <div class="result-indicator leave">
+
                 !
+
             </div>
 
         {% else %}
 
             <div class="result-indicator stay">
+
                 ✓
+
             </div>
 
         {% endif %}
 
 
         <div class="prediction-title">
+
             Prediction
+
         </div>
 
 
@@ -85,7 +93,7 @@
 
         <!-- =================================================
              PROBABILITY
-             ================================================= -->
+        ================================================= -->
 
         <div class="prediction-title">
 
@@ -120,7 +128,7 @@
 
         <!-- =================================================
              RISK
-             ================================================= -->
+        ================================================= -->
 
         <div class="risk-section">
 
@@ -134,21 +142,27 @@
             {% if risk == "High Risk" %}
 
                 <div class="risk-level risk-high">
+
                     High Risk
+
                 </div>
 
 
             {% elif risk == "Moderate Risk" %}
 
                 <div class="risk-level risk-moderate">
+
                     Moderate Risk
+
                 </div>
 
 
             {% else %}
 
                 <div class="risk-level risk-low">
+
                     Low Risk
+
                 </div>
 
             {% endif %}
@@ -161,22 +175,83 @@
 
 
     <!-- =====================================================
-         WHAT THIS MEANS
-         ===================================================== -->
+         POSSIBLE REASONS
+    ===================================================== -->
 
-    <div class="meaning">
+    <div class="suggestions">
+
 
         <div class="card-label">
-            INTERPRETATION
+
+            MODEL EXPLANATION
+
         </div>
 
 
         <h2>
+
+            Possible Reasons
+
+        </h2>
+
+
+        {% if shap_explanation %}
+
+            <ul>
+
+
+                {% for item in shap_explanation %}
+
+                    <li>
+
+                        {{ item.feature }}
+
+                    </li>
+
+                {% endfor %}
+
+
+            </ul>
+
+
+        {% else %}
+
+            <p>
+
+                Possible reasons are currently unavailable
+                for this prediction.
+
+            </p>
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- =====================================================
+         WHAT THIS MEANS
+    ===================================================== -->
+
+    <div class="meaning">
+
+
+        <div class="card-label">
+
+            INTERPRETATION
+
+        </div>
+
+
+        <h2>
+
             What this means
+
         </h2>
 
 
         {% if risk == "High Risk" %}
+
 
             <p>
 
@@ -189,6 +264,7 @@
 
         {% elif risk == "Moderate Risk" %}
 
+
             <p>
 
                 The model identifies a moderate level
@@ -200,6 +276,7 @@
 
         {% else %}
 
+
             <p>
 
                 The model estimates a relatively low
@@ -207,6 +284,7 @@
                 the organization.
 
             </p>
+
 
         {% endif %}
 
@@ -216,18 +294,22 @@
 
     <!-- =====================================================
          SUGGESTED ACTIONS
-         ===================================================== -->
+    ===================================================== -->
 
     <div class="suggestions">
 
 
         <div class="card-label">
+
             HR INSIGHTS
+
         </div>
 
 
         <h2>
+
             Suggested Actions
+
         </h2>
 
 
@@ -236,59 +318,96 @@
 
             {% if risk == "High Risk" %}
 
+
                 <li>
+
                     Review workload and overtime concerns.
+
                 </li>
 
+
                 <li>
+
                     Discuss job satisfaction and workplace concerns.
+
                 </li>
 
+
                 <li>
+
                     Review career growth and promotion opportunities.
+
                 </li>
 
+
                 <li>
+
                     Consider recognition and retention initiatives.
+
                 </li>
 
 
             {% elif risk == "Moderate Risk" %}
 
+
                 <li>
+
                     Review workload and work-life balance.
+
                 </li>
 
+
                 <li>
+
                     Discuss career growth opportunities.
+
                 </li>
 
+
                 <li>
+
                     Review employee recognition.
+
                 </li>
 
+
                 <li>
+
                     Monitor job satisfaction.
+
                 </li>
 
 
             {% else %}
 
+
                 <li>
+
                     Continue recognizing good performance.
+
                 </li>
 
+
                 <li>
+
                     Maintain a healthy work-life balance.
+
                 </li>
 
+
                 <li>
+
                     Provide opportunities for career development.
+
                 </li>
 
+
                 <li>
+
                     Encourage continued employee engagement.
+
                 </li>
+
 
             {% endif %}
 
@@ -301,7 +420,7 @@
 
     <!-- =====================================================
          BUTTONS
-         ===================================================== -->
+    ===================================================== -->
 
     <div class="button-container">
 
@@ -310,7 +429,9 @@
             href="{% url 'home' %}"
             class="button predict-button"
         >
+
             ← Predict Another Employee
+
         </a>
 
 
@@ -318,7 +439,9 @@
             href="{% url 'dashboard' %}"
             class="button dashboard-button"
         >
+
             View Dashboard
+
         </a>
 
 
@@ -327,7 +450,7 @@
 
     <!-- =====================================================
          FOOTER
-         ===================================================== -->
+    ===================================================== -->
 
     <div class="footer-note">
 
@@ -340,16 +463,18 @@
 
 
 <!-- =========================================================
-     RISK METER JAVASCRIPT
-     ========================================================= -->
+     JAVASCRIPT
+========================================================= -->
 
 <script>
+
 
     const meter =
         document.querySelector(".meter");
 
 
     if (meter) {
+
 
         const probability =
             parseFloat(
@@ -359,18 +484,27 @@
 
         if (!isNaN(probability)) {
 
+
             meter.style.width =
+
                 Math.min(
+
                     Math.max(
+
                         probability,
                         0
+
                     ),
+
                     100
+
                 ) + "%";
+
 
         }
 
     }
+
 
 </script>
 
