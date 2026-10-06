@@ -2,7 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,11 +13,15 @@
     <style>
 
         /* =========================================================
-           PAGE
+           GLOBAL
         ========================================================= */
 
         * {
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -30,26 +36,85 @@
 
 
         /* =========================================================
-           MAIN CONTAINER
+           PAGE
         ========================================================= */
 
         .prediction-page {
             min-height: 100vh;
-            padding: 38px 22px;
+            padding: 32px 22px 50px;
         }
 
         .prediction-container {
-            width: min(1120px, 100%);
+            width: min(1160px, 100%);
             margin: 0 auto;
 
             background: #F4EFE6;
 
             border-radius: 24px;
 
-            padding: 42px 48px 48px;
+            padding: 38px 42px 45px;
 
             box-shadow:
-                0 18px 50px rgba(0, 0, 0, 0.20);
+                0 22px 60px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 32px;
+
+            padding-bottom: 18px;
+
+            border-bottom: 1px solid #D8CCC0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            color: #3B2938;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: #3B2938;
+            color: #F4EFE6;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 13px;
+        }
+
+        .page-label {
+            color: #806F79;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
         }
 
 
@@ -58,42 +123,108 @@
         ========================================================= */
 
         .prediction-header {
-            text-align: center;
-            margin-bottom: 34px;
+            margin-bottom: 35px;
         }
 
         .prediction-eyebrow {
-            margin: 0 0 8px;
+            margin: 0 0 9px;
 
-            color: #633F52;
+            color: #8D536F;
 
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
 
-            letter-spacing: 2.5px;
+            letter-spacing: 2.8px;
             text-transform: uppercase;
         }
 
         .prediction-header h1 {
+            max-width: 800px;
+
             margin: 0;
 
             color: #3B2938;
 
             font-family: Georgia, "Times New Roman", serif;
 
-            font-size: clamp(30px, 4vw, 45px);
-            line-height: 1.12;
+            font-size: clamp(32px, 4vw, 48px);
+
+            line-height: 1.08;
+
+            letter-spacing: -0.5px;
         }
 
-        .prediction-header p {
-            max-width: 650px;
+        .prediction-header p.description {
+            max-width: 700px;
 
-            margin: 13px auto 0;
+            margin: 14px 0 0;
 
             color: #6F626A;
 
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           FORM PROGRESS
+        ========================================================= */
+
+        .form-progress {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 28px;
+        }
+
+        .progress-item {
+            min-height: 54px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 12px;
+
+            background: #FFF9F2;
+
+            border: 1px solid #DED3C7;
+            border-radius: 10px;
+        }
+
+        .progress-number {
+            width: 29px;
+            height: 29px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #3B2938;
+            color: #F4EFE6;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .progress-text {
+            color: #5D4D58;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            line-height: 1.25;
         }
 
 
@@ -102,18 +233,45 @@
         ========================================================= */
 
         .error-message {
-            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
 
-            padding: 14px 18px;
+            gap: 11px;
 
-            border-radius: 10px;
+            margin-bottom: 24px;
 
-            background: #f8dede;
-            border: 1px solid #d99b9b;
+            padding: 15px 17px;
 
-            color: #7d2929;
+            border-radius: 11px;
 
-            font-size: 14px;
+            background: #F8DEDE;
+
+            border: 1px solid #D99B9B;
+
+            color: #7D2929;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .error-icon {
+            width: 22px;
+            height: 22px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #9C4653;
+            color: white;
+
+            font-size: 12px;
+            font-weight: bold;
         }
 
 
@@ -122,13 +280,16 @@
         ========================================================= */
 
         .form-section {
-            margin-bottom: 22px;
+            position: relative;
+
+            margin-bottom: 20px;
 
             padding: 27px 29px 30px;
 
             background: #FFFCF7;
 
             border: 1px solid #DED3C7;
+
             border-radius: 18px;
 
             box-shadow:
@@ -150,26 +311,26 @@
         }
 
         .section-number {
-            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
 
-            width: 42px;
-            height: 42px;
+            flex-shrink: 0;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 11px;
+            border-radius: 12px;
 
             background: #3B2938;
             color: #F4EFE6;
 
             font-family: Georgia, "Times New Roman", serif;
 
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
 
-            letter-spacing: 0.5px;
+            letter-spacing: 0.7px;
         }
 
         .section-title {
@@ -177,7 +338,10 @@
 
             color: #3B2938;
 
-            font-size: 23px;
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 22px;
+
             line-height: 1.2;
         }
 
@@ -186,7 +350,8 @@
 
             color: #786B73;
 
-            font-size: 13px;
+            font-size: 12.5px;
+
             line-height: 1.5;
         }
 
@@ -198,7 +363,8 @@
         .form-grid {
             display: grid;
 
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
 
             gap: 20px 28px;
         }
@@ -218,18 +384,28 @@
 
             color: #4E3948;
 
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
+
+        .required {
+            color: #9A5369;
+        }
+
+
+        /* =========================================================
+           INPUTS
+        ========================================================= */
 
         .form-group input,
         .form-group select {
             width: 100%;
-            height: 50px;
+            height: 49px;
 
-            padding: 0 15px;
+            padding: 0 14px;
 
             border: 1px solid #D3C5B8;
+
             border-radius: 10px;
 
             background: #FFFDF9;
@@ -237,14 +413,20 @@
             color: #3B2938;
 
             font-family: "Trebuchet MS", Arial, sans-serif;
-            font-size: 14px;
+
+            font-size: 13.5px;
 
             outline: none;
 
             transition:
                 border-color 0.2s ease,
                 box-shadow 0.2s ease,
-                background 0.2s ease;
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .form-group select {
+            cursor: pointer;
         }
 
         .form-group input::placeholder {
@@ -266,72 +448,153 @@
                 0 0 0 3px rgba(99, 63, 82, 0.12);
         }
 
+        .form-group input:invalid:not(:placeholder-shown),
+        .form-group select:invalid {
+            border-color: #C26A6A;
+        }
+
+        .form-group input:valid:not(:placeholder-shown),
+        .form-group select:valid {
+            border-color: #B7A99F;
+        }
+
+
+        /* =========================================================
+           HELP TEXT
+        ========================================================= */
+
         .form-help {
             margin-top: 6px;
 
             color: #82757D;
 
-            font-size: 11.5px;
+            font-size: 11px;
+
             line-height: 1.4;
         }
 
 
         /* =========================================================
-           REQUIRED INDICATOR
+           OPTIONAL REFERENCE
         ========================================================= */
 
-        .required {
-            color: #9A5369;
+        .optional-tag {
+            display: inline-block;
+
+            margin-left: 6px;
+
+            padding: 2px 6px;
+
+            border-radius: 5px;
+
+            background: #EEE5E8;
+
+            color: #725868;
+
+            font-size: 9px;
+
+            font-weight: bold;
+
+            letter-spacing: 0.5px;
+
+            text-transform: uppercase;
+
+            vertical-align: middle;
         }
 
 
         /* =========================================================
-           PREDICT BUTTON
+           SUBMISSION AREA
         ========================================================= */
 
-        .button-area {
-            display: flex;
-            justify-content: flex-end;
+        .submission-area {
+            margin-top: 29px;
 
-            margin-top: 28px;
+            padding: 22px 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+
+            background: #3B2938;
+
+            border-radius: 16px;
+        }
+
+        .submission-text {
+            color: #F4EFE6;
+        }
+
+        .submission-title {
+            margin: 0 0 5px;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 18px;
+        }
+
+        .submission-description {
+            margin: 0;
+
+            color: #CDBFC7;
+
+            font-size: 11.5px;
+
+            line-height: 1.5;
         }
 
         .predict-button {
-            min-width: 220px;
-            height: 53px;
+            min-width: 205px;
+            height: 51px;
 
-            padding: 0 28px;
+            flex-shrink: 0;
+
+            padding: 0 25px;
 
             border: none;
-            border-radius: 11px;
 
-            background: #3B2938;
-            color: #F4EFE6;
+            border-radius: 10px;
+
+            background: #F4EFE6;
+            color: #3B2938;
 
             font-family: "Trebuchet MS", Arial, sans-serif;
 
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
 
             cursor: pointer;
 
             transition:
                 background 0.2s ease,
+                color 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
         }
 
         .predict-button:hover {
-            background: #633F52;
+            background: #FFFFFF;
+
+            color: #633F52;
 
             transform: translateY(-2px);
 
             box-shadow:
-                0 8px 20px rgba(59, 41, 56, 0.20);
+                0 8px 22px rgba(0, 0, 0, 0.20);
         }
 
         .predict-button:active {
             transform: translateY(0);
+        }
+
+        .predict-button:disabled {
+            opacity: 0.65;
+
+            cursor: wait;
+
+            transform: none;
         }
 
 
@@ -340,34 +603,100 @@
         ========================================================= */
 
         .form-note {
-            margin-top: 17px;
+            margin: 15px 0 0;
 
             text-align: center;
 
             color: #82757D;
 
-            font-size: 12px;
+            font-size: 11px;
+
+            line-height: 1.5;
         }
 
 
         /* =========================================================
-           RESPONSIVE
+           RESPONSIVE - 900PX
         ========================================================= */
 
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
+
+            .prediction-container {
+                padding: 32px 28px 38px;
+            }
+
+            .form-progress {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                gap: 18px 20px;
+            }
+
+            .submission-area {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+            .predict-button {
+                width: 100%;
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE - 700PX
+        ========================================================= */
+
+        @media (max-width: 700px) {
 
             .prediction-page {
-                padding: 20px 12px;
+                padding: 18px 10px 35px;
             }
 
             .prediction-container {
-                padding: 30px 20px 35px;
+                padding: 27px 18px 30px;
 
                 border-radius: 18px;
             }
 
+            .top-bar {
+                margin-bottom: 25px;
+            }
+
+            .page-label {
+                display: none;
+            }
+
+            .prediction-header {
+                margin-bottom: 27px;
+            }
+
+            .prediction-header h1 {
+                font-size: 32px;
+            }
+
+            .form-progress {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 8px;
+            }
+
+            .progress-item {
+                min-height: 48px;
+
+                padding: 8px;
+            }
+
+            .progress-text {
+                font-size: 10px;
+            }
+
             .form-section {
-                padding: 23px 20px 25px;
+                padding: 23px 19px 25px;
             }
 
             .form-grid {
@@ -377,56 +706,99 @@
             }
 
             .section-title {
-                font-size: 21px;
-            }
-
-            .prediction-header h1 {
-                font-size: 31px;
-            }
-
-            .button-area {
-                justify-content: stretch;
-            }
-
-            .predict-button {
-                width: 100%;
+                font-size: 20px;
             }
         }
 
 
+        /* =========================================================
+           RESPONSIVE - 480PX
+        ========================================================= */
+
         @media (max-width: 480px) {
 
             .prediction-container {
-                padding: 25px 15px 30px;
+                padding: 22px 13px 25px;
+
+                border-radius: 16px;
+            }
+
+            .brand {
+                font-size: 11px;
+
+                letter-spacing: 1.5px;
+            }
+
+            .brand-mark {
+                width: 30px;
+                height: 30px;
+            }
+
+            .prediction-header h1 {
+                font-size: 28px;
+            }
+
+            .prediction-header p.description {
+                font-size: 12.5px;
+            }
+
+            .form-progress {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-item {
+                min-height: 43px;
             }
 
             .form-section {
-                padding: 20px 16px 22px;
+                padding: 20px 15px 22px;
+
+                border-radius: 15px;
             }
 
             .section-header {
                 gap: 11px;
+
+                margin-bottom: 21px;
             }
 
             .section-number {
                 width: 37px;
                 height: 37px;
+
+                border-radius: 9px;
             }
 
             .section-title {
-                font-size: 19px;
+                font-size: 18px;
             }
 
-            .prediction-header h1 {
-                font-size: 27px;
+            .section-description {
+                font-size: 11.5px;
             }
 
-            .prediction-header p {
+            .form-group input,
+            .form-group select {
+                height: 47px;
+
                 font-size: 13px;
+            }
+
+            .submission-area {
+                padding: 19px 17px;
+            }
+
+            .submission-title {
+                font-size: 16px;
+            }
+
+            .submission-description {
+                font-size: 10.5px;
             }
         }
 
     </style>
+
 </head>
 
 
@@ -438,23 +810,111 @@
 
 
         <!-- =====================================================
+             TOP BAR
+        ====================================================== -->
+
+        <div class="top-bar">
+
+            <div class="brand">
+
+                <div class="brand-mark">
+                    HR
+                </div>
+
+                HR ANALYTICS
+
+            </div>
+
+            <div class="page-label">
+                New Prediction
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
              HEADER
         ====================================================== -->
 
         <div class="prediction-header">
 
             <p class="prediction-eyebrow">
-                HR Analytics
+                Employee Risk Assessment
             </p>
 
             <h1>
                 Employee Attrition Prediction
             </h1>
 
-            <p>
-                Enter employee information to estimate the likelihood
-                of attrition using the trained machine learning model.
+            <p class="description">
+                Enter the employee information below to estimate the
+                likelihood of attrition using the trained machine
+                learning model.
             </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             FORM PROGRESS
+        ====================================================== -->
+
+        <div class="form-progress">
+
+            <div class="progress-item">
+
+                <div class="progress-number">
+                    01
+                </div>
+
+                <div class="progress-text">
+                    Personal<br>
+                    Information
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-number">
+                    02
+                </div>
+
+                <div class="progress-text">
+                    Employment<br>
+                    Information
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-number">
+                    03
+                </div>
+
+                <div class="progress-text">
+                    Work<br>
+                    Environment
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-number">
+                    04
+                </div>
+
+                <div class="progress-text">
+                    Performance<br>
+                    & Growth
+                </div>
+
+            </div>
 
         </div>
 
@@ -466,7 +926,15 @@
         {% if error %}
 
         <div class="error-message">
-            {{ error }}
+
+            <div class="error-icon">
+                !
+            </div>
+
+            <div>
+                {{ error }}
+            </div>
+
         </div>
 
         {% endif %}
@@ -476,7 +944,12 @@
              FORM
         ====================================================== -->
 
-        <form method="POST" action="{% url 'predict' %}">
+        <form
+            method="POST"
+            action="{% url 'predict' %}"
+            id="predictionForm"
+            novalidate
+        >
 
             {% csrf_token %}
 
@@ -494,6 +967,7 @@
                     </div>
 
                     <div>
+
                         <h2 class="section-title">
                             Personal Information
                         </h2>
@@ -501,6 +975,7 @@
                         <p class="section-description">
                             Basic demographic information about the employee.
                         </p>
+
                     </div>
 
                 </div>
@@ -514,7 +989,13 @@
                     <div class="form-group">
 
                         <label for="employee_reference">
+
                             Employee Reference
+
+                            <span class="optional-tag">
+                                Optional
+                            </span>
+
                         </label>
 
                         <input
@@ -522,11 +1003,14 @@
                             id="employee_reference"
                             name="employee_reference"
                             maxlength="50"
+                            pattern="[A-Za-z0-9_-]+"
                             placeholder="e.g. EMP001"
+                            title="Use only letters, numbers, hyphens or underscores."
                         >
 
                         <span class="form-help">
-                            Optional ID or code for tracking predictions. Avoid using the employee's real name.
+                            Optional ID or code for tracking predictions.
+                            Avoid using the employee's real name.
                         </span>
 
                     </div>
@@ -545,13 +1029,15 @@
                             id="age"
                             name="age"
                             min="18"
-                            max="100"
+                            max="90"
+                            step="1"
+                            inputmode="numeric"
                             placeholder="Enter age"
                             required
                         >
 
                         <span class="form-help">
-                            Employee's current age.
+                            Enter an age between 18 and 90 years.
                         </span>
 
                     </div>
@@ -628,7 +1114,8 @@
                     <div class="form-group">
 
                         <label for="number_of_dependents">
-                            Number of Dependents <span class="required">*</span>
+                            Number of Dependents
+                            <span class="required">*</span>
                         </label>
 
                         <input
@@ -636,12 +1123,15 @@
                             id="number_of_dependents"
                             name="number_of_dependents"
                             min="0"
+                            max="20"
+                            step="1"
+                            inputmode="numeric"
                             placeholder="Enter number"
                             required
                         >
 
                         <span class="form-help">
-                            People financially supported by the employee.
+                            Enter a whole number from 0 to 20.
                         </span>
 
                     </div>
@@ -649,7 +1139,6 @@
                 </div>
 
             </section>
-
 
 
             <!-- =================================================
@@ -665,6 +1154,7 @@
                     </div>
 
                     <div>
+
                         <h2 class="section-title">
                             Employment Information
                         </h2>
@@ -764,7 +1254,8 @@
                     <div class="form-group">
 
                         <label for="years_at_company">
-                            Years at Company <span class="required">*</span>
+                            Years at Company
+                            <span class="required">*</span>
                         </label>
 
                         <input
@@ -772,10 +1263,16 @@
                             id="years_at_company"
                             name="years_at_company"
                             min="0"
+                            max="50"
                             step="1"
+                            inputmode="numeric"
                             placeholder="Enter years"
                             required
                         >
+
+                        <span class="form-help">
+                            Enter a whole number from 0 to 50 years.
+                        </span>
 
                     </div>
 
@@ -785,18 +1282,25 @@
                     <div class="form-group">
 
                         <label for="monthly_income">
-                            Monthly Income <span class="required">*</span>
+                            Monthly Income
+                            <span class="required">*</span>
                         </label>
 
                         <input
                             type="number"
                             id="monthly_income"
                             name="monthly_income"
-                            min="0"
+                            min="0.01"
+                            max="10000000"
                             step="0.01"
+                            inputmode="decimal"
                             placeholder="Enter monthly income"
                             required
                         >
+
+                        <span class="form-help">
+                            Enter a positive monthly income amount.
+                        </span>
 
                     </div>
 
@@ -806,7 +1310,8 @@
                     <div class="form-group">
 
                         <label for="company_tenure">
-                            Company Tenure (Months) <span class="required">*</span>
+                            Company Tenure (Months)
+                            <span class="required">*</span>
                         </label>
 
                         <input
@@ -814,9 +1319,16 @@
                             id="company_tenure"
                             name="company_tenure"
                             min="0"
+                            max="600"
+                            step="1"
+                            inputmode="numeric"
                             placeholder="Enter tenure in months"
                             required
                         >
+
+                        <span class="form-help">
+                            Enter a whole number from 0 to 600 months.
+                        </span>
 
                     </div>
 
@@ -826,7 +1338,8 @@
                     <div class="form-group">
 
                         <label for="company_size">
-                            Company Size <span class="required">*</span>
+                            Company Size
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -861,7 +1374,8 @@
                     <div class="form-group">
 
                         <label for="overtime">
-                            Overtime <span class="required">*</span>
+                            Overtime
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -892,7 +1406,8 @@
                     <div class="form-group">
 
                         <label for="remote_work">
-                            Remote Work <span class="required">*</span>
+                            Remote Work
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -922,7 +1437,6 @@
             </section>
 
 
-
             <!-- =================================================
                  03 WORK ENVIRONMENT
             ================================================== -->
@@ -936,6 +1450,7 @@
                     </div>
 
                     <div>
+
                         <h2 class="section-title">
                             Work Environment
                         </h2>
@@ -943,6 +1458,7 @@
                         <p class="section-description">
                             Factors related to the employee's workplace experience.
                         </p>
+
                     </div>
 
                 </div>
@@ -956,7 +1472,8 @@
                     <div class="form-group">
 
                         <label for="distance_from_home">
-                            Distance from Home <span class="required">*</span>
+                            Distance from Home
+                            <span class="required">*</span>
                         </label>
 
                         <input
@@ -964,13 +1481,15 @@
                             id="distance_from_home"
                             name="distance_from_home"
                             min="0"
+                            max="500"
                             step="0.1"
+                            inputmode="decimal"
                             placeholder="Enter distance"
                             required
                         >
 
                         <span class="form-help">
-                            Distance between home and workplace.
+                            Enter distance in kilometres (0–500 km).
                         </span>
 
                     </div>
@@ -981,7 +1500,8 @@
                     <div class="form-group">
 
                         <label for="work_life_balance">
-                            Work-Life Balance <span class="required">*</span>
+                            Work-Life Balance
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1020,7 +1540,8 @@
                     <div class="form-group">
 
                         <label for="job_satisfaction">
-                            Job Satisfaction <span class="required">*</span>
+                            Job Satisfaction
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1059,7 +1580,8 @@
                     <div class="form-group">
 
                         <label for="leadership_opportunities">
-                            Leadership Opportunities <span class="required">*</span>
+                            Leadership Opportunities
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1094,7 +1616,8 @@
                     <div class="form-group">
 
                         <label for="innovation_opportunities">
-                            Innovation Opportunities <span class="required">*</span>
+                            Innovation Opportunities
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1129,7 +1652,8 @@
                     <div class="form-group">
 
                         <label for="company_reputation">
-                            Company Reputation <span class="required">*</span>
+                            Company Reputation
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1168,7 +1692,8 @@
                     <div class="form-group">
 
                         <label for="employee_recognition">
-                            Employee Recognition <span class="required">*</span>
+                            Employee Recognition
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1202,9 +1727,8 @@
             </section>
 
 
-
             <!-- =================================================
-                 04 PERFORMANCE
+                 04 PERFORMANCE & GROWTH
             ================================================== -->
 
             <section class="form-section">
@@ -1216,6 +1740,7 @@
                     </div>
 
                     <div>
+
                         <h2 class="section-title">
                             Performance & Growth
                         </h2>
@@ -1237,7 +1762,8 @@
                     <div class="form-group">
 
                         <label for="performance_rating">
-                            Performance Rating <span class="required">*</span>
+                            Performance Rating
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1276,7 +1802,8 @@
                     <div class="form-group">
 
                         <label for="number_of_promotions">
-                            Number of Promotions <span class="required">*</span>
+                            Number of Promotions
+                            <span class="required">*</span>
                         </label>
 
                         <input
@@ -1284,9 +1811,16 @@
                             id="number_of_promotions"
                             name="number_of_promotions"
                             min="0"
+                            max="20"
+                            step="1"
+                            inputmode="numeric"
                             placeholder="Enter number"
                             required
                         >
+
+                        <span class="form-help">
+                            Enter a whole number from 0 to 20.
+                        </span>
 
                     </div>
 
@@ -1296,7 +1830,8 @@
                     <div class="form-group">
 
                         <label for="education_level">
-                            Education Level <span class="required">*</span>
+                            Education Level
+                            <span class="required">*</span>
                         </label>
 
                         <select
@@ -1338,16 +1873,30 @@
             </section>
 
 
-
             <!-- =================================================
-                 PREDICT BUTTON
+                 SUBMISSION AREA
             ================================================== -->
 
-            <div class="button-area">
+            <div class="submission-area">
+
+                <div class="submission-text">
+
+                    <h3 class="submission-title">
+                        Ready to analyse?
+                    </h3>
+
+                    <p class="submission-description">
+                        The entered employee information will be processed
+                        by the trained attrition prediction model.
+                    </p>
+
+                </div>
+
 
                 <button
                     type="submit"
                     class="predict-button"
+                    id="predictButton"
                 >
                     Predict Attrition
                     <span style="margin-left: 8px;">→</span>
@@ -1357,7 +1906,8 @@
 
 
             <p class="form-note">
-                Prediction is generated using the trained employee attrition machine learning model.
+                Prediction is generated using the trained employee attrition
+                machine learning model.
             </p>
 
         </form>
@@ -1366,5 +1916,417 @@
 
 </div>
 
+
+<!-- =========================================================
+     CLIENT-SIDE VALIDATION
+========================================================= -->
+
+<script>
+
+    const form = document.getElementById("predictionForm");
+
+    const age = document.getElementById("age");
+    const dependents = document.getElementById("number_of_dependents");
+    const yearsAtCompany = document.getElementById("years_at_company");
+    const monthlyIncome = document.getElementById("monthly_income");
+    const companyTenure = document.getElementById("company_tenure");
+    const distance = document.getElementById("distance_from_home");
+    const promotions = document.getElementById("number_of_promotions");
+    const employeeReference = document.getElementById("employee_reference");
+    const predictButton = document.getElementById("predictButton");
+
+
+    /* =========================================================
+       INTEGER VALIDATION
+    ========================================================= */
+
+    function validateInteger(input, min, max, fieldName) {
+
+        const value = input.value.trim();
+
+        if (value === "") {
+            return true;
+        }
+
+        const number = Number(value);
+
+        if (
+            !Number.isInteger(number) ||
+            number < min ||
+            number > max
+        ) {
+
+            input.setCustomValidity(
+                `${fieldName} must be a whole number between ${min} and ${max}.`
+            );
+
+            return false;
+        }
+
+        input.setCustomValidity("");
+
+        return true;
+    }
+
+
+    /* =========================================================
+       DECIMAL VALIDATION
+    ========================================================= */
+
+    function validateNumber(input, min, max, fieldName) {
+
+        const value = input.value.trim();
+
+        if (value === "") {
+            return true;
+        }
+
+        const number = Number(value);
+
+        if (
+            !Number.isFinite(number) ||
+            number < min ||
+            number > max
+        ) {
+
+            input.setCustomValidity(
+                `${fieldName} must be between ${min} and ${max}.`
+            );
+
+            return false;
+        }
+
+        input.setCustomValidity("");
+
+        return true;
+    }
+
+
+    /* =========================================================
+       AGE
+    ========================================================= */
+
+    age.addEventListener("input", function () {
+
+        validateInteger(
+            age,
+            18,
+            90,
+            "Age"
+        );
+
+    });
+
+
+    /* =========================================================
+       DEPENDENTS
+    ========================================================= */
+
+    dependents.addEventListener("input", function () {
+
+        validateInteger(
+            dependents,
+            0,
+            20,
+            "Number of dependents"
+        );
+
+    });
+
+
+    /* =========================================================
+       YEARS AT COMPANY
+    ========================================================= */
+
+    yearsAtCompany.addEventListener("input", function () {
+
+        validateInteger(
+            yearsAtCompany,
+            0,
+            50,
+            "Years at company"
+        );
+
+        validateCompanyTenure();
+
+    });
+
+
+    /* =========================================================
+       MONTHLY INCOME
+    ========================================================= */
+
+    monthlyIncome.addEventListener("input", function () {
+
+        validateNumber(
+            monthlyIncome,
+            0.01,
+            10000000,
+            "Monthly income"
+        );
+
+    });
+
+
+    /* =========================================================
+       COMPANY TENURE
+    ========================================================= */
+
+    companyTenure.addEventListener("input", function () {
+
+        validateInteger(
+            companyTenure,
+            0,
+            600,
+            "Company tenure"
+        );
+
+        validateCompanyTenure();
+
+    });
+
+
+    /* =========================================================
+       DISTANCE
+    ========================================================= */
+
+    distance.addEventListener("input", function () {
+
+        validateNumber(
+            distance,
+            0,
+            500,
+            "Distance from home"
+        );
+
+    });
+
+
+    /* =========================================================
+       PROMOTIONS
+    ========================================================= */
+
+    promotions.addEventListener("input", function () {
+
+        validateInteger(
+            promotions,
+            0,
+            20,
+            "Number of promotions"
+        );
+
+    });
+
+
+    /* =========================================================
+       EMPLOYEE REFERENCE
+    ========================================================= */
+
+    employeeReference.addEventListener("input", function () {
+
+        const value = employeeReference.value.trim();
+
+        if (value === "") {
+
+            employeeReference.setCustomValidity("");
+
+            return;
+        }
+
+        const validPattern = /^[A-Za-z0-9_-]+$/;
+
+        if (!validPattern.test(value)) {
+
+            employeeReference.setCustomValidity(
+                "Employee Reference can contain only letters, numbers, hyphens and underscores."
+            );
+
+        } else {
+
+            employeeReference.setCustomValidity("");
+
+        }
+
+    });
+
+
+    /* =========================================================
+       COMPANY TENURE CROSS-FIELD VALIDATION
+    ========================================================= */
+
+    function validateCompanyTenure() {
+
+        const years = Number(yearsAtCompany.value);
+        const months = Number(companyTenure.value);
+
+
+        if (
+            yearsAtCompany.value === "" ||
+            companyTenure.value === "" ||
+            !Number.isFinite(years) ||
+            !Number.isFinite(months)
+        ) {
+
+            /*
+             * Do not clear another validation error such as
+             * "Company tenure must be between 0 and 600."
+             */
+
+            if (
+                companyTenure.value === "" ||
+                (
+                    Number.isFinite(months) &&
+                    months >= 0 &&
+                    months <= 600 &&
+                    Number.isInteger(months)
+                )
+            ) {
+                companyTenure.setCustomValidity("");
+            }
+
+            return;
+        }
+
+
+        const expectedMonths = years * 12;
+
+
+        if (months < expectedMonths) {
+
+            companyTenure.setCustomValidity(
+                "Company tenure cannot be less than Years at Company converted to months."
+            );
+
+        } else {
+
+            /*
+             * Only clear the cross-field error if the value itself
+             * is otherwise valid.
+             */
+
+            if (
+                Number.isInteger(months) &&
+                months >= 0 &&
+                months <= 600
+            ) {
+                companyTenure.setCustomValidity("");
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       FORM SUBMISSION
+    ========================================================= */
+
+    form.addEventListener("submit", function (event) {
+
+        let valid = true;
+
+
+        /* -----------------------------------------
+           RUN CUSTOM VALIDATIONS
+        ----------------------------------------- */
+
+        validateInteger(
+            age,
+            18,
+            90,
+            "Age"
+        );
+
+        validateInteger(
+            dependents,
+            0,
+            20,
+            "Number of dependents"
+        );
+
+        validateInteger(
+            yearsAtCompany,
+            0,
+            50,
+            "Years at company"
+        );
+
+        validateNumber(
+            monthlyIncome,
+            0.01,
+            10000000,
+            "Monthly income"
+        );
+
+        validateInteger(
+            companyTenure,
+            0,
+            600,
+            "Company tenure"
+        );
+
+        validateNumber(
+            distance,
+            0,
+            500,
+            "Distance from home"
+        );
+
+        validateInteger(
+            promotions,
+            0,
+            20,
+            "Number of promotions"
+        );
+
+
+        /* -----------------------------------------
+           CROSS-FIELD VALIDATION
+        ----------------------------------------- */
+
+        validateCompanyTenure();
+
+
+        /* -----------------------------------------
+           CHECK FORM
+        ----------------------------------------- */
+
+        if (!form.checkValidity()) {
+
+            valid = false;
+
+            form.reportValidity();
+
+        }
+
+
+        /* -----------------------------------------
+           PREVENT SUBMISSION IF INVALID
+        ----------------------------------------- */
+
+        if (!valid) {
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           PREVENT DOUBLE SUBMISSION
+        ----------------------------------------- */
+
+        predictButton.disabled = true;
+
+        predictButton.innerHTML =
+            'Analysing... <span style="margin-left: 8px;">↗</span>';
+
+    });
+
+
+</script>
+
 </body>
+
 </html>

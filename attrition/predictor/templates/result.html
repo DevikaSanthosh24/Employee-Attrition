@@ -175,7 +175,7 @@
 
 
     <!-- =====================================================
-         POSSIBLE REASONS
+         RECOMMENDED HR ACTIONS
     ===================================================== -->
 
     <div class="suggestions">
@@ -183,47 +183,112 @@
 
         <div class="card-label">
 
-            MODEL EXPLANATION
+            HR INSIGHTS
 
         </div>
 
 
         <h2>
 
-            Possible Reasons
+            Recommended HR Actions
 
         </h2>
 
 
-        {% if shap_explanation %}
+        <p style="
+            margin-top: 0;
+            line-height: 1.7;
+        ">
 
-            <ul>
+            {% if risk == "High Risk" %}
+
+                Based on the factors that most influenced
+                this prediction, HR may consider the following
+                areas for review:
+
+            {% elif risk == "Moderate Risk" %}
+
+                The following areas may be considered for
+                employee support and retention planning:
+
+            {% else %}
+
+                The following practices may help maintain
+                a positive employee experience:
+
+            {% endif %}
+
+        </p>
 
 
-                {% for item in shap_explanation %}
+        {% if suggested_actions %}
 
-                    <li>
+            <div class="action-list">
 
-                        {{ item.feature }}
 
-                    </li>
+                {% for item in suggested_actions %}
+
+                    <div class="action-item"
+                         style="
+                            padding: 15px;
+                            margin-bottom: 12px;
+                            border-left: 4px solid #633F52;
+                            background: rgba(99, 63, 82, 0.06);
+                            border-radius: 6px;
+                         ">
+
+
+                        <strong>
+
+                            {{ item.feature }}
+
+                        </strong>
+
+
+                        <p style="
+                            margin: 7px 0 0 0;
+                            line-height: 1.6;
+                         ">
+
+                            {{ item.action }}
+
+                        </p>
+
+
+                    </div>
 
                 {% endfor %}
 
 
-            </ul>
+            </div>
 
 
         {% else %}
 
             <p>
 
-                Possible reasons are currently unavailable
-                for this prediction.
+                No specific modifiable factors were identified
+                for an HR action from the current prediction.
 
             </p>
 
         {% endif %}
+
+
+        <p style="
+            margin-top: 18px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            opacity: 0.75;
+        ">
+
+            These suggestions are based on model-derived
+            prediction patterns and are intended to support
+            HR review. They do not establish the actual cause
+            of employee attrition and should not be used as
+            the sole basis for employment decisions.
+
+        </p>
 
 
     </div>
@@ -257,7 +322,9 @@
 
                 The model estimates a relatively high
                 probability that this employee may leave
-                the organization.
+                the organization. HR may use this result
+                to identify areas where additional support
+                or discussion could be appropriate.
 
             </p>
 
@@ -267,9 +334,10 @@
 
             <p>
 
-                The model identifies a moderate level
-                of potential attrition risk for this
-                employee.
+                The model identifies a moderate level of
+                potential attrition risk. This can be used
+                as an early indicator for monitoring and
+                employee engagement.
 
             </p>
 
@@ -280,8 +348,9 @@
             <p>
 
                 The model estimates a relatively low
-                probability that this employee may leave
-                the organization.
+                probability of employee attrition. HR can
+                continue supporting the practices that
+                contribute to a positive employee experience.
 
             </p>
 
@@ -293,126 +362,35 @@
 
 
     <!-- =====================================================
-         SUGGESTED ACTIONS
+         MODEL LIMITATION
     ===================================================== -->
 
-    <div class="suggestions">
+    <div class="meaning">
 
 
         <div class="card-label">
 
-            HR INSIGHTS
+            MODEL NOTE
 
         </div>
 
 
         <h2>
 
-            Suggested Actions
+            Important Note
 
         </h2>
 
 
-        <ul>
+        <p>
 
+            This prediction represents patterns learned by
+            the trained machine learning model. It is an
+            estimate rather than a certainty and should be
+            considered together with appropriate HR judgement
+            and other relevant information.
 
-            {% if risk == "High Risk" %}
-
-
-                <li>
-
-                    Review workload and overtime concerns.
-
-                </li>
-
-
-                <li>
-
-                    Discuss job satisfaction and workplace concerns.
-
-                </li>
-
-
-                <li>
-
-                    Review career growth and promotion opportunities.
-
-                </li>
-
-
-                <li>
-
-                    Consider recognition and retention initiatives.
-
-                </li>
-
-
-            {% elif risk == "Moderate Risk" %}
-
-
-                <li>
-
-                    Review workload and work-life balance.
-
-                </li>
-
-
-                <li>
-
-                    Discuss career growth opportunities.
-
-                </li>
-
-
-                <li>
-
-                    Review employee recognition.
-
-                </li>
-
-
-                <li>
-
-                    Monitor job satisfaction.
-
-                </li>
-
-
-            {% else %}
-
-
-                <li>
-
-                    Continue recognizing good performance.
-
-                </li>
-
-
-                <li>
-
-                    Maintain a healthy work-life balance.
-
-                </li>
-
-
-                <li>
-
-                    Provide opportunities for career development.
-
-                </li>
-
-
-                <li>
-
-                    Encourage continued employee engagement.
-
-                </li>
-
-
-            {% endif %}
-
-
-        </ul>
+        </p>
 
 
     </div>

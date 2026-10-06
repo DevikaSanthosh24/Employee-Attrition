@@ -7,11 +7,19 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Employee Attrition Dashboard</title>
 
+
     <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
 
         * {
             box-sizing: border-box;
@@ -32,10 +40,16 @@
             text-decoration: none;
         }
 
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
 
-        /* =====================================================
+
+        /* =========================================================
            MAIN LAYOUT
-        ===================================================== */
+        ========================================================= */
 
         .dashboard-wrapper {
             min-height: 100vh;
@@ -43,9 +57,9 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            SIDEBAR
-        ===================================================== */
+        ========================================================= */
 
         .sidebar {
             position: fixed;
@@ -74,7 +88,6 @@
             overflow: hidden;
         }
 
-
         .sidebar::after {
             content: "";
 
@@ -94,20 +107,23 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            BRAND
-        ===================================================== */
+        ========================================================= */
 
         .brand {
             position: relative;
             z-index: 2;
+
             margin-bottom: 42px;
         }
 
         .brand-top {
             display: flex;
             align-items: center;
+
             gap: 11px;
+
             margin-bottom: 7px;
         }
 
@@ -126,10 +142,17 @@
 
             font-size: 18px;
             font-weight: bold;
+
+            box-shadow:
+                0 7px 16px
+                rgba(141, 83, 111, 0.25);
         }
 
         .brand-name {
-            font-family: Georgia, "Times New Roman", serif;
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
             font-size: 17px;
             font-weight: bold;
@@ -147,9 +170,9 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            NAVIGATION
-        ===================================================== */
+        ========================================================= */
 
         .navigation {
             position: relative;
@@ -182,6 +205,7 @@
 
         .nav-link:hover {
             background: rgba(255, 255, 255, 0.08);
+
             transform: translateX(2px);
         }
 
@@ -196,14 +220,16 @@
 
         .nav-icon {
             width: 22px;
+
             text-align: center;
+
             font-size: 17px;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            SIDEBAR BOTTOM
-        ===================================================== */
+        ========================================================= */
 
         .sidebar-bottom {
             position: relative;
@@ -223,13 +249,14 @@
                 serif;
 
             font-size: 13px;
+
             line-height: 1.5;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            MAIN CONTENT
-        ===================================================== */
+        ========================================================= */
 
         .main-content {
             margin-left: 245px;
@@ -244,12 +271,13 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            PAGE HEADER
-        ===================================================== */
+        ========================================================= */
 
         .page-header {
             display: flex;
+
             align-items: flex-start;
             justify-content: space-between;
 
@@ -267,6 +295,7 @@
             font-weight: bold;
 
             letter-spacing: 2px;
+
             text-transform: uppercase;
         }
 
@@ -291,13 +320,14 @@
             color: #756871;
 
             font-size: 14px;
+
             line-height: 1.5;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            DATE CARD
-        ===================================================== */
+        ========================================================= */
 
         .date-card {
             flex-shrink: 0;
@@ -329,13 +359,14 @@
             color: #493542;
 
             font-size: 13px;
+
             font-weight: bold;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            SECTION
-        ===================================================== */
+        ========================================================= */
 
         .section-heading {
             margin: 0 0 15px;
@@ -343,6 +374,7 @@
             color: #765266;
 
             font-size: 18px;
+
             font-weight: bold;
         }
 
@@ -355,15 +387,15 @@
         }
 
 
-        /* =====================================================
-           SUMMARY CARDS
-        ===================================================== */
+        /* =========================================================
+           KPI CARDS
+        ========================================================= */
 
         .summary-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+                repeat(3, minmax(0, 1fr));
 
             gap: 18px;
 
@@ -373,7 +405,7 @@
         .summary-card {
             position: relative;
 
-            min-height: 145px;
+            min-height: 150px;
 
             padding: 21px;
 
@@ -407,11 +439,11 @@
 
             position: absolute;
 
-            width: 100px;
-            height: 100px;
+            width: 105px;
+            height: 105px;
 
             right: -40px;
-            bottom: -45px;
+            bottom: -48px;
 
             border-radius: 50%;
 
@@ -419,8 +451,8 @@
         }
 
         .summary-icon {
-            width: 39px;
-            height: 39px;
+            width: 40px;
+            height: 40px;
 
             display: flex;
             align-items: center;
@@ -431,6 +463,7 @@
             margin-bottom: 13px;
 
             font-size: 17px;
+
             font-weight: bold;
         }
 
@@ -441,17 +474,12 @@
 
         .icon-leave {
             background: #F5D9DC;
-            color: #9C4653;
+            color: #913D4A;
         }
 
         .icon-stay {
             background: #DCEBDD;
-            color: #4E7B5B;
-        }
-
-        .icon-risk {
-            background: #F3E2C5;
-            color: #9B6A27;
+            color: #4C7458;
         }
 
         .summary-label {
@@ -460,6 +488,7 @@
             color: #715768;
 
             font-size: 12px;
+
             font-weight: bold;
         }
 
@@ -474,6 +503,7 @@
                 serif;
 
             font-size: 34px;
+
             font-weight: bold;
         }
 
@@ -485,17 +515,25 @@
             font-size: 11px;
         }
 
+        .summary-rate {
+            margin-top: 8px;
 
-        /* =====================================================
-           ANALYTICS GRID
-        ===================================================== */
+            color: #8D536F;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+           SYSTEM OVERVIEW
+        ========================================================= */
 
         .analytics-grid {
             display: grid;
 
-            grid-template-columns:
-                minmax(0, 1.65fr)
-                minmax(330px, 0.95fr);
+            grid-template-columns: 1fr;
 
             gap: 20px;
 
@@ -503,8 +541,8 @@
         }
 
         .system-card,
-        .risk-card,
-        .recent-card {
+        .recent-card,
+        .chart-card {
             background: #FFFCF7;
 
             border: 1px solid #DED3C7;
@@ -517,11 +555,12 @@
         }
 
 
-        /* =====================================================
-           SYSTEM CARD
-        ===================================================== */
+        /* =========================================================
+           CARD HEADINGS
+        ========================================================= */
 
-        .system-card {
+        .system-card,
+        .chart-card {
             padding: 25px;
         }
 
@@ -577,6 +616,11 @@
             line-height: 1.5;
         }
 
+
+        /* =========================================================
+           SYSTEM STATS
+        ========================================================= */
+
         .system-stats {
             display: grid;
 
@@ -624,7 +668,6 @@
             color: #653D56;
 
             font-size: 12px;
-            font-weight: bold;
         }
 
         .system-stat-value {
@@ -653,176 +696,32 @@
         }
 
 
-        /* =====================================================
-           RISK CARD
-        ===================================================== */
+        /* =========================================================
+           CHART SECTION
+        ========================================================= */
 
-        .risk-card {
-            padding: 25px;
+        .chart-grid {
+            display: grid;
 
-            min-width: 0;
-
-            overflow: hidden;
-        }
-
-        .risk-content {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
+            grid-template-columns: 1fr;
 
             gap: 20px;
 
-            margin-top: 18px;
-
-            min-width: 0;
+            margin-bottom: 25px;
         }
 
-
-        /* =====================================================
-           DONUT
-        ===================================================== */
-
-        .donut {
+        .chart-container {
             position: relative;
 
-            width: 125px;
-            height: 125px;
+            height: 300px;
 
-            flex: 0 0 125px;
-
-            border-radius: 50%;
-
-            background:
-                conic-gradient(
-                    #B65A73 0deg,
-                    #B65A73 var(--high-angle),
-                    #D29A43 var(--high-angle),
-                    #D29A43 var(--moderate-angle),
-                    #75A085 var(--moderate-angle),
-                    #75A085 360deg
-                );
-        }
-
-        .donut::before {
-            content: "";
-
-            position: absolute;
-
-            inset: 23px;
-
-            border-radius: 50%;
-
-            background: #FFFCF7;
-        }
-
-        .donut-center {
-            position: absolute;
-
-            inset: 0;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            z-index: 2;
-        }
-
-        .donut-center strong {
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 18px;
-        }
-
-        .donut-center span {
-            margin-top: 2px;
-
-            color: #887982;
-
-            font-size: 10px;
+            margin-top: 15px;
         }
 
 
-        /* =====================================================
-           RISK LEGEND
-        ===================================================== */
-
-        .risk-legend {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 13px;
-
-            min-width: 135px;
-
-            flex: 1;
-        }
-
-        .risk-item {
-            display: grid;
-
-            grid-template-columns:
-                9px minmax(0, 1fr) auto;
-
-            align-items: center;
-
-            gap: 7px;
-
-            width: 100%;
-        }
-
-        .risk-dot {
-            width: 9px;
-            height: 9px;
-
-            border-radius: 50%;
-        }
-
-        .risk-high {
-            background: #B65A73;
-        }
-
-        .risk-moderate {
-            background: #D29A43;
-        }
-
-        .risk-low {
-            background: #75A085;
-        }
-
-        .risk-name {
-            color: #51434C;
-
-            font-size: 11px;
-
-            white-space: nowrap;
-        }
-
-        .risk-count {
-            color: #74636D;
-
-            font-size: 11px;
-
-            font-weight: bold;
-
-            white-space: nowrap;
-        }
-
-
-        /* =====================================================
+        /* =========================================================
            RECENT PREDICTIONS
-        ===================================================== */
+        ========================================================= */
 
         .recent-card {
             padding: 23px;
@@ -834,7 +733,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: space-between;
 
             gap: 15px;
@@ -878,9 +776,9 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            TABLE
-        ===================================================== */
+        ========================================================= */
 
         .table-wrapper {
             width: 100%;
@@ -891,7 +789,7 @@
         .prediction-table {
             width: 100%;
 
-            min-width: 920px;
+            min-width: 950px;
 
             border-collapse: collapse;
         }
@@ -934,20 +832,26 @@
             white-space: nowrap;
         }
 
+        .prediction-table tbody tr {
+            transition: background 0.15s ease;
+        }
+
         .prediction-table tbody tr:hover {
             background: #FAF4EE;
         }
 
 
-        /* =====================================================
+        /* =========================================================
            BADGES
-        ===================================================== */
+        ========================================================= */
 
         .prediction-badge,
         .risk-badge {
             display: inline-flex;
 
             align-items: center;
+
+            gap: 5px;
 
             padding: 5px 10px;
 
@@ -958,16 +862,19 @@
             font-weight: bold;
         }
 
-        .leave-badge,
-        .high-badge {
+        .leave-badge {
             background: #F5D9DC;
             color: #913D4A;
         }
 
-        .stay-badge,
-        .low-badge {
+        .stay-badge {
             background: #DCEBDD;
             color: #4C7458;
+        }
+
+        .high-badge {
+            background: #F5D9DC;
+            color: #913D4A;
         }
 
         .moderate-badge {
@@ -975,10 +882,15 @@
             color: #8D6224;
         }
 
+        .low-badge {
+            background: #DCEBDD;
+            color: #4C7458;
+        }
 
-        /* =====================================================
+
+        /* =========================================================
            PROBABILITY
-        ===================================================== */
+        ========================================================= */
 
         .probability-wrapper {
             display: flex;
@@ -995,8 +907,8 @@
         }
 
         .probability-bar {
-            width: 55px;
-            height: 5px;
+            width: 65px;
+            height: 6px;
 
             overflow: hidden;
 
@@ -1018,12 +930,12 @@
         }
 
 
-        /* =====================================================
+        /* =========================================================
            EMPTY STATE
-        ===================================================== */
+        ========================================================= */
 
         .empty-state {
-            padding: 45px 20px;
+            padding: 55px 20px;
 
             text-align: center;
 
@@ -1031,48 +943,129 @@
         }
 
         .empty-icon {
-            font-size: 30px;
+            width: 54px;
+            height: 54px;
 
-            margin-bottom: 10px;
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #E8DCE5;
+
+            color: #8D536F;
+
+            font-size: 24px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 7px;
+
+            color: #4B3945;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 18px;
         }
 
         .empty-state p {
-            margin: 0;
+            margin: 0 auto 18px;
 
-            font-size: 13px;
+            max-width: 430px;
+
+            color: #85777F;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        .empty-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 10px 17px;
+
+            border-radius: 8px;
+
+            background: #8D536F;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            transition: background 0.2s ease;
+        }
+
+        .empty-button:hover {
+            background: #633F52;
         }
 
 
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
+        /* =========================================================
+           FOOTER NOTE
+        ========================================================= */
 
-        @media (max-width: 1100px) {
+        .dashboard-note {
+            margin-top: 22px;
+
+            padding: 13px 16px;
+
+            border-left: 3px solid #8D536F;
+
+            background: rgba(141, 83, 111, 0.07);
+
+            color: #756871;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1150px) {
 
             .sidebar {
-                width: 210px;
+                width: 215px;
             }
 
             .main-content {
-                margin-left: 210px;
+                margin-left: 215px;
 
-                width: calc(100% - 210px);
+                width: calc(100% - 215px);
 
                 padding: 30px 25px 40px;
             }
 
             .summary-grid {
                 grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .summary-grid {
+                grid-template-columns:
                     repeat(2, minmax(0, 1fr));
             }
 
-            .analytics-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .risk-content {
-                justify-content: flex-start;
-            }
         }
 
 
@@ -1089,7 +1082,7 @@
 
                 height: auto;
 
-                padding: 20px;
+                padding: 18px 20px;
 
                 flex-direction: row;
 
@@ -1144,14 +1137,11 @@
             }
 
             .summary-card {
-                min-height: 130px;
+                min-height: 135px;
 
                 padding: 17px;
             }
 
-            .risk-content {
-                justify-content: center;
-            }
         }
 
 
@@ -1181,20 +1171,20 @@
                 padding-top: 20px;
             }
 
-            .risk-content {
-                flex-direction: column;
-
-                align-items: center;
+            .chart-container {
+                height: 260px;
             }
 
-            .risk-legend {
-                width: 100%;
-
-                max-width: 220px;
-            }
         }
 
     </style>
+
+
+    <!-- Chart.js -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
 
 </head>
 
@@ -1225,6 +1215,7 @@
 
             </div>
 
+
             <div class="brand-subtitle">
                 Employee Attrition<br>
                 Prediction System
@@ -1239,11 +1230,15 @@
                 href="{% url 'dashboard' %}"
                 class="nav-link active"
             >
-                <span class="nav-icon">⌂</span>
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
 
                 <span class="nav-text">
                     Dashboard
                 </span>
+
             </a>
 
 
@@ -1251,11 +1246,15 @@
                 href="{% url 'home' %}"
                 class="nav-link"
             >
-                <span class="nav-icon">⊕</span>
+
+                <span class="nav-icon">
+                    ⊕
+                </span>
 
                 <span class="nav-text">
                     New Prediction
                 </span>
+
             </a>
 
 
@@ -1263,11 +1262,15 @@
                 href="{% url 'industry_predictions' %}"
                 class="nav-link"
             >
-                <span class="nav-icon">◫</span>
+
+                <span class="nav-icon">
+                    ◫
+                </span>
 
                 <span class="nav-text">
                     Industry Analysis
                 </span>
+
             </a>
 
 
@@ -1275,11 +1278,15 @@
                 href="{% url 'admin_logout' %}"
                 class="nav-link"
             >
-                <span class="nav-icon">⇥</span>
+
+                <span class="nav-icon">
+                    ⇥
+                </span>
 
                 <span class="nav-text">
                     Logout
                 </span>
+
             </a>
 
         </nav>
@@ -1297,7 +1304,6 @@
     </aside>
 
 
-
     <!-- =====================================================
          MAIN CONTENT
     ====================================================== -->
@@ -1305,7 +1311,9 @@
     <main class="main-content">
 
 
-        <!-- PAGE HEADER -->
+        <!-- =================================================
+             PAGE HEADER
+        ================================================= -->
 
         <header class="page-header">
 
@@ -1321,7 +1329,7 @@
 
                 <p class="page-description">
                     Overview of employee attrition predictions
-                    and workforce risk analysis.
+                    and workforce analysis.
                 </p>
 
             </div>
@@ -1345,8 +1353,9 @@
         </header>
 
 
-
-        <!-- PREDICTION OVERVIEW -->
+        <!-- =================================================
+             PREDICTION OVERVIEW
+        ================================================= -->
 
         <h2 class="section-heading">
             Prediction Overview
@@ -1355,11 +1364,14 @@
         <div class="section-line"></div>
 
 
-
-        <!-- SUMMARY CARDS -->
+        <!-- =================================================
+             KPI CARDS
+        ================================================= -->
 
         <section class="summary-grid">
 
+
+            <!-- TOTAL -->
 
             <div class="summary-card">
 
@@ -1382,6 +1394,7 @@
             </div>
 
 
+            <!-- LEAVE -->
 
             <div class="summary-card">
 
@@ -1398,12 +1411,15 @@
                 </p>
 
                 <p class="summary-description">
-                    Employees at risk of attrition
+                    Employees predicted to leave
                 </p>
+
+                
 
             </div>
 
 
+            <!-- STAY -->
 
             <div class="summary-card">
 
@@ -1420,43 +1436,23 @@
                 </p>
 
                 <p class="summary-description">
-                    Employees likely to remain
+                    Employees predicted to stay
                 </p>
+
+                
 
             </div>
 
-
-
-            <div class="summary-card">
-
-                <div class="summary-icon icon-risk">
-                    ⚠
-                </div>
-
-                <p class="summary-label">
-                    High Risk
-                </p>
-
-                <p class="summary-value">
-                    {{ high_risk_count }}
-                </p>
-
-                <p class="summary-description">
-                    High attrition probability
-                </p>
-
-            </div>
 
         </section>
 
 
-
-        <!-- ANALYTICS -->
+        <!-- =================================================
+             SYSTEM OVERVIEW
+        ================================================= -->
 
         <section class="analytics-grid">
 
-
-            <!-- SYSTEM CARD -->
 
             <div class="system-card">
 
@@ -1475,12 +1471,14 @@
 
                 <p class="card-description">
                     Machine-learning based analysis of employee
-                    attrition probability and risk level.
+                    attrition probability and workforce outcomes.
                 </p>
 
 
                 <div class="system-stats">
 
+
+                    <!-- PREDICTIONS -->
 
                     <div class="system-stat">
 
@@ -1490,7 +1488,7 @@
                                 ◎
                             </span>
 
-                            Prediction Status
+                            Predictions Recorded
 
                         </div>
 
@@ -1499,12 +1497,13 @@
                         </p>
 
                         <p class="system-stat-note">
-                            predictions recorded in the system
+                            employee records analyzed
                         </p>
 
                     </div>
 
 
+                    <!-- MODEL INPUTS -->
 
                     <div class="system-stat">
 
@@ -1523,7 +1522,7 @@
                         </p>
 
                         <p class="system-stat-note">
-                            employee features used for prediction
+                            employee features used by the model
                         </p>
 
                     </div>
@@ -1534,97 +1533,39 @@
             </div>
 
 
+        </section>
 
-            <!-- RISK DISTRIBUTION -->
 
-            <div class="risk-card">
+        <!-- =================================================
+             STAY / LEAVE CHART
+        ================================================= -->
 
+        <section class="chart-grid">
+
+
+            <div class="chart-card">
 
                 <div class="card-heading">
 
                     <div class="card-heading-icon">
-                        ◔
+                        ◉
                     </div>
 
                     <h2>
-                        Risk Distribution
+                        Stay vs Leave
                     </h2>
 
                 </div>
 
 
-                <div class="risk-content">
+                <p class="card-description">
+                    Distribution of predicted employee outcomes.
+                </p>
 
 
-                    <div
-                        class="donut"
-                        id="riskDonut"
-                    >
+                <div class="chart-container">
 
-                        <div class="donut-center">
-
-                            <strong>
-                                {{ total_predictions }}
-                            </strong>
-
-                            <span>
-                                Total
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="risk-legend">
-
-
-                        <div class="risk-item">
-
-                            <span class="risk-dot risk-high"></span>
-
-                            <span class="risk-name">
-                                High Risk
-                            </span>
-
-                            <span class="risk-count">
-                                {{ high_risk_count }}
-                            </span>
-
-                        </div>
-
-
-                        <div class="risk-item">
-
-                            <span class="risk-dot risk-moderate"></span>
-
-                            <span class="risk-name">
-                                Moderate Risk
-                            </span>
-
-                            <span class="risk-count">
-                                0
-                            </span>
-
-                        </div>
-
-
-                        <div class="risk-item">
-
-                            <span class="risk-dot risk-low"></span>
-
-                            <span class="risk-name">
-                                Low Risk
-                            </span>
-
-                            <span class="risk-count">
-                                0
-                            </span>
-
-                        </div>
-
-
-                    </div>
+                    <canvas id="stayLeaveChart"></canvas>
 
                 </div>
 
@@ -1634,8 +1575,9 @@
         </section>
 
 
-
-        <!-- RECENT PREDICTIONS -->
+        <!-- =================================================
+             RECENT PREDICTIONS
+        ================================================= -->
 
         <section class="recent-card">
 
@@ -1665,7 +1607,6 @@
             </div>
 
 
-
             <div class="table-wrapper">
 
 
@@ -1679,27 +1620,45 @@
 
                         <tr>
 
-                            <th>Date</th>
+                            <th>
+                                Date
+                            </th>
 
-                            <!-- Employee ID added -->
+                            <th>
+                                Employee ID
+                            </th>
 
-                            <th>Employee ID</th>
+                            <th>
+                                Age
+                            </th>
 
-                            <th>Age</th>
+                            <th>
+                                Industry
+                            </th>
 
-                            <th>Industry</th>
+                            <th>
+                                Years
+                            </th>
 
-                            <th>Years</th>
+                            <th>
+                                Job Level
+                            </th>
 
-                            <th>Job Level</th>
+                            <th>
+                                Income
+                            </th>
 
-                            <th>Income</th>
+                            <th>
+                                Prediction
+                            </th>
 
-                            <th>Prediction</th>
+                            <th>
+                                Probability
+                            </th>
 
-                            <th>Probability</th>
-
-                            <th>Risk</th>
+                            <th>
+                                Risk
+                            </th>
 
                         </tr>
 
@@ -1715,12 +1674,14 @@
                         <tr>
 
 
+                            <!-- DATE -->
+
                             <td>
                                 {{ p.created_at|date:"d M Y, H:i" }}
                             </td>
 
 
-                            <!-- Employee ID -->
+                            <!-- EMPLOYEE ID -->
 
                             <td>
 
@@ -1737,49 +1698,69 @@
                             </td>
 
 
+                            <!-- AGE -->
+
                             <td>
                                 {{ p.age }}
                             </td>
 
+
+                            <!-- INDUSTRY -->
 
                             <td>
                                 {{ p.job_role }}
                             </td>
 
 
+                            <!-- YEARS -->
+
                             <td>
                                 {{ p.years_at_company }}
                             </td>
 
+
+                            <!-- JOB LEVEL -->
 
                             <td>
                                 {{ p.job_level }}
                             </td>
 
 
+                            <!-- INCOME -->
+
                             <td>
                                 ₹{{ p.monthly_income|floatformat:0 }}
                             </td>
 
 
+                            <!-- PREDICTION -->
+
                             <td>
 
                                 {% if p.prediction == "Employee likely to LEAVE" %}
 
-                                    <span class="prediction-badge leave-badge">
-                                        Leave
+                                    <span
+                                        class="prediction-badge leave-badge"
+                                        aria-label="Prediction: Leave"
+                                    >
+                                        ● Leave
                                     </span>
 
                                 {% else %}
 
-                                    <span class="prediction-badge stay-badge">
-                                        Stay
+                                    <span
+                                        class="prediction-badge stay-badge"
+                                        aria-label="Prediction: Stay"
+                                    >
+                                        ● Stay
                                     </span>
 
                                 {% endif %}
 
                             </td>
 
+
+                            <!-- PROBABILITY -->
 
                             <td>
 
@@ -1803,24 +1784,35 @@
                             </td>
 
 
+                            <!-- INDIVIDUAL RISK -->
+
                             <td>
 
                                 {% if p.risk == "High Risk" %}
 
-                                    <span class="risk-badge high-badge">
-                                        High Risk
+                                    <span
+                                        class="risk-badge high-badge"
+                                        aria-label="High Risk"
+                                    >
+                                        ● High Risk
                                     </span>
 
                                 {% elif p.risk == "Moderate Risk" %}
 
-                                    <span class="risk-badge moderate-badge">
-                                        Moderate Risk
+                                    <span
+                                        class="risk-badge moderate-badge"
+                                        aria-label="Moderate Risk"
+                                    >
+                                        ● Moderate Risk
                                     </span>
 
                                 {% else %}
 
-                                    <span class="risk-badge low-badge">
-                                        Low Risk
+                                    <span
+                                        class="risk-badge low-badge"
+                                        aria-label="Low Risk"
+                                    >
+                                        ● Low Risk
                                     </span>
 
                                 {% endif %}
@@ -1842,15 +1834,30 @@
                 {% else %}
 
 
+                <!-- EMPTY STATE -->
+
                 <div class="empty-state">
 
                     <div class="empty-icon">
                         ◌
                     </div>
 
+                    <h3>
+                        No predictions yet
+                    </h3>
+
                     <p>
-                        No predictions have been recorded yet.
+                        Start by entering employee information.
+                        Your prediction history and analytics
+                        will appear here.
                     </p>
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="empty-button"
+                    >
+                        + Make First Prediction
+                    </a>
 
                 </div>
 
@@ -1863,25 +1870,43 @@
         </section>
 
 
+        <!-- =================================================
+             DECISION SUPPORT NOTE
+        ================================================= -->
+
+        <div class="dashboard-note">
+
+            <strong>Decision support:</strong>
+
+            Predictions are intended to support HR analysis
+            and should not be used as the sole basis for
+            employment decisions.
+
+        </div>
+
+
     </main>
+
 
 </div>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script>
 
 
-    /* =====================================================
+    /* =========================================================
        CURRENT DATE
-    ===================================================== */
+    ========================================================= */
 
     const dateElement =
         document.getElementById("currentDate");
 
-
-    const today = new Date();
-
+    const today =
+        new Date();
 
     dateElement.textContent =
         today.toLocaleDateString(
@@ -1894,19 +1919,9 @@
         );
 
 
-
-    /* =====================================================
+    /* =========================================================
        PROBABILITY BARS
-
-       Django value is stored in data-probability.
-       JavaScript applies it to the width.
-
-       This avoids putting:
-
-       {{ p.probability }}
-
-       directly inside CSS.
-    ===================================================== */
+    ========================================================= */
 
     const probabilityBars =
         document.querySelectorAll(
@@ -1942,107 +1957,116 @@
     });
 
 
+    /* =========================================================
+       STAY / LEAVE COUNTS
+    ========================================================= */
 
-    /* =====================================================
-       RISK DISTRIBUTION
-    ===================================================== */
-
-    const riskBadges =
-        document.querySelectorAll(
-            ".risk-badge"
+    const stayCount =
+        Number(
+            "{{ stay_count|default:'0' }}"
         );
 
 
-    let highRisk = 0;
-
-    let moderateRisk = 0;
-
-    let lowRisk = 0;
-
-
-    riskBadges.forEach(function(badge) {
-
-        const text =
-            badge.textContent.trim();
+    const leaveCount =
+        Number(
+            "{{ leave_count|default:'0' }}"
+        );
 
 
-        if (text === "High Risk") {
+    /* =========================================================
+       CHART DEFAULTS
+    ========================================================= */
 
-            highRisk++;
+    Chart.defaults.font.family =
+        '"Trebuchet MS", Arial, sans-serif';
 
-        }
-        else if (text === "Moderate Risk") {
-
-            moderateRisk++;
-
-        }
-        else if (text === "Low Risk") {
-
-            lowRisk++;
-
-        }
-
-    });
+    Chart.defaults.color =
+        "#756871";
 
 
+    /* =========================================================
+       STAY VS LEAVE CHART
+    ========================================================= */
 
-    /* =====================================================
-       DONUT CHART
-    ===================================================== */
-
-    const totalRisk =
-        highRisk +
-        moderateRisk +
-        lowRisk;
-
-
-    const donut =
+    const stayLeaveCanvas =
         document.getElementById(
-            "riskDonut"
+            "stayLeaveChart"
         );
 
 
-    if (totalRisk > 0) {
+    if (stayLeaveCanvas) {
+
+        new Chart(
+            stayLeaveCanvas,
+            {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+                        "Stay",
+                        "Leave"
+                    ],
+
+                    datasets: [
+                        {
+
+                            data: [
+                                stayCount,
+                                leaveCount
+                            ],
+
+                            backgroundColor: [
+                                "#5D9672",
+                                "#C4515C"
+                            ],
+
+                            borderColor: "#FFFCF7",
+
+                            borderWidth: 5,
+
+                            hoverOffset: 7
+
+                        }
+                    ]
+
+                },
 
 
-        const highAngle =
-            (highRisk / totalRisk) * 360;
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    cutout: "68%",
 
 
-        const moderateAngle =
-            highAngle +
-            (
-                (moderateRisk / totalRisk)
-                * 360
-            );
+                    plugins: {
 
+                        legend: {
 
-        donut.style.background =
-            "conic-gradient(" +
+                            position: "bottom",
 
-            "#B65A73 0deg " +
+                            labels: {
 
-            highAngle +
-            "deg, " +
+                                padding: 18,
 
-            "#D29A43 " +
-            highAngle +
-            "deg " +
+                                usePointStyle: true,
 
-            moderateAngle +
-            "deg, " +
+                                pointStyle: "circle"
 
-            "#75A085 " +
-            moderateAngle +
-            "deg 360deg" +
+                            }
 
-            ")";
+                        }
 
-    }
-    else {
+                    }
 
-        donut.style.background =
-            "#D9CEC4";
+                }
+
+            }
+        );
 
     }
 

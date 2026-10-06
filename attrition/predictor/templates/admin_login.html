@@ -7,33 +7,50 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Admin Login</title>
+    <title>Admin Login | HR Analytics</title>
 
-    <link rel="stylesheet"
-          href="{% static 'style.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'style.css' %}"
+    >
 
     <style>
 
         /* =====================================================
            ADMIN LOGIN PAGE
+           IMPORTANT:
+           overflow-y is intentionally AUTO so the page can scroll.
         ===================================================== */
 
-        .login-page {
+        html {
+            min-height: 100%;
+            height: auto;
+        }
+
+        body.login-page {
 
             min-height: 100vh;
 
+            height: auto;
+
             margin: 0;
 
-            padding: 30px 20px;
+            padding: 40px 20px;
 
             display: flex;
 
-            align-items: center;
+            align-items: flex-start;
 
             justify-content: center;
+
+            overflow-x: hidden;
+
+            overflow-y: auto;
 
             background:
                 radial-gradient(
@@ -49,7 +66,7 @@
                 #241E24;
 
             font-family:
-                Trebuchet MS,
+                "Trebuchet MS",
                 Arial,
                 sans-serif;
 
@@ -78,6 +95,8 @@
             width: 100%;
 
             max-width: 440px;
+
+            margin: 20px 0;
 
             padding: 42px 42px 30px;
 
@@ -110,7 +129,9 @@
             position: absolute;
 
             top: 0;
+
             left: 0;
+
             right: 0;
 
             height: 4px;
@@ -190,7 +211,10 @@
 
             color: #F4EFE6;
 
-            font-family: Georgia, serif;
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
             font-size: 36px;
 
@@ -268,6 +292,10 @@
         }
 
 
+        /* =====================================================
+           INPUT
+        ===================================================== */
+
         .login-input {
 
             width: 100%;
@@ -289,7 +317,7 @@
             color: #F4EFE6;
 
             font-family:
-                Trebuchet MS,
+                "Trebuchet MS",
                 Arial,
                 sans-serif;
 
@@ -325,6 +353,76 @@
 
 
         /* =====================================================
+           PASSWORD WRAPPER
+        ===================================================== */
+
+        .password-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+        }
+
+
+        .password-wrapper .login-input {
+
+            padding-right: 50px;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD TOGGLE
+        ===================================================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            top: 50%;
+
+            right: 8px;
+
+            width: 36px;
+
+            height: 36px;
+
+            transform: translateY(-50%);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color:
+                rgba(244, 239, 230, 0.55);
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+
+        .password-toggle:hover {
+
+            background:
+                rgba(244, 239, 230, 0.08);
+
+            color: #F4EFE6;
+
+        }
+
+
+        /* =====================================================
            LOGIN BUTTON
         ===================================================== */
 
@@ -332,7 +430,7 @@
 
             width: 100%;
 
-            height: 49px;
+            min-height: 49px;
 
             margin-top: 5px;
 
@@ -350,7 +448,7 @@
             color: #F4EFE6;
 
             font-family:
-                Trebuchet MS,
+                "Trebuchet MS",
                 Arial,
                 sans-serif;
 
@@ -397,6 +495,86 @@
         }
 
 
+        .login-submit:disabled {
+
+            opacity: 0.7;
+
+            cursor: wait;
+
+            transform: none;
+
+        }
+
+
+        /* =====================================================
+           BUTTON CONTENT
+        ===================================================== */
+
+        .button-content {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+        }
+
+
+        /* =====================================================
+           LOADING SPINNER
+        ===================================================== */
+
+        .loading-spinner {
+
+            width: 15px;
+
+            height: 15px;
+
+            border:
+                2px solid rgba(255, 255, 255, 0.35);
+
+            border-top-color: white;
+
+            border-radius: 50%;
+
+            animation:
+                login-spin 0.7s linear infinite;
+
+        }
+
+
+        @keyframes login-spin {
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .login-security {
+
+            margin-top: 17px;
+
+            text-align: center;
+
+            color:
+                rgba(244, 239, 230, 0.35);
+
+            font-size: 10px;
+
+        }
+
+
         /* =====================================================
            FOOTER
         ===================================================== */
@@ -423,37 +601,23 @@
 
 
         /* =====================================================
-           SECURITY NOTE
-        ===================================================== */
-
-        .login-security {
-
-            margin-top: 17px;
-
-            text-align: center;
-
-            color:
-                rgba(244, 239, 230, 0.35);
-
-            font-size: 10px;
-
-        }
-
-
-        /* =====================================================
            MOBILE
         ===================================================== */
 
         @media (max-width: 600px) {
 
-            .login-page {
+            body.login-page {
 
                 padding: 20px 15px;
+
+                align-items: flex-start;
 
             }
 
 
             .login-card {
+
+                margin: 10px 0 20px;
 
                 padding: 32px 25px 25px;
 
@@ -470,6 +634,35 @@
 
         }
 
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            body.login-page {
+
+                padding: 12px 10px;
+
+            }
+
+
+            .login-card {
+
+                padding: 30px 20px 25px;
+
+            }
+
+
+            .login-header h1 {
+
+                font-size: 28px;
+
+            }
+
+        }
+
     </style>
 
 </head>
@@ -478,44 +671,43 @@
 <body class="login-page">
 
 
-    <div class="login-card">
+    <!-- =====================================================
+         LOGIN CARD
+    ===================================================== -->
+
+    <main class="login-card">
 
 
         <!-- =================================================
              ADMIN ICON
-        ================================================= -->
+        ================================================== -->
 
-        <div class="login-icon">
-
+        <div
+            class="login-icon"
+            aria-hidden="true"
+        >
             🔐
-
         </div>
 
 
         <!-- =================================================
              HEADER
-        ================================================= -->
+        ================================================== -->
 
         <div class="login-header">
 
             <div class="login-label">
-
                 SECURE ACCESS
-
             </div>
 
 
             <h1>
-
                 ADMIN LOGIN
-
             </h1>
 
 
             <p>
-
                 Employee Attrition Prediction System
-
             </p>
 
         </div>
@@ -523,11 +715,14 @@
 
         <!-- =================================================
              ERROR
-        ================================================= -->
+        ================================================== -->
 
         {% if error %}
 
-            <div class="login-error">
+            <div
+                class="login-error"
+                role="alert"
+            >
 
                 {{ error }}
 
@@ -538,19 +733,24 @@
 
         <!-- =================================================
              LOGIN FORM
-        ================================================= -->
+        ================================================== -->
 
-        <form method="POST">
+        <form
+            method="POST"
+            id="loginForm"
+        >
 
             {% csrf_token %}
 
 
+            <!-- =============================================
+                 USERNAME
+            ============================================== -->
+
             <div class="login-form-group">
 
                 <label for="username">
-
                     Username
-
                 </label>
 
 
@@ -560,6 +760,9 @@
                     name="username"
                     class="login-input"
                     placeholder="Enter admin username"
+                    autocomplete="username"
+                    minlength="3"
+                    maxlength="50"
                     required
                     autofocus
                 >
@@ -567,32 +770,67 @@
             </div>
 
 
+            <!-- =============================================
+                 PASSWORD
+            ============================================== -->
+
             <div class="login-form-group">
 
                 <label for="password">
-
                     Password
-
                 </label>
 
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="login-input"
-                    placeholder="Enter admin password"
-                    required
-                >
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="login-input"
+                        placeholder="Enter admin password"
+                        autocomplete="current-password"
+                        minlength="4"
+                        maxlength="100"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Show password"
+                        title="Show password"
+                    >
+                        👁
+                    </button>
+
+                </div>
 
             </div>
 
 
+            <!-- =================================================
+                 LOGIN BUTTON
+            ================================================== -->
+
             <button
                 type="submit"
-                class="login-submit">
+                class="login-submit"
+                id="loginSubmit"
+            >
 
-                LOGIN
+                <span
+                    class="button-content"
+                    id="buttonContent"
+                >
+
+                    <span id="buttonText">
+                        LOGIN
+                    </span>
+
+                </span>
 
             </button>
 
@@ -601,7 +839,7 @@
 
         <!-- =================================================
              SECURITY NOTE
-        ================================================= -->
+        ================================================== -->
 
         <div class="login-security">
 
@@ -612,7 +850,7 @@
 
         <!-- =================================================
              FOOTER
-        ================================================= -->
+        ================================================== -->
 
         <div class="login-footer">
 
@@ -621,7 +859,109 @@
         </div>
 
 
-    </div>
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =================================================
+           PASSWORD SHOW / HIDE
+        ================================================= */
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const passwordToggle =
+            document.getElementById("passwordToggle");
+
+
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    passwordInput.type === "password"
+                ) {
+
+                    passwordInput.type = "text";
+
+                    passwordToggle.textContent = "🙈";
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                    passwordToggle.setAttribute(
+                        "title",
+                        "Hide password"
+                    );
+
+                }
+
+                else {
+
+                    passwordInput.type = "password";
+
+                    passwordToggle.textContent = "👁";
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                    passwordToggle.setAttribute(
+                        "title",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           LOGIN LOADING STATE
+        ================================================= */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginSubmit =
+            document.getElementById("loginSubmit");
+
+        const buttonContent =
+            document.getElementById("buttonContent");
+
+
+        loginForm.addEventListener(
+            "submit",
+            function (event) {
+
+                if (!loginForm.checkValidity()) {
+
+                    return;
+
+                }
+
+
+                loginSubmit.disabled = true;
+
+
+                buttonContent.innerHTML = `
+                    <span class="loading-spinner"></span>
+                    <span>SIGNING IN...</span>
+                `;
+
+            }
+        );
+
+    </script>
 
 
 </body>

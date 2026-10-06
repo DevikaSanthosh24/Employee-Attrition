@@ -1,1691 +1,2314 @@
 {% load static %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Industry Analysis | HR Analytics</title>
-
-
-    <style>
-
-        /* =====================================================
-           GLOBAL
-        ===================================================== */
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-
-            background: #241E24;
-
-            color: #3B2938;
-
-            font-family:
-                "Trebuchet MS",
-                Arial,
-                sans-serif;
-        }
-
-        a {
-            text-decoration: none;
-        }
+<title>Industry Analysis | HR Analytics</title>
 
 
-        /* =====================================================
-           MAIN LAYOUT
-        ===================================================== */
+<style>
 
-        .page-wrapper {
-            min-height: 100vh;
+    /* =====================================================
+       GLOBAL
+    ===================================================== */
 
-            display: flex;
-        }
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+
+        background: #241E24;
+
+        color: #3B2938;
+
+        font-family:
+            "Trebuchet MS",
+            Arial,
+            sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
 
 
-        /* =====================================================
-           SIDEBAR
-        ===================================================== */
+    /* =====================================================
+       MAIN LAYOUT
+    ===================================================== */
+
+    .page-wrapper {
+        min-height: 100vh;
+
+        display: flex;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        bottom: 0;
+
+        width: 245px;
+
+        padding: 32px 20px;
+
+        background:
+            linear-gradient(
+                180deg,
+                #342432 0%,
+                #241E24 100%
+            );
+
+        color: #F4EFE6;
+
+        display: flex;
+
+        flex-direction: column;
+
+        z-index: 100;
+
+        overflow: hidden;
+    }
+
+
+    .sidebar::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 260px;
+        height: 190px;
+
+        left: -80px;
+        bottom: -65px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(
+                145,
+                86,
+                119,
+                0.20
+            );
+
+        pointer-events: none;
+    }
+
+
+    /* =====================================================
+       BRAND
+    ===================================================== */
+
+    .brand {
+
+        position: relative;
+
+        z-index: 2;
+
+        margin-bottom: 42px;
+    }
+
+
+    .brand-top {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 11px;
+
+        margin-bottom: 7px;
+    }
+
+
+    .brand-icon {
+
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: #8D536F;
+
+        color: white;
+
+        font-size: 18px;
+
+        font-weight: bold;
+
+        box-shadow:
+            0 6px 16px
+            rgba(
+                141,
+                83,
+                111,
+                0.25
+            );
+    }
+
+
+    .brand-name {
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+        letter-spacing: 0.4px;
+    }
+
+
+    .brand-subtitle {
+
+        margin-left: 49px;
+
+        color: #C9B9C2;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    .navigation {
+
+        position: relative;
+
+        z-index: 2;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .nav-link {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+
+        padding: 13px 14px;
+
+        border-radius: 9px;
+
+        color: #EDE3E8;
+
+        font-size: 14px;
+
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .nav-link:hover {
+
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                0.08
+            );
+
+        transform:
+            translateX(3px);
+    }
+
+
+    .nav-link:focus-visible {
+
+        outline:
+            2px solid #C9B9C2;
+
+        outline-offset: 2px;
+    }
+
+
+    .nav-link.active {
+
+        background: #8D536F;
+
+        color: white;
+
+        box-shadow:
+            0 6px 15px
+            rgba(
+                141,
+                83,
+                111,
+                0.25
+            );
+    }
+
+
+    .nav-icon {
+
+        width: 22px;
+
+        text-align: center;
+
+        font-size: 17px;
+    }
+
+
+    /* =====================================================
+       SIDEBAR BOTTOM
+    ===================================================== */
+
+    .sidebar-bottom {
+
+        position: relative;
+
+        z-index: 2;
+
+        margin-top: auto;
+
+        padding: 14px 4px;
+    }
+
+
+    .sidebar-message {
+
+        color: #C9B9C2;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+    ===================================================== */
+
+    .main-content {
+
+        margin-left: 245px;
+
+        width:
+            calc(
+                100% - 245px
+            );
+
+        min-height: 100vh;
+
+        padding:
+            36px 42px 50px;
+
+        background: #F4EFE6;
+    }
+
+
+    /* =====================================================
+       PAGE HEADER
+    ===================================================== */
+
+    .page-header {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 25px;
+
+        margin-bottom: 35px;
+    }
+
+
+    .page-eyebrow {
+
+        margin:
+            0 0 6px;
+
+        color: #7C4B61;
+
+        font-size: 12px;
+
+        font-weight: bold;
+
+        letter-spacing: 2px;
+
+        text-transform: uppercase;
+    }
+
+
+    .page-title {
+
+        margin: 0;
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size:
+            clamp(
+                30px,
+                4vw,
+                43px
+            );
+
+        line-height: 1.1;
+    }
+
+
+    .page-description {
+
+        margin:
+            10px 0 0;
+
+        max-width: 680px;
+
+        color: #756871;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       HEADER CARD
+    ===================================================== */
+
+    .header-card {
+
+        flex-shrink: 0;
+
+        min-width: 210px;
+
+        padding: 16px 19px;
+
+        background: #FFFCF7;
+
+        border:
+            1px solid #DED3C7;
+
+        border-radius: 13px;
+
+        box-shadow:
+            0 5px 15px
+            rgba(
+                59,
+                41,
+                56,
+                0.06
+            );
+    }
+
+
+    .header-card-top {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 7px;
+    }
+
+
+    .header-card-dot {
+
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+
+        background: #8D536F;
+
+        box-shadow:
+            0 0 0 4px #E8DCE5;
+    }
+
+
+    .header-card-label {
+
+        color: #8B6A7A;
+
+        font-size: 10px;
+
+        font-weight: bold;
+
+        letter-spacing: 1.5px;
+
+        text-transform: uppercase;
+    }
+
+
+    .header-card-value {
+
+        color: #493542;
+
+        font-size: 14px;
+
+        font-weight: bold;
+    }
+
+
+    /* =====================================================
+       SECTION HEADER
+    ===================================================== */
+
+    .section-header {
+
+        display: flex;
+
+        align-items: flex-end;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 17px;
+    }
+
+
+    .section-title {
+
+        margin: 0;
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 22px;
+    }
+
+
+    .section-subtitle {
+
+        margin: 5px 0 0;
+
+        color: #81747D;
+
+        font-size: 12px;
+    }
+
+
+    .section-line {
+
+        height: 1px;
+
+        background: #D6C9BD;
+
+        margin-bottom: 23px;
+    }
+
+
+    /* =====================================================
+       INDUSTRY GRID
+    ===================================================== */
+
+    .industry-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(
+                    330px,
+                    1fr
+                )
+            );
+
+        gap: 20px;
+    }
+
+
+    /* =====================================================
+       INDUSTRY CARD
+    ===================================================== */
+
+    .industry-card {
+
+        position: relative;
+
+        background: #FFFCF7;
+
+        border:
+            1px solid #DED3C7;
+
+        border-radius: 16px;
+
+        padding: 23px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 5px 18px
+            rgba(
+                59,
+                41,
+                56,
+                0.055
+            );
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+
+    .industry-card:hover {
+
+        transform:
+            translateY(-5px);
+
+        border-color: #CDB8C4;
+
+        box-shadow:
+            0 14px 32px
+            rgba(
+                59,
+                41,
+                56,
+                0.12
+            );
+    }
+
+
+    .industry-card::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 3px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #8D536F,
+                #B9829E
+            );
+
+        opacity: 0;
+
+        transition:
+            opacity 0.25s ease;
+    }
+
+
+    .industry-card:hover::before {
+
+        opacity: 1;
+    }
+
+
+    .industry-card::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 130px;
+        height: 130px;
+
+        right: -60px;
+        bottom: -65px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(
+                141,
+                83,
+                111,
+                0.07
+            );
+
+        pointer-events: none;
+    }
+
+
+    /* =====================================================
+       INDUSTRY HEADER
+    ===================================================== */
+
+    .industry-header {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding-bottom: 18px;
+
+        border-bottom:
+            1px solid #E4DAD2;
+    }
+
+
+    .industry-left {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    .industry-icon {
+
+        width: 44px;
+        height: 44px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+
+        background: #E8DCE5;
+
+        color: #653D56;
+
+        font-size: 18px;
+
+        font-weight: bold;
+
+        box-shadow:
+            inset 0 0 0 1px
+            rgba(
+                101,
+                61,
+                86,
+                0.06
+            );
+    }
+
+
+    .industry-name {
+
+        margin: 0;
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 20px;
+
+        font-weight: bold;
+    }
+
+
+    .industry-label {
+
+        margin-top: 3px;
+
+        color: #8A7D84;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       ATTRITION RATE
+    ===================================================== */
+
+    .attrition-box {
+
+        text-align: right;
+
+        flex-shrink: 0;
+
+        padding-left: 8px;
+    }
+
+
+    .attrition-number {
+
+        color: #9C4653;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 24px;
+
+        font-weight: bold;
+    }
+
+
+    .attrition-label {
+
+        margin-top: 2px;
+
+        color: #8A7D84;
+
+        font-size: 10px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       STATISTICS
+    ===================================================== */
+
+    .stats-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 0;
+
+        margin-top: 20px;
+    }
+
+
+    .stat {
+
+        padding:
+            4px 13px 5px;
+
+        border-right:
+            1px solid #E2D8D0;
+    }
+
+
+    .stat:first-child {
+
+        padding-left: 0;
+    }
+
+
+    .stat:last-child {
+
+        border-right: none;
+
+        padding-right: 0;
+    }
+
+
+    .stat-label {
+
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #81747D;
+
+        font-size: 10px;
+
+        line-height: 1.3;
+    }
+
+
+    .stat-number {
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 25px;
+
+        font-weight: bold;
+    }
+
+
+    .stat-number.leave {
+
+        color: #9C4653;
+    }
+
+
+    .stat-number.stay {
+
+        color: #4E7B5B;
+    }
+
+
+    /* =====================================================
+       RISK SECTION
+    ===================================================== */
+
+    .risk-title {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-top: 23px;
+
+        margin-bottom: 13px;
+
+        color: #51434C;
+
+        font-size: 11px;
+
+        font-weight: bold;
+
+        letter-spacing: 1px;
+
+        text-transform: uppercase;
+    }
+
+
+    .risk-title::before {
+
+        content: "";
+
+        width: 4px;
+        height: 15px;
+
+        border-radius: 5px;
+
+        background: #8D536F;
+    }
+
+
+    .risk-section {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 11px;
+    }
+
+
+    .risk-row {
+
+        display: grid;
+
+        grid-template-columns:
+            105px
+            1fr
+            48px;
+
+        align-items: center;
+
+        gap: 9px;
+    }
+
+
+    .risk-name {
+
+        color: #65545E;
+
+        font-size: 11px;
+
+        font-weight: bold;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 5px;
+    }
+
+
+    .risk-dot {
+
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        flex-shrink: 0;
+    }
+
+
+    .risk-dot.high {
+
+        background: #B65A73;
+    }
+
+
+    .risk-dot.moderate {
+
+        background: #D29A43;
+    }
+
+
+    .risk-dot.low {
+
+        background: #75A085;
+    }
+
+
+    .risk-bar {
+
+        height: 8px;
+
+        overflow: hidden;
+
+        border-radius: 10px;
+
+        background: #E8E0DA;
+    }
+
+
+    .risk-fill {
+
+        width: 0;
+
+        height: 100%;
+
+        border-radius: inherit;
+
+        transition:
+            width 0.8s cubic-bezier(
+                0.22,
+                1,
+                0.36,
+                1
+            );
+    }
+
+
+    .risk-fill.high {
+
+        background: #B65A73;
+    }
+
+
+    .risk-fill.moderate {
+
+        background: #D29A43;
+    }
+
+
+    .risk-fill.low {
+
+        background: #75A085;
+    }
+
+
+    .risk-count {
+
+        text-align: right;
+
+        color: #65545E;
+
+        font-size: 10px;
+
+        font-weight: bold;
+
+        white-space: nowrap;
+    }
+
+
+    .risk-percentage {
+
+        color: #8A7D84;
+
+        font-weight: normal;
+
+        margin-left: 2px;
+    }
+
+
+    /* =====================================================
+       OVERVIEW PANEL
+    ===================================================== */
+
+    .comparison-section {
+
+        margin-top: 38px;
+    }
+
+
+    .comparison-card {
+
+        background: #FFFCF7;
+
+        border:
+            1px solid #DED3C7;
+
+        border-radius: 16px;
+
+        padding: 24px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(
+                59,
+                41,
+                56,
+                0.05
+            );
+    }
+
+
+    .comparison-header {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .comparison-title {
+
+        margin: 0;
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 20px;
+    }
+
+
+    .comparison-description {
+
+        margin: 5px 0 0;
+
+        color: #81747D;
+
+        font-size: 11px;
+
+        line-height: 1.5;
+    }
+
+
+    .comparison-badge {
+
+        flex-shrink: 0;
+
+        padding: 7px 11px;
+
+        border-radius: 20px;
+
+        background: #E8DCE5;
+
+        color: #653D56;
+
+        font-size: 10px;
+
+        font-weight: bold;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    .comparison-list {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 14px;
+    }
+
+
+    .comparison-row {
+
+        display: grid;
+
+        grid-template-columns:
+            130px
+            1fr
+            55px;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    .comparison-industry {
+
+        color: #51434C;
+
+        font-size: 11px;
+
+        font-weight: bold;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+
+    .comparison-track {
+
+        height: 10px;
+
+        background: #E8E0DA;
+
+        border-radius: 10px;
+
+        overflow: hidden;
+    }
+
+
+    .comparison-fill {
+
+        height: 100%;
+
+        width: 0;
+
+        border-radius: inherit;
+
+        background:
+            linear-gradient(
+                90deg,
+                #8D536F,
+                #B65A73
+            );
+
+        transition:
+            width 0.8s ease;
+    }
+
+
+    .comparison-value {
+
+        text-align: right;
+
+        color: #9C4653;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 13px;
+
+        font-weight: bold;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ===================================================== */
+
+    .empty-state {
+
+        padding: 70px 20px;
+
+        text-align: center;
+
+        background: #FFFCF7;
+
+        border:
+            1px solid #DED3C7;
+
+        border-radius: 16px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(
+                59,
+                41,
+                56,
+                0.05
+            );
+    }
+
+
+    .empty-icon {
+
+        width: 55px;
+        height: 55px;
+
+        margin:
+            0 auto 15px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #E8DCE5;
+
+        color: #653D56;
+
+        font-size: 22px;
+    }
+
+
+    .empty-state h3 {
+
+        margin: 0 0 7px;
+
+        color: #3B2938;
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 19px;
+    }
+
+
+    .empty-state p {
+
+        margin: 0;
+
+        color: #81747D;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    .empty-action {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-top: 18px;
+
+        padding: 10px 16px;
+
+        border-radius: 9px;
+
+        background: #8D536F;
+
+        color: white;
+
+        font-size: 12px;
+
+        font-weight: bold;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .empty-action:hover {
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 7px 15px
+            rgba(
+                141,
+                83,
+                111,
+                0.25
+            );
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .footer-note {
+
+        margin-top: 35px;
+
+        padding-top: 20px;
+
+        border-top:
+            1px solid #D6C9BD;
+
+        text-align: center;
+
+        color: #897B84;
+
+        font-size: 11px;
+
+        letter-spacing: 0.4px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1100px) {
 
         .sidebar {
-            position: fixed;
 
-            top: 0;
-            left: 0;
-            bottom: 0;
+            width: 210px;
+        }
 
-            width: 245px;
 
-            padding: 32px 20px;
+        .main-content {
 
-            background:
-                linear-gradient(
-                    180deg,
-                    #342432 0%,
-                    #241E24 100%
+            margin-left: 210px;
+
+            width:
+                calc(
+                    100% - 210px
                 );
 
-            color: #F4EFE6;
+            padding:
+                30px 25px 40px;
+        }
 
-            display: flex;
+
+        .industry-grid {
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+        }
+    }
+
+
+    @media (max-width: 850px) {
+
+        .page-header {
 
             flex-direction: column;
-
-            z-index: 100;
-
-            overflow: hidden;
         }
 
 
-        .sidebar::after {
+        .header-card {
 
-            content: "";
-
-            position: absolute;
-
-            width: 260px;
-            height: 190px;
-
-            left: -80px;
-            bottom: -65px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(
-                    145,
-                    86,
-                    119,
-                    0.20
-                );
-
-            pointer-events: none;
+            width: 100%;
         }
 
 
-        /* =====================================================
-           BRAND
-        ===================================================== */
+        .comparison-row {
+
+            grid-template-columns:
+                110px
+                1fr
+                50px;
+        }
+    }
+
+
+    @media (max-width: 760px) {
+
+        .page-wrapper {
+
+            display: block;
+        }
+
+
+        .sidebar {
+
+            position: relative;
+
+            width: 100%;
+
+            height: auto;
+
+            padding: 20px;
+
+            flex-direction: row;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
 
         .brand {
 
-            position: relative;
-
-            z-index: 2;
-
-            margin-bottom: 42px;
+            margin: 0;
         }
 
 
-        .brand-top {
+        .brand-subtitle,
+        .sidebar-bottom {
 
-            display: flex;
-
-            align-items: center;
-
-            gap: 11px;
-
-            margin-bottom: 7px;
+            display: none;
         }
 
-
-        .brand-icon {
-
-            width: 38px;
-            height: 38px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 10px;
-
-            background: #8D536F;
-
-            color: white;
-
-            font-size: 18px;
-
-            font-weight: bold;
-        }
-
-
-        .brand-name {
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-            letter-spacing: 0.4px;
-        }
-
-
-        .brand-subtitle {
-
-            margin-left: 49px;
-
-            color: #C9B9C2;
-
-            font-size: 10px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =====================================================
-           NAVIGATION
-        ===================================================== */
 
         .navigation {
 
-            position: relative;
+            flex-direction: row;
 
-            z-index: 2;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
+            gap: 5px;
         }
 
 
         .nav-link {
 
-            display: flex;
-
-            align-items: center;
-
-            gap: 13px;
-
-            padding: 13px 14px;
-
-            border-radius: 9px;
-
-            color: #EDE3E8;
-
-            font-size: 14px;
-
-            transition:
-                background 0.2s ease,
-                transform 0.2s ease;
+            padding: 9px;
         }
 
 
-        .nav-link:hover {
+        .nav-text {
 
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.08
-                );
-
-            transform:
-                translateX(2px);
+            display: none;
         }
 
-
-        .nav-link.active {
-
-            background: #8D536F;
-
-            color: white;
-
-            box-shadow:
-                0 6px 15px
-                rgba(
-                    141,
-                    83,
-                    111,
-                    0.25
-                );
-        }
-
-
-        .nav-icon {
-
-            width: 22px;
-
-            text-align: center;
-
-            font-size: 17px;
-        }
-
-
-        /* =====================================================
-           SIDEBAR BOTTOM
-        ===================================================== */
-
-        .sidebar-bottom {
-
-            position: relative;
-
-            z-index: 2;
-
-            margin-top: auto;
-
-            padding: 14px 4px;
-        }
-
-
-        .sidebar-message {
-
-            color: #C9B9C2;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =====================================================
-           MAIN CONTENT
-        ===================================================== */
 
         .main-content {
 
-            margin-left: 245px;
+            margin-left: 0;
 
-            width:
-                calc(
-                    100% - 245px
-                );
-
-            min-height: 100vh;
+            width: 100%;
 
             padding:
-                36px 42px 50px;
-
-            background: #F4EFE6;
+                25px 15px 35px;
         }
 
 
-        /* =====================================================
-           PAGE HEADER
-        ===================================================== */
+        .industry-grid {
 
-        .page-header {
-
-            display: flex;
-
-            align-items: flex-start;
-
-            justify-content: space-between;
-
-            gap: 25px;
-
-            margin-bottom: 35px;
+            grid-template-columns: 1fr;
         }
+    }
 
 
-        .page-eyebrow {
-
-            margin:
-                0 0 6px;
-
-            color: #7C4B61;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-        }
-
+    @media (max-width: 480px) {
 
         .page-title {
 
-            margin: 0;
-
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size:
-                clamp(
-                    30px,
-                    4vw,
-                    43px
-                );
-
-            line-height: 1.1;
+            font-size: 30px;
         }
 
 
         .page-description {
 
-            margin:
-                10px 0 0;
-
-            max-width: 680px;
-
-            color: #756871;
-
-            font-size: 14px;
-
-            line-height: 1.6;
+            font-size: 13px;
         }
 
-
-        /* =====================================================
-           HEADER CARD
-        ===================================================== */
-
-        .header-card {
-
-            flex-shrink: 0;
-
-            min-width: 190px;
-
-            padding: 15px 18px;
-
-            background: #FFFCF7;
-
-            border:
-                1px solid #DED3C7;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 5px 15px
-                rgba(
-                    59,
-                    41,
-                    56,
-                    0.06
-                );
-        }
-
-
-        .header-card-label {
-
-            margin-bottom: 5px;
-
-            color: #8B6A7A;
-
-            font-size: 10px;
-
-            font-weight: bold;
-
-            letter-spacing: 1.5px;
-
-            text-transform: uppercase;
-        }
-
-
-        .header-card-value {
-
-            color: #493542;
-
-            font-size: 14px;
-
-            font-weight: bold;
-        }
-
-
-        /* =====================================================
-           SECTION HEADER
-        ===================================================== */
 
         .section-header {
 
-            display: flex;
-
-            align-items: flex-end;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            margin-bottom: 17px;
+            display: block;
         }
 
-
-        .section-title {
-
-            margin: 0;
-
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 22px;
-        }
-
-
-        .section-subtitle {
-
-            margin: 5px 0 0;
-
-            color: #81747D;
-
-            font-size: 12px;
-        }
-
-
-        .section-line {
-
-            height: 1px;
-
-            background: #D6C9BD;
-
-            margin-bottom: 23px;
-        }
-
-
-        /* =====================================================
-           INDUSTRY GRID
-        ===================================================== */
-
-        .industry-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(
-                        330px,
-                        1fr
-                    )
-                );
-
-            gap: 20px;
-        }
-
-
-        /* =====================================================
-           INDUSTRY CARD
-        ===================================================== */
 
         .industry-card {
 
-            position: relative;
-
-            background: #FFFCF7;
-
-            border:
-                1px solid #DED3C7;
-
-            border-radius: 16px;
-
-            padding: 23px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 5px 18px
-                rgba(
-                    59,
-                    41,
-                    56,
-                    0.055
-                );
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
+            padding: 19px;
         }
 
-
-        .industry-card:hover {
-
-            transform:
-                translateY(-4px);
-
-            box-shadow:
-                0 12px 28px
-                rgba(
-                    59,
-                    41,
-                    56,
-                    0.11
-                );
-        }
-
-
-        .industry-card::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 130px;
-            height: 130px;
-
-            right: -60px;
-            bottom: -65px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(
-                    141,
-                    83,
-                    111,
-                    0.07
-                );
-
-            pointer-events: none;
-        }
-
-
-        /* =====================================================
-           INDUSTRY HEADER
-        ===================================================== */
 
         .industry-header {
 
-            display: flex;
-
-            align-items: flex-start;
-
-            justify-content: space-between;
-
-            gap: 15px;
-
-            padding-bottom: 18px;
-
-            border-bottom:
-                1px solid #E4DAD2;
+            flex-direction: column;
         }
 
-
-        .industry-left {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-        }
-
-
-        .industry-icon {
-
-            width: 42px;
-            height: 42px;
-
-            flex-shrink: 0;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 11px;
-
-            background: #E8DCE5;
-
-            color: #653D56;
-
-            font-size: 18px;
-
-            font-weight: bold;
-        }
-
-
-        .industry-name {
-
-            margin: 0;
-
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 20px;
-
-            font-weight: bold;
-        }
-
-
-        .industry-label {
-
-            margin-top: 3px;
-
-            color: #8A7D84;
-
-            font-size: 10px;
-        }
-
-
-        /* =====================================================
-           ATTRITION RATE
-        ===================================================== */
 
         .attrition-box {
 
-            text-align: right;
+            text-align: left;
 
-            flex-shrink: 0;
+            padding-left: 0;
         }
 
-
-        .attrition-number {
-
-            color: #9C4653;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 24px;
-
-            font-weight: bold;
-        }
-
-
-        .attrition-label {
-
-            margin-top: 2px;
-
-            color: #8A7D84;
-
-            font-size: 10px;
-
-            white-space: nowrap;
-        }
-
-
-        /* =====================================================
-           STATISTICS
-        ===================================================== */
 
         .stats-grid {
 
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 0;
-
-            margin-top: 20px;
+            grid-template-columns: 1fr;
         }
 
 
         .stat {
 
             padding:
-                4px 13px 5px;
+                11px 0;
 
-            border-right:
+            border-right: none;
+
+            border-bottom:
                 1px solid #E2D8D0;
         }
 
 
         .stat:first-child {
 
-            padding-left: 0;
+            padding-top: 0;
         }
 
 
         .stat:last-child {
 
-            border-right: none;
+            border-bottom: none;
 
-            padding-right: 0;
-        }
-
-
-        .stat-label {
-
-            display: block;
-
-            margin-bottom: 7px;
-
-            color: #81747D;
-
-            font-size: 10px;
-
-            line-height: 1.3;
-        }
-
-
-        .stat-number {
-
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 25px;
-
-            font-weight: bold;
-        }
-
-
-        .stat-number.leave {
-
-            color: #9C4653;
-        }
-
-
-        .stat-number.stay {
-
-            color: #4E7B5B;
-        }
-
-
-        /* =====================================================
-           RISK SECTION
-        ===================================================== */
-
-        .risk-title {
-
-            margin-top: 23px;
-
-            margin-bottom: 13px;
-
-            color: #51434C;
-
-            font-size: 11px;
-
-            font-weight: bold;
-
-            letter-spacing: 1px;
-
-            text-transform: uppercase;
-        }
-
-
-        .risk-section {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 10px;
+            padding-bottom: 0;
         }
 
 
         .risk-row {
 
-            display: grid;
+            grid-template-columns:
+                92px
+                1fr
+                46px;
+
+            gap: 7px;
+        }
+
+
+        .comparison-card {
+
+            padding: 19px;
+        }
+
+
+        .comparison-header {
+
+            display: block;
+        }
+
+
+        .comparison-badge {
+
+            display: inline-block;
+
+            margin-top: 12px;
+        }
+
+
+        .comparison-row {
 
             grid-template-columns:
-                105px
+                85px
                 1fr
-                32px;
+                48px;
 
-            align-items: center;
+            gap: 8px;
+        }
+    }
 
-            gap: 9px;
+
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+        html {
+            scroll-behavior: auto;
         }
 
-
-        .risk-name {
-
-            color: #65545E;
-
-            font-size: 11px;
-
-            font-weight: bold;
+        *,
+        *::before,
+        *::after {
+            transition: none !important;
         }
+    }
 
-
-        .risk-bar {
-
-            height: 7px;
-
-            overflow: hidden;
-
-            border-radius: 10px;
-
-            background: #E8E0DA;
-        }
-
-
-        .risk-fill {
-
-            width: 0;
-
-            height: 100%;
-
-            border-radius: inherit;
-
-            transition:
-                width 0.6s ease;
-        }
-
-
-        .risk-fill.high {
-
-            background: #B65A73;
-        }
-
-
-        .risk-fill.moderate {
-
-            background: #D29A43;
-        }
-
-
-        .risk-fill.low {
-
-            background: #75A085;
-        }
-
-
-        .risk-count {
-
-            text-align: right;
-
-            color: #65545E;
-
-            font-size: 11px;
-
-            font-weight: bold;
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        .footer-note {
-
-            margin-top: 35px;
-
-            padding-top: 20px;
-
-            border-top:
-                1px solid #D6C9BD;
-
-            text-align: center;
-
-            color: #897B84;
-
-            font-size: 11px;
-
-            letter-spacing: 0.4px;
-        }
-
-
-        /* =====================================================
-           EMPTY STATE
-        ===================================================== */
-
-        .empty-state {
-
-            padding: 70px 20px;
-
-            text-align: center;
-
-            background: #FFFCF7;
-
-            border:
-                1px solid #DED3C7;
-
-            border-radius: 16px;
-        }
-
-
-        .empty-icon {
-
-            width: 55px;
-            height: 55px;
-
-            margin:
-                0 auto 15px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #E8DCE5;
-
-            color: #653D56;
-
-            font-size: 22px;
-        }
-
-
-        .empty-state h3 {
-
-            margin: 0 0 7px;
-
-            color: #3B2938;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 19px;
-        }
-
-
-        .empty-state p {
-
-            margin: 0;
-
-            color: #81747D;
-
-            font-size: 13px;
-        }
-
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
-
-        @media (max-width: 1100px) {
-
-            .sidebar {
-
-                width: 210px;
-            }
-
-
-            .main-content {
-
-                margin-left: 210px;
-
-                width:
-                    calc(
-                        100% - 210px
-                    );
-
-                padding:
-                    30px 25px 40px;
-            }
-
-
-            .industry-grid {
-
-                grid-template-columns:
-                    repeat(
-                        2,
-                        minmax(
-                            0,
-                            1fr
-                        )
-                    );
-            }
-        }
-
-
-        @media (max-width: 760px) {
-
-            .page-wrapper {
-
-                display: block;
-            }
-
-
-            .sidebar {
-
-                position: relative;
-
-                width: 100%;
-
-                height: auto;
-
-                padding: 20px;
-
-                flex-direction: row;
-
-                align-items: center;
-
-                justify-content: space-between;
-            }
-
-
-            .brand {
-
-                margin: 0;
-            }
-
-
-            .brand-subtitle,
-            .sidebar-bottom {
-
-                display: none;
-            }
-
-
-            .navigation {
-
-                flex-direction: row;
-
-                gap: 5px;
-            }
-
-
-            .nav-link {
-
-                padding: 9px;
-            }
-
-
-            .nav-text {
-
-                display: none;
-            }
-
-
-            .main-content {
-
-                margin-left: 0;
-
-                width: 100%;
-
-                padding:
-                    25px 15px 35px;
-            }
-
-
-            .page-header {
-
-                flex-direction: column;
-            }
-
-
-            .header-card {
-
-                width: 100%;
-            }
-
-
-            .industry-grid {
-
-                grid-template-columns: 1fr;
-            }
-        }
-
-
-        @media (max-width: 480px) {
-
-            .page-title {
-
-                font-size: 30px;
-            }
-
-
-            .section-header {
-
-                display: block;
-            }
-
-
-            .industry-header {
-
-                flex-direction: column;
-            }
-
-
-            .attrition-box {
-
-                text-align: left;
-            }
-
-
-            .stats-grid {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .stat {
-
-                padding:
-                    11px 0;
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid #E2D8D0;
-            }
-
-
-            .stat:first-child {
-
-                padding-top: 0;
-            }
-
-
-            .stat:last-child {
-
-                border-bottom: none;
-
-                padding-bottom: 0;
-            }
-
-
-            .risk-row {
-
-                grid-template-columns:
-                    90px
-                    1fr
-                    28px;
-            }
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
-
 
 <div class="page-wrapper">
 
+```
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
-    <aside class="sidebar">
+<aside class="sidebar">
 
 
-        <div class="brand">
+    <div class="brand">
 
-            <div class="brand-top">
+        <div class="brand-top">
 
-                <div class="brand-icon">
-                    ✦
-                </div>
-
-                <div class="brand-name">
-                    HR ANALYTICS
-                </div>
-
+            <div class="brand-icon">
+                ✦
             </div>
 
-
-            <div class="brand-subtitle">
-
-                Employee Attrition<br>
-                Prediction System
-
+            <div class="brand-name">
+                HR ANALYTICS
             </div>
 
         </div>
 
 
-        <nav class="navigation">
+        <div class="brand-subtitle">
 
-
-            <a
-                href="{% url 'dashboard' %}"
-                class="nav-link"
-            >
-
-                <span class="nav-icon">
-                    ⌂
-                </span>
-
-                <span class="nav-text">
-                    Dashboard
-                </span>
-
-            </a>
-
-
-            <a
-                href="{% url 'home' %}"
-                class="nav-link"
-            >
-
-                <span class="nav-icon">
-                    ⊕
-                </span>
-
-                <span class="nav-text">
-                    New Prediction
-                </span>
-
-            </a>
-
-
-            <a
-                href="{% url 'industry_predictions' %}"
-                class="nav-link active"
-            >
-
-                <span class="nav-icon">
-                    ◫
-                </span>
-
-                <span class="nav-text">
-                    Industry Analysis
-                </span>
-
-            </a>
-
-
-            <a
-                href="{% url 'admin_logout' %}"
-                class="nav-link"
-            >
-
-                <span class="nav-icon">
-                    ⇥
-                </span>
-
-                <span class="nav-text">
-                    Logout
-                </span>
-
-            </a>
-
-
-        </nav>
-
-
-        <div class="sidebar-bottom">
-
-            <div class="sidebar-message">
-
-                Better Insights.<br>
-                Stronger Teams.
-
-            </div>
+            Employee Attrition<br>
+            Prediction System
 
         </div>
 
-
-    </aside>
-
+    </div>
 
 
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
-
-    <main class="main-content">
+    <nav class="navigation">
 
 
-        <!-- =================================================
-             PAGE HEADER
-        ================================================== -->
+        <a
+            href="{% url 'dashboard' %}"
+            class="nav-link"
+        >
 
-        <header class="page-header">
+            <span class="nav-icon">
+                ⌂
+            </span>
 
+            <span class="nav-text">
+                Dashboard
+            </span>
 
-            <div>
-
-                <p class="page-eyebrow">
-                    Workforce Analytics
-                </p>
-
-
-                <h1 class="page-title">
-                    Industry Analysis
-                </h1>
+        </a>
 
 
-                <p class="page-description">
+        <a
+            href="{% url 'home' %}"
+            class="nav-link"
+        >
 
-                    Compare employee attrition predictions,
-                    retention patterns and risk levels
-                    across different industries.
+            <span class="nav-icon">
+                ⊕
+            </span>
 
-                </p>
+            <span class="nav-text">
+                New Prediction
+            </span>
 
-            </div>
-
-
-            <div class="header-card">
-
-                <div class="header-card-label">
-                    Analysis Type
-                </div>
-
-                <div class="header-card-value">
-                    Industry-wise Prediction
-                </div>
-
-            </div>
+        </a>
 
 
-        </header>
+        <a
+            href="{% url 'industry_predictions' %}"
+            class="nav-link active"
+            aria-current="page"
+        >
+
+            <span class="nav-icon">
+                ◫
+            </span>
+
+            <span class="nav-text">
+                Industry Analysis
+            </span>
+
+        </a>
 
 
+        <a
+            href="{% url 'admin_logout' %}"
+            class="nav-link"
+        >
 
-        <!-- =================================================
-             SECTION HEADER
-        ================================================== -->
+            <span class="nav-icon">
+                ⇥
+            </span>
 
-        <div class="section-header">
+            <span class="nav-text">
+                Logout
+            </span>
+
+        </a>
 
 
-            <div>
+    </nav>
 
-                <h2 class="section-title">
-                    Industry Overview
-                </h2>
 
-                <p class="section-subtitle">
-                    Prediction results grouped by employee industry
-                </p>
+    <div class="sidebar-bottom">
 
-            </div>
+        <div class="sidebar-message">
 
+            Better Insights.<br>
+            Stronger Teams.
 
         </div>
 
+    </div>
 
-        <div class="section-line"></div>
 
+</aside>
 
 
-        <!-- =================================================
-             INDUSTRY DATA
-        ================================================== -->
 
-        {% if industry_data %}
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
 
+<main class="main-content">
 
-        <div class="industry-grid">
 
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
 
-            {% for industry in industry_data %}
+    <header class="page-header">
 
 
-            <article class="industry-card">
+        <div>
 
-
-                <!-- INDUSTRY HEADER -->
-
-                <div class="industry-header">
-
-
-                    <div class="industry-left">
-
-
-                        <div class="industry-icon">
-                            ◈
-                        </div>
-
-
-                        <div>
-
-                            <h3 class="industry-name">
-                                {{ industry.name }}
-                            </h3>
-
-                            <div class="industry-label">
-                                Employee predictions
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="attrition-box">
-
-                        <div class="attrition-number">
-                            {{ industry.attrition_rate }}%
-                        </div>
-
-                        <div class="attrition-label">
-                            Attrition Rate
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- STATISTICS -->
-
-                <div class="stats-grid">
-
-
-                    <div class="stat">
-
-                        <span class="stat-label">
-                            Total Predictions
-                        </span>
-
-                        <span class="stat-number">
-                            {{ industry.total }}
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <span class="stat-label">
-                            Likely to Leave
-                        </span>
-
-                        <span class="stat-number leave">
-                            {{ industry.leave }}
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <span class="stat-label">
-                            Likely to Stay
-                        </span>
-
-                        <span class="stat-number stay">
-                            {{ industry.stay }}
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- RISK -->
-
-                <div class="risk-title">
-                    Risk Distribution
-                </div>
-
-
-                <div class="risk-section">
-
-
-                    <!-- HIGH -->
-
-                    <div class="risk-row">
-
-                        <span class="risk-name">
-                            High Risk
-                        </span>
-
-
-                        <div class="risk-bar">
-
-                            <div
-                                class="risk-fill high"
-                                data-count="{{ industry.high_risk }}"
-                                data-total="{{ industry.total }}"
-                            ></div>
-
-                        </div>
-
-
-                        <span class="risk-count">
-                            {{ industry.high_risk }}
-                        </span>
-
-                    </div>
-
-
-
-                    <!-- MODERATE -->
-
-                    <div class="risk-row">
-
-                        <span class="risk-name">
-                            Moderate
-                        </span>
-
-
-                        <div class="risk-bar">
-
-                            <div
-                                class="risk-fill moderate"
-                                data-count="{{ industry.moderate_risk }}"
-                                data-total="{{ industry.total }}"
-                            ></div>
-
-                        </div>
-
-
-                        <span class="risk-count">
-                            {{ industry.moderate_risk }}
-                        </span>
-
-                    </div>
-
-
-
-                    <!-- LOW -->
-
-                    <div class="risk-row">
-
-                        <span class="risk-name">
-                            Low Risk
-                        </span>
-
-
-                        <div class="risk-bar">
-
-                            <div
-                                class="risk-fill low"
-                                data-count="{{ industry.low_risk }}"
-                                data-total="{{ industry.total }}"
-                            ></div>
-
-                        </div>
-
-
-                        <span class="risk-count">
-                            {{ industry.low_risk }}
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
-            </article>
-
-
-            {% endfor %}
-
-
-        </div>
-
-
-        {% else %}
-
-
-        <!-- EMPTY STATE -->
-
-        <div class="empty-state">
-
-
-            <div class="empty-icon">
-                ◌
-            </div>
-
-
-            <h3>
-                No Industry Data Yet
-            </h3>
-
-
-            <p>
-                Make some employee predictions to see
-                industry-wise analysis here.
+            <p class="page-eyebrow">
+                Workforce Analytics
             </p>
 
 
-        </div>
+            <h1 class="page-title">
+                Industry Analysis
+            </h1>
 
 
-        {% endif %}
+            <p class="page-description">
 
+                Compare employee attrition predictions,
+                retention patterns and risk levels
+                across different industries.
 
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="footer-note">
-
-            Employee Attrition Prediction System
-            &nbsp;•&nbsp;
-            Industry-wise Workforce Analysis
+            </p>
 
         </div>
 
 
-    </main>
+        <div class="header-card">
 
+            <div class="header-card-top">
+
+                <span class="header-card-dot"></span>
+
+                <span class="header-card-label">
+                    Analysis Type
+                </span>
+
+            </div>
+
+            <div class="header-card-value">
+                Industry-wise Prediction
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         INDUSTRY OVERVIEW
+    ================================================== -->
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                Industry Overview
+            </h2>
+
+            <p class="section-subtitle">
+                Prediction results grouped by employee industry
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-line"></div>
+
+
+
+    <!-- =================================================
+         INDUSTRY DATA
+    ================================================== -->
+
+    {% if industry_data %}
+
+
+    <div class="industry-grid">
+
+
+        {% for industry in industry_data %}
+
+
+        <article
+            class="industry-card"
+            data-industry="{{ industry.name }}"
+        >
+
+
+            <!-- INDUSTRY HEADER -->
+
+            <div class="industry-header">
+
+
+                <div class="industry-left">
+
+
+                    <div class="industry-icon"
+                         aria-hidden="true">
+                        ◈
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="industry-name">
+                            {{ industry.name }}
+                        </h3>
+
+                        <div class="industry-label">
+                            Employee predictions
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="attrition-box">
+
+                    <div class="attrition-number">
+                        {{ industry.attrition_rate }}%
+                    </div>
+
+                    <div class="attrition-label">
+                        Attrition Rate
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Total Predictions
+                    </span>
+
+                    <span class="stat-number">
+                        {{ industry.total }}
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Likely to Leave
+                    </span>
+
+                    <span class="stat-number leave">
+                        {{ industry.leave }}
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Likely to Stay
+                    </span>
+
+                    <span class="stat-number stay">
+                        {{ industry.stay }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RISK -->
+
+            <div class="risk-title">
+                Risk Distribution
+            </div>
+
+
+            <div class="risk-section">
+
+
+                <!-- HIGH -->
+
+                <div class="risk-row">
+
+                    <span class="risk-name">
+
+                        <span class="risk-dot high"></span>
+
+                        High
+
+                    </span>
+
+
+                    <div class="risk-bar"
+                         aria-label="High risk">
+
+                        <div
+                            class="risk-fill high"
+                            data-count="{{ industry.high_risk }}"
+                            data-total="{{ industry.total }}"
+                        ></div>
+
+                    </div>
+
+
+                    <span class="risk-count">
+
+                        {{ industry.high_risk }}
+
+                        <span
+                            class="risk-percentage"
+                            data-count="{{ industry.high_risk }}"
+                            data-total="{{ industry.total }}"
+                        >
+                            0%
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- MODERATE -->
+
+                <div class="risk-row">
+
+                    <span class="risk-name">
+
+                        <span class="risk-dot moderate"></span>
+
+                        Moderate
+
+                    </span>
+
+
+                    <div class="risk-bar"
+                         aria-label="Moderate risk">
+
+                        <div
+                            class="risk-fill moderate"
+                            data-count="{{ industry.moderate_risk }}"
+                            data-total="{{ industry.total }}"
+                        ></div>
+
+                    </div>
+
+
+                    <span class="risk-count">
+
+                        {{ industry.moderate_risk }}
+
+                        <span
+                            class="risk-percentage"
+                            data-count="{{ industry.moderate_risk }}"
+                            data-total="{{ industry.total }}"
+                        >
+                            0%
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- LOW -->
+
+                <div class="risk-row">
+
+                    <span class="risk-name">
+
+                        <span class="risk-dot low"></span>
+
+                        Low
+
+                    </span>
+
+
+                    <div class="risk-bar"
+                         aria-label="Low risk">
+
+                        <div
+                            class="risk-fill low"
+                            data-count="{{ industry.low_risk }}"
+                            data-total="{{ industry.total }}"
+                        ></div>
+
+                    </div>
+
+
+                    <span class="risk-count">
+
+                        {{ industry.low_risk }}
+
+                        <span
+                            class="risk-percentage"
+                            data-count="{{ industry.low_risk }}"
+                            data-total="{{ industry.total }}"
+                        >
+                            0%
+                        </span>
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         ATTRITION COMPARISON
+    ================================================== -->
+
+    <section class="comparison-section">
+
+
+        <div class="comparison-card">
+
+
+            <div class="comparison-header">
+
+
+                <div>
+
+                    <h2 class="comparison-title">
+                        Attrition Comparison
+                    </h2>
+
+                    <p class="comparison-description">
+                        Relative attrition rate across the industries
+                        represented in the prediction records.
+                    </p>
+
+                </div>
+
+
+                <div class="comparison-badge">
+                    Industry Overview
+                </div>
+
+
+            </div>
+
+
+            <div class="comparison-list">
+
+
+                {% for industry in industry_data %}
+
+
+                <div
+                    class="comparison-row"
+                    data-rate="{{ industry.attrition_rate }}"
+                >
+
+                    <span class="comparison-industry">
+                        {{ industry.name }}
+                    </span>
+
+
+                    <div class="comparison-track">
+
+                        <div class="comparison-fill"></div>
+
+                    </div>
+
+
+                    <span class="comparison-value">
+                        {{ industry.attrition_rate }}%
+                    </span>
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    {% else %}
+
+
+    <!-- =================================================
+         EMPTY STATE
+    ================================================== -->
+
+    <div class="empty-state">
+
+
+        <div class="empty-icon"
+             aria-hidden="true">
+            ◌
+        </div>
+
+
+        <h3>
+            No Industry Data Yet
+        </h3>
+
+
+        <p>
+            Make some employee predictions to see
+            industry-wise analysis here.
+        </p>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="empty-action"
+        >
+            <span>＋</span>
+            Make First Prediction
+        </a>
+
+
+    </div>
+
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <div class="footer-note">
+
+        Employee Attrition Prediction System
+        &nbsp;•&nbsp;
+        Industry-wise Workforce Analysis
+
+    </div>
+
+
+</main>
+```
 
 </div>
-
-
 
 <script>
 
 
     /* =====================================================
-       RISK BARS
+       RISK BARS + PERCENTAGES
     ===================================================== */
 
     const riskBars =
@@ -1695,7 +2318,6 @@
 
 
     riskBars.forEach(function(bar) {
-
 
         const count =
             parseFloat(
@@ -1715,7 +2337,6 @@
             total > 0
         ) {
 
-
             let percentage =
                 (count / total) * 100;
 
@@ -1733,6 +2354,115 @@
             bar.style.width =
                 percentage + "%";
 
+        }
+
+    });
+
+
+    const riskPercentages =
+        document.querySelectorAll(
+            ".risk-percentage"
+        );
+
+
+    riskPercentages.forEach(function(item) {
+
+        const count =
+            parseFloat(
+                item.dataset.count
+            );
+
+
+        const total =
+            parseFloat(
+                item.dataset.total
+            );
+
+
+        if (
+            !isNaN(count) &&
+            !isNaN(total) &&
+            total > 0
+        ) {
+
+            const percentage =
+                (count / total) * 100;
+
+
+            item.textContent =
+                Math.round(percentage) + "%";
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       ATTRITION COMPARISON BARS
+    ===================================================== */
+
+    const comparisonRows =
+        document.querySelectorAll(
+            ".comparison-row"
+        );
+
+
+    let maximumRate = 0;
+
+
+    comparisonRows.forEach(function(row) {
+
+        const rate =
+            parseFloat(
+                row.dataset.rate
+            );
+
+
+        if (
+            !isNaN(rate) &&
+            rate > maximumRate
+        ) {
+
+            maximumRate = rate;
+
+        }
+
+    });
+
+
+    comparisonRows.forEach(function(row) {
+
+        const rate =
+            parseFloat(
+                row.dataset.rate
+            );
+
+
+        const fill =
+            row.querySelector(
+                ".comparison-fill"
+            );
+
+
+        if (
+            fill &&
+            !isNaN(rate) &&
+            maximumRate > 0
+        ) {
+
+            const percentage =
+                (rate / maximumRate) * 100;
+
+
+            fill.style.width =
+                Math.max(
+                    4,
+                    Math.min(
+                        percentage,
+                        100
+                    )
+                ) + "%";
 
         }
 
@@ -1740,7 +2470,6 @@
 
 
 </script>
-
 
 </body>
 
