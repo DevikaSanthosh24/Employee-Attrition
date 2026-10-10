@@ -7,663 +7,12 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Login | HR Analytics</title>
+    <title>Admin Login</title>
 
-    <link
-        rel="stylesheet"
-        href="{% static 'style.css' %}"
-    >
-
-    <style>
-
-        /* =====================================================
-           ADMIN LOGIN PAGE
-           IMPORTANT:
-           overflow-y is intentionally AUTO so the page can scroll.
-        ===================================================== */
-
-        html {
-            min-height: 100%;
-            height: auto;
-        }
-
-        body.login-page {
-
-            min-height: 100vh;
-
-            height: auto;
-
-            margin: 0;
-
-            padding: 40px 20px;
-
-            display: flex;
-
-            align-items: flex-start;
-
-            justify-content: center;
-
-            overflow-x: hidden;
-
-            overflow-y: auto;
-
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(99, 63, 82, 0.55),
-                    transparent 38%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(59, 41, 56, 0.70),
-                    transparent 42%
-                ),
-                #241E24;
-
-            font-family:
-                "Trebuchet MS",
-                Arial,
-                sans-serif;
-
-            color: #F4EFE6;
-
-            box-sizing: border-box;
-
-        }
-
-
-        .login-page *,
-        .login-page *::before,
-        .login-page *::after {
-
-            box-sizing: border-box;
-
-        }
-
-
-        /* =====================================================
-           LOGIN CARD
-        ===================================================== */
-
-        .login-card {
-
-            width: 100%;
-
-            max-width: 440px;
-
-            margin: 20px 0;
-
-            padding: 42px 42px 30px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(59, 41, 56, 0.98),
-                    rgba(36, 30, 36, 0.98)
-                );
-
-            border:
-                1px solid rgba(244, 239, 230, 0.13);
-
-            border-radius: 22px;
-
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.35);
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-
-        .login-card::before {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            right: 0;
-
-            height: 4px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #9b7b91,
-                    #633F52,
-                    #9b7b91
-                );
-
-        }
-
-
-        /* =====================================================
-           ICON
-        ===================================================== */
-
-        .login-icon {
-
-            width: 62px;
-
-            height: 62px;
-
-            margin-bottom: 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 18px;
-
-            background:
-                rgba(244, 239, 230, 0.08);
-
-            border:
-                1px solid rgba(244, 239, 230, 0.12);
-
-            font-size: 27px;
-
-        }
-
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .login-header {
-
-            margin-bottom: 32px;
-
-        }
-
-
-        .login-label {
-
-            margin-bottom: 9px;
-
-            color:
-                rgba(244, 239, 230, 0.55);
-
-            font-size: 11px;
-
-            letter-spacing: 2px;
-
-            font-weight: 600;
-
-        }
-
-
-        .login-header h1 {
-
-            margin: 0 0 10px;
-
-            color: #F4EFE6;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 36px;
-
-            line-height: 1.05;
-
-            letter-spacing: 1px;
-
-        }
-
-
-        .login-header p {
-
-            margin: 0;
-
-            color:
-                rgba(244, 239, 230, 0.62);
-
-            font-size: 14px;
-
-            line-height: 1.6;
-
-        }
-
-
-        /* =====================================================
-           ERROR
-        ===================================================== */
-
-        .login-error {
-
-            margin-bottom: 20px;
-
-            padding: 12px 14px;
-
-            border-radius: 10px;
-
-            border-left:
-                3px solid #b45a5a;
-
-            background:
-                rgba(180, 90, 90, 0.14);
-
-            color: #f0c6c6;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-
-        }
-
-
-        /* =====================================================
-           FORM
-        ===================================================== */
-
-        .login-form-group {
-
-            margin-bottom: 21px;
-
-        }
-
-
-        .login-form-group label {
-
-            display: block;
-
-            margin-bottom: 8px;
-
-            color: #F4EFE6;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        /* =====================================================
-           INPUT
-        ===================================================== */
-
-        .login-input {
-
-            width: 100%;
-
-            height: 48px;
-
-            padding: 0 15px;
-
-            border:
-                1px solid rgba(244, 239, 230, 0.15);
-
-            border-radius: 10px;
-
-            outline: none;
-
-            background:
-                rgba(244, 239, 230, 0.07);
-
-            color: #F4EFE6;
-
-            font-family:
-                "Trebuchet MS",
-                Arial,
-                sans-serif;
-
-            font-size: 14px;
-
-            transition:
-                border-color 0.2s ease,
-                background 0.2s ease,
-                box-shadow 0.2s ease;
-
-        }
-
-
-        .login-input::placeholder {
-
-            color:
-                rgba(244, 239, 230, 0.35);
-
-        }
-
-
-        .login-input:focus {
-
-            border-color: #9b7b91;
-
-            background:
-                rgba(244, 239, 230, 0.10);
-
-            box-shadow:
-                0 0 0 3px rgba(155, 123, 145, 0.12);
-
-        }
-
-
-        /* =====================================================
-           PASSWORD WRAPPER
-        ===================================================== */
-
-        .password-wrapper {
-
-            position: relative;
-
-            width: 100%;
-
-        }
-
-
-        .password-wrapper .login-input {
-
-            padding-right: 50px;
-
-        }
-
-
-        /* =====================================================
-           PASSWORD TOGGLE
-        ===================================================== */
-
-        .password-toggle {
-
-            position: absolute;
-
-            top: 50%;
-
-            right: 8px;
-
-            width: 36px;
-
-            height: 36px;
-
-            transform: translateY(-50%);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: transparent;
-
-            color:
-                rgba(244, 239, 230, 0.55);
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-        }
-
-
-        .password-toggle:hover {
-
-            background:
-                rgba(244, 239, 230, 0.08);
-
-            color: #F4EFE6;
-
-        }
-
-
-        /* =====================================================
-           LOGIN BUTTON
-        ===================================================== */
-
-        .login-submit {
-
-            width: 100%;
-
-            min-height: 49px;
-
-            margin-top: 5px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #633F52,
-                    #7b5369
-                );
-
-            color: #F4EFE6;
-
-            font-family:
-                "Trebuchet MS",
-                Arial,
-                sans-serif;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            letter-spacing: 1.5px;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 8px 20px rgba(0, 0, 0, 0.18);
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease;
-
-        }
-
-
-        .login-submit:hover {
-
-            transform: translateY(-2px);
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #70485d,
-                    #8a6076
-                );
-
-            box-shadow:
-                0 12px 25px rgba(0, 0, 0, 0.25);
-
-        }
-
-
-        .login-submit:active {
-
-            transform: translateY(0);
-
-        }
-
-
-        .login-submit:disabled {
-
-            opacity: 0.7;
-
-            cursor: wait;
-
-            transform: none;
-
-        }
-
-
-        /* =====================================================
-           BUTTON CONTENT
-        ===================================================== */
-
-        .button-content {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 9px;
-
-        }
-
-
-        /* =====================================================
-           LOADING SPINNER
-        ===================================================== */
-
-        .loading-spinner {
-
-            width: 15px;
-
-            height: 15px;
-
-            border:
-                2px solid rgba(255, 255, 255, 0.35);
-
-            border-top-color: white;
-
-            border-radius: 50%;
-
-            animation:
-                login-spin 0.7s linear infinite;
-
-        }
-
-
-        @keyframes login-spin {
-
-            to {
-
-                transform: rotate(360deg);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           SECURITY NOTE
-        ===================================================== */
-
-        .login-security {
-
-            margin-top: 17px;
-
-            text-align: center;
-
-            color:
-                rgba(244, 239, 230, 0.35);
-
-            font-size: 10px;
-
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        .login-footer {
-
-            margin-top: 28px;
-
-            padding-top: 20px;
-
-            border-top:
-                1px solid rgba(244, 239, 230, 0.08);
-
-            text-align: center;
-
-            color:
-                rgba(244, 239, 230, 0.38);
-
-            font-size: 11px;
-
-            letter-spacing: 0.5px;
-
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 600px) {
-
-            body.login-page {
-
-                padding: 20px 15px;
-
-                align-items: flex-start;
-
-            }
-
-
-            .login-card {
-
-                margin: 10px 0 20px;
-
-                padding: 32px 25px 25px;
-
-                border-radius: 18px;
-
-            }
-
-
-            .login-header h1 {
-
-                font-size: 31px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 400px) {
-
-            body.login-page {
-
-                padding: 12px 10px;
-
-            }
-
-
-            .login-card {
-
-                padding: 30px 20px 25px;
-
-            }
-
-
-            .login-header h1 {
-
-                font-size: 28px;
-
-            }
-
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 
@@ -671,297 +20,113 @@
 <body class="login-page">
 
 
-    <!-- =====================================================
-         LOGIN CARD
-    ===================================================== -->
-
-    <main class="login-card">
+<div class="login-container">
 
 
-        <!-- =================================================
-             ADMIN ICON
-        ================================================== -->
+    <!-- ================= ADMIN ICON ================= -->
 
-        <div
-            class="login-icon"
-            aria-hidden="true"
-        >
-            🔐
-        </div>
+    <div class="admin-icon">
+
+        🔐
+
+    </div>
 
 
-        <!-- =================================================
-             HEADER
-        ================================================== -->
+    <!-- ================= HEADER ================= -->
 
-        <div class="login-header">
+    <div class="header">
 
-            <div class="login-label">
-                SECURE ACCESS
-            </div>
+        <h1>
+            ADMIN LOGIN
+        </h1>
 
-
-            <h1>
-                ADMIN LOGIN
-            </h1>
-
-
-            <p>
-                Employee Attrition Prediction System
-            </p>
-
-        </div>
-
-
-        <!-- =================================================
-             ERROR
-        ================================================== -->
-
-        {% if error %}
-
-            <div
-                class="login-error"
-                role="alert"
-            >
-
-                {{ error }}
-
-            </div>
-
-        {% endif %}
-
-
-        <!-- =================================================
-             LOGIN FORM
-        ================================================== -->
-
-        <form
-            method="POST"
-            id="loginForm"
-        >
-
-            {% csrf_token %}
-
-
-            <!-- =============================================
-                 USERNAME
-            ============================================== -->
-
-            <div class="login-form-group">
-
-                <label for="username">
-                    Username
-                </label>
-
-
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    class="login-input"
-                    placeholder="Enter admin username"
-                    autocomplete="username"
-                    minlength="3"
-                    maxlength="50"
-                    required
-                    autofocus
-                >
-
-            </div>
-
-
-            <!-- =============================================
-                 PASSWORD
-            ============================================== -->
-
-            <div class="login-form-group">
-
-                <label for="password">
-                    Password
-                </label>
-
-
-                <div class="password-wrapper">
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="login-input"
-                        placeholder="Enter admin password"
-                        autocomplete="current-password"
-                        minlength="4"
-                        maxlength="100"
-                        required
-                    >
-
-
-                    <button
-                        type="button"
-                        class="password-toggle"
-                        id="passwordToggle"
-                        aria-label="Show password"
-                        title="Show password"
-                    >
-                        👁
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 LOGIN BUTTON
-            ================================================== -->
-
-            <button
-                type="submit"
-                class="login-submit"
-                id="loginSubmit"
-            >
-
-                <span
-                    class="button-content"
-                    id="buttonContent"
-                >
-
-                    <span id="buttonText">
-                        LOGIN
-                    </span>
-
-                </span>
-
-            </button>
-
-        </form>
-
-
-        <!-- =================================================
-             SECURITY NOTE
-        ================================================== -->
-
-        <div class="login-security">
-
-            Authorized administrator access only
-
-        </div>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="login-footer">
-
+        <p>
             Employee Attrition Prediction System
+        </p>
+
+    </div>
+
+
+    <!-- ================= ERROR ================= -->
+
+    {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================= LOGIN FORM ================= -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <label for="username">
+
+                Username
+
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter admin username"
+                required
+                autofocus
+            >
 
         </div>
 
 
-    </main>
+        <div class="form-group">
+
+            <label for="password">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter admin password"
+                required
+            >
+
+        </div>
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ===================================================== -->
+        <button
+            type="submit"
+            class="login-button">
 
-    <script>
+            LOGIN
 
-        /* =================================================
-           PASSWORD SHOW / HIDE
-        ================================================= */
+        </button>
 
-        const passwordInput =
-            document.getElementById("password");
-
-        const passwordToggle =
-            document.getElementById("passwordToggle");
+    </form>
 
 
-        passwordToggle.addEventListener(
-            "click",
-            function () {
+    <!-- ================= FOOTER ================= -->
 
-                if (
-                    passwordInput.type === "password"
-                ) {
+    <div class="footer">
 
-                    passwordInput.type = "text";
+        Employee Attrition Prediction System
 
-                    passwordToggle.textContent = "🙈";
-
-                    passwordToggle.setAttribute(
-                        "aria-label",
-                        "Hide password"
-                    );
-
-                    passwordToggle.setAttribute(
-                        "title",
-                        "Hide password"
-                    );
-
-                }
-
-                else {
-
-                    passwordInput.type = "password";
-
-                    passwordToggle.textContent = "👁";
-
-                    passwordToggle.setAttribute(
-                        "aria-label",
-                        "Show password"
-                    );
-
-                    passwordToggle.setAttribute(
-                        "title",
-                        "Show password"
-                    );
-
-                }
-
-            }
-        );
+    </div>
 
 
-        /* =================================================
-           LOGIN LOADING STATE
-        ================================================= */
-
-        const loginForm =
-            document.getElementById("loginForm");
-
-        const loginSubmit =
-            document.getElementById("loginSubmit");
-
-        const buttonContent =
-            document.getElementById("buttonContent");
-
-
-        loginForm.addEventListener(
-            "submit",
-            function (event) {
-
-                if (!loginForm.checkValidity()) {
-
-                    return;
-
-                }
-
-
-                loginSubmit.disabled = true;
-
-
-                buttonContent.innerHTML = `
-                    <span class="loading-spinner"></span>
-                    <span>SIGNING IN...</span>
-                `;
-
-            }
-        );
-
-    </script>
+</div>
 
 
 </body>

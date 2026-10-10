@@ -13,7 +13,7 @@
     <title>Attrition Prediction Result</title>
 
     <link rel="stylesheet"
-          href="{% static 'css/style.css' %}">
+      href="{% static 'css/style.css' %}">
 
 </head>
 
@@ -26,7 +26,7 @@
 
     <!-- =====================================================
          HEADER
-    ===================================================== -->
+         ===================================================== -->
 
     <div class="header">
 
@@ -35,17 +35,13 @@
         </div>
 
         <h1>
-
             ATTRITION
             <span>RESULT</span>
-
         </h1>
 
         <p>
-
             Employee attrition prediction generated
             using the trained machine learning model.
-
         </p>
 
     </div>
@@ -53,34 +49,30 @@
 
     <!-- =====================================================
          MAIN RESULT
-    ===================================================== -->
+         ===================================================== -->
 
     <div class="prediction-card">
 
 
+        <!-- INDICATOR -->
+
         {% if prediction == "Employee likely to LEAVE" %}
 
             <div class="result-indicator leave">
-
                 !
-
             </div>
 
         {% else %}
 
             <div class="result-indicator stay">
-
                 ✓
-
             </div>
 
         {% endif %}
 
 
         <div class="prediction-title">
-
             Prediction
-
         </div>
 
 
@@ -93,7 +85,7 @@
 
         <!-- =================================================
              PROBABILITY
-        ================================================= -->
+             ================================================= -->
 
         <div class="prediction-title">
 
@@ -128,7 +120,7 @@
 
         <!-- =================================================
              RISK
-        ================================================= -->
+             ================================================= -->
 
         <div class="risk-section">
 
@@ -142,153 +134,27 @@
             {% if risk == "High Risk" %}
 
                 <div class="risk-level risk-high">
-
                     High Risk
-
                 </div>
 
 
             {% elif risk == "Moderate Risk" %}
 
                 <div class="risk-level risk-moderate">
-
                     Moderate Risk
-
                 </div>
 
 
             {% else %}
 
                 <div class="risk-level risk-low">
-
                     Low Risk
-
                 </div>
 
             {% endif %}
 
 
         </div>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         RECOMMENDED HR ACTIONS
-    ===================================================== -->
-
-    <div class="suggestions">
-
-
-        <div class="card-label">
-
-            HR INSIGHTS
-
-        </div>
-
-
-        <h2>
-
-            Recommended HR Actions
-
-        </h2>
-
-
-        <p style="
-            margin-top: 0;
-            line-height: 1.7;
-        ">
-
-            {% if risk == "High Risk" %}
-
-                Based on the factors that most influenced
-                this prediction, HR may consider the following
-                areas for review:
-
-            {% elif risk == "Moderate Risk" %}
-
-                The following areas may be considered for
-                employee support and retention planning:
-
-            {% else %}
-
-                The following practices may help maintain
-                a positive employee experience:
-
-            {% endif %}
-
-        </p>
-
-
-        {% if suggested_actions %}
-
-            <div class="action-list">
-
-
-                {% for item in suggested_actions %}
-
-                    <div class="action-item"
-                         style="
-                            padding: 15px;
-                            margin-bottom: 12px;
-                            border-left: 4px solid #633F52;
-                            background: rgba(99, 63, 82, 0.06);
-                            border-radius: 6px;
-                         ">
-
-
-                        <strong>
-
-                            {{ item.feature }}
-
-                        </strong>
-
-
-                        <p style="
-                            margin: 7px 0 0 0;
-                            line-height: 1.6;
-                         ">
-
-                            {{ item.action }}
-
-                        </p>
-
-
-                    </div>
-
-                {% endfor %}
-
-
-            </div>
-
-
-        {% else %}
-
-            <p>
-
-                No specific modifiable factors were identified
-                for an HR action from the current prediction.
-
-            </p>
-
-        {% endif %}
-
-
-        <p style="
-            margin-top: 18px;
-            font-size: 0.88rem;
-            line-height: 1.6;
-            opacity: 0.75;
-        ">
-
-            These suggestions are based on model-derived
-            prediction patterns and are intended to support
-            HR review. They do not establish the actual cause
-            of employee attrition and should not be used as
-            the sole basis for employment decisions.
-
-        </p>
 
 
     </div>
@@ -296,64 +162,51 @@
 
     <!-- =====================================================
          WHAT THIS MEANS
-    ===================================================== -->
+         ===================================================== -->
 
     <div class="meaning">
 
-
         <div class="card-label">
-
             INTERPRETATION
-
         </div>
 
 
         <h2>
-
             What this means
-
         </h2>
 
 
         {% if risk == "High Risk" %}
 
-
             <p>
 
                 The model estimates a relatively high
                 probability that this employee may leave
-                the organization. HR may use this result
-                to identify areas where additional support
-                or discussion could be appropriate.
+                the organization.
 
             </p>
 
 
         {% elif risk == "Moderate Risk" %}
 
-
             <p>
 
-                The model identifies a moderate level of
-                potential attrition risk. This can be used
-                as an early indicator for monitoring and
-                employee engagement.
+                The model identifies a moderate level
+                of potential attrition risk for this
+                employee.
 
             </p>
 
 
         {% else %}
 
-
             <p>
 
                 The model estimates a relatively low
-                probability of employee attrition. HR can
-                continue supporting the practices that
-                contribute to a positive employee experience.
+                probability that this employee may leave
+                the organization.
 
             </p>
-
 
         {% endif %}
 
@@ -362,35 +215,85 @@
 
 
     <!-- =====================================================
-         MODEL LIMITATION
-    ===================================================== -->
+         SUGGESTED ACTIONS
+         ===================================================== -->
 
-    <div class="meaning">
+    <div class="suggestions">
 
 
         <div class="card-label">
-
-            MODEL NOTE
-
+            HR INSIGHTS
         </div>
 
 
         <h2>
-
-            Important Note
-
+            Suggested Actions
         </h2>
 
 
-        <p>
+        <ul>
 
-            This prediction represents patterns learned by
-            the trained machine learning model. It is an
-            estimate rather than a certainty and should be
-            considered together with appropriate HR judgement
-            and other relevant information.
 
-        </p>
+            {% if risk == "High Risk" %}
+
+                <li>
+                    Review workload and overtime concerns.
+                </li>
+
+                <li>
+                    Discuss job satisfaction and workplace concerns.
+                </li>
+
+                <li>
+                    Review career growth and promotion opportunities.
+                </li>
+
+                <li>
+                    Consider recognition and retention initiatives.
+                </li>
+
+
+            {% elif risk == "Moderate Risk" %}
+
+                <li>
+                    Review workload and work-life balance.
+                </li>
+
+                <li>
+                    Discuss career growth opportunities.
+                </li>
+
+                <li>
+                    Review employee recognition.
+                </li>
+
+                <li>
+                    Monitor job satisfaction.
+                </li>
+
+
+            {% else %}
+
+                <li>
+                    Continue recognizing good performance.
+                </li>
+
+                <li>
+                    Maintain a healthy work-life balance.
+                </li>
+
+                <li>
+                    Provide opportunities for career development.
+                </li>
+
+                <li>
+                    Encourage continued employee engagement.
+                </li>
+
+            {% endif %}
+
+
+        </ul>
 
 
     </div>
@@ -398,7 +301,7 @@
 
     <!-- =====================================================
          BUTTONS
-    ===================================================== -->
+         ===================================================== -->
 
     <div class="button-container">
 
@@ -407,9 +310,7 @@
             href="{% url 'home' %}"
             class="button predict-button"
         >
-
             ← Predict Another Employee
-
         </a>
 
 
@@ -417,9 +318,7 @@
             href="{% url 'dashboard' %}"
             class="button dashboard-button"
         >
-
             View Dashboard
-
         </a>
 
 
@@ -428,7 +327,7 @@
 
     <!-- =====================================================
          FOOTER
-    ===================================================== -->
+         ===================================================== -->
 
     <div class="footer-note">
 
@@ -441,18 +340,16 @@
 
 
 <!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
+     RISK METER JAVASCRIPT
+     ========================================================= -->
 
 <script>
-
 
     const meter =
         document.querySelector(".meter");
 
 
     if (meter) {
-
 
         const probability =
             parseFloat(
@@ -462,27 +359,18 @@
 
         if (!isNaN(probability)) {
 
-
             meter.style.width =
-
                 Math.min(
-
                     Math.max(
-
                         probability,
                         0
-
                     ),
-
                     100
-
                 ) + "%";
-
 
         }
 
     }
-
 
 </script>
 

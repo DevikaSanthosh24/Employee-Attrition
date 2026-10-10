@@ -5,8 +5,6 @@ import joblib
 import pandas as pd
 import os
 import xgboost as xgb
-import shap
-
 
 from .models import Prediction
 
@@ -68,26 +66,6 @@ target_encoder = model_data.get(
 
 
 # ============================================================
-# CREATE SHAP EXPLAINER
-# ============================================================
-
-try:
-
-    shap_explainer = shap.TreeExplainer(
-        model
-    )
-
-except Exception as e:
-
-    shap_explainer = None
-
-    print(
-        "SHAP explainer could not be created:",
-        str(e)
-    )
-
-
-# ============================================================
 # ADMIN ACCESS DECORATOR
 # ============================================================
 
@@ -96,11 +74,13 @@ def admin_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
 
+        # User is not logged in
         if not request.user.is_authenticated:
 
             return redirect("admin_login")
 
 
+        # User is logged in but is not an admin/staff user
         if not request.user.is_staff:
 
             return redirect("admin_login")
@@ -121,6 +101,7 @@ def admin_required(view_func):
 
 def admin_login(request):
 
+    # Already logged in as admin
     if (
         request.user.is_authenticated
         and request.user.is_staff
@@ -140,6 +121,7 @@ def admin_login(request):
         )
 
 
+        # Django authentication
         from django.contrib.auth import authenticate
 
         user = authenticate(
@@ -235,6 +217,7 @@ def normalize_text(value):
     value = str(value).strip()
 
 
+    # Convert curly apostrophes
     value = value.replace(
         "’",
         "'"
@@ -250,6 +233,8 @@ def normalize_text(value):
         "'"
     )
 
+
+    # Convert curly double quotes
     value = value.replace(
         "“",
         '"'
@@ -262,375 +247,6 @@ def normalize_text(value):
 
 
     return value
-
-
-# ============================================================
-# SHAP FEATURE INFORMATION
-# ============================================================
-
-# These are the features for which HR can reasonably
-# consider an organisational action.
-
-MODIFIABLE_FEATURES = {
-
-    "Years at Company",
-
-    "Monthly Income",
-
-    "Work-Life Balance",
-
-    "Job Satisfaction",
-
-    "Performance Rating",
-
-    "Number of Promotions",
-
-    "Overtime",
-
-    "Job Level",
-
-    "Remote Work",
-
-    "Leadership Opportunities",
-
-    "Innovation Opportunities",
-
-    "Employee Recognition",
-
-}
-
-
-# ============================================================
-# HR ACTION SUGGESTIONS
-# ============================================================
-
-HR_ACTIONS = {
-
-    "Years at Company":
-
-        "Review long-term career development and growth opportunities.",
-
-
-    "Monthly Income":
-
-        "Review compensation and whether the employee's pay is aligned with the role and responsibilities.",
-
-
-    "Work-Life Balance":
-
-        "Review workload, working hours and work-life balance arrangements.",
-
-
-    "Job Satisfaction":
-
-        "Arrange a one-to-one discussion to understand workplace concerns and improve job satisfaction.",
-
-
-    "Performance Rating":
-
-        "Discuss performance feedback, development needs and suitable support.",
-
-
-    "Number of Promotions":
-
-        "Review career progression and whether appropriate promotion opportunities are available.",
-
-
-    "Overtime":
-
-        "Review overtime requirements and consider reducing excessive workload where possible.",
-
-
-    "Job Level":
-
-        "Review role responsibilities, career progression and opportunities for advancement.",
-
-
-    "Remote Work":
-
-        "Consider whether suitable remote or flexible working arrangements could improve the employee's work experience.",
-
-
-    "Leadership Opportunities":
-
-        "Consider providing suitable leadership responsibilities, mentoring or growth opportunities.",
-
-
-    "Innovation Opportunities":
-
-        "Provide opportunities for the employee to contribute ideas, projects and innovation initiatives.",
-
-
-    "Employee Recognition":
-
-        "Consider regular recognition, feedback and appreciation for the employee's contributions.",
-
-}
-
-
-# ============================================================
-# CREATE SHAP-BASED HR ACTIONS
-# ============================================================
-
-def create_shap_actions(
-    input_df,
-    original_values,
-    risk
-):
-
-    """
-    Uses SHAP to identify the strongest model contributions.
-
-    SHAP is used internally to identify which features have
-    the strongest influence on the individual prediction.
-
-    Only modifiable features are converted into HR actions.
-
-    Non-modifiable attributes such as age, gender and marital
-    status are intentionally excluded from suggested actions.
-    """
-
-    if shap_explainer is None:
-
-        return []
-
-
-    try:
-
-        # ----------------------------------------------------
-        # Calculate SHAP values
-        # ----------------------------------------------------
-
-        shap_values = shap_explainer.shap_values(
-            input_df
-        )
-
-
-        # ----------------------------------------------------
-        # Handle different SHAP output formats
-        # ----------------------------------------------------
-
-        if isinstance(
-            shap_values,
-            list
-        ):
-
-            if len(shap_values) == 0:
-
-                return []
-
-            leave_values = shap_values[0][0]
-
-        else:
-
-            shap_values = shap_values[0]
-
-            leave_values = shap_values
-
-
-        # ----------------------------------------------------
-        # IMPORTANT
-        #
-        # The model uses:
-        #
-        # 0 = Leave
-        # 1 = Stay
-        #
-        # SHAP contribution toward class 1 (Stay) is
-        # converted into contribution toward Leave.
-        # ----------------------------------------------------
-
-        leave_contributions = -leave_values
-
-
-        # ----------------------------------------------------
-        # Build feature contribution list
-        # ----------------------------------------------------
-
-        feature_contributions = []
-
-
-        for index, feature in enumerate(
-            feature_names
-        ):
-
-            contribution = float(
-                leave_contributions[index]
-            )
-
-
-            feature_contributions.append({
-
-                "feature":
-                feature,
-
-                "contribution":
-                contribution,
-
-                "absolute":
-                abs(contribution),
-
-            })
-
-
-        # ----------------------------------------------------
-        # Sort by strongest contribution
-        # ----------------------------------------------------
-
-        feature_contributions.sort(
-            key=lambda item:
-            item["absolute"],
-            reverse=True
-        )
-
-
-        # ----------------------------------------------------
-        # Select only MODIFIABLE features
-        # ----------------------------------------------------
-
-        modifiable_contributions = [
-
-            item
-
-            for item in feature_contributions
-
-            if item["feature"]
-            in MODIFIABLE_FEATURES
-
-        ]
-
-
-        # ----------------------------------------------------
-        # For High / Moderate risk:
-        #
-        # Prefer features contributing toward LEAVE.
-        #
-        # For Low risk:
-        #
-        # Prefer features contributing toward STAY,
-        # so that HR can maintain those positive practices.
-        # ----------------------------------------------------
-
-        if risk in [
-            "High Risk",
-            "Moderate Risk"
-        ]:
-
-            relevant_features = [
-
-                item
-
-                for item
-                in modifiable_contributions
-
-                if item["contribution"] > 0
-
-            ]
-
-        else:
-
-            relevant_features = [
-
-                item
-
-                for item
-                in modifiable_contributions
-
-                if item["contribution"] < 0
-
-            ]
-
-
-        # ----------------------------------------------------
-        # If no directional features are available,
-        # use the strongest modifiable features.
-        # ----------------------------------------------------
-
-        if not relevant_features:
-
-            relevant_features = (
-                modifiable_contributions
-            )
-
-
-        # ----------------------------------------------------
-        # Create HR actions
-        # ----------------------------------------------------
-
-        actions = []
-
-        used_features = set()
-
-
-        for item in relevant_features:
-
-            feature = item["feature"]
-
-
-            if feature in used_features:
-
-                continue
-
-
-            if feature not in HR_ACTIONS:
-
-                continue
-
-
-            actions.append({
-
-                "feature":
-                feature,
-
-                "action":
-                HR_ACTIONS[feature],
-
-                "value":
-                original_values.get(
-                    feature,
-                    ""
-                ),
-
-                "direction":
-                (
-                    "risk"
-                    if item["contribution"] > 0
-                    else "protective"
-                ),
-
-            })
-
-
-            used_features.add(
-                feature
-            )
-
-
-            # Show a maximum of 4 actions
-
-            if len(actions) >= 4:
-
-                break
-
-
-        return actions
-
-
-    except Exception as e:
-
-        print(
-            "\n========== SHAP ACTION ERROR =========="
-        )
-
-        print(
-            str(e)
-        )
-
-        print(
-            "=======================================\n"
-        )
-
-        return []
 
 
 # ============================================================
@@ -649,22 +265,6 @@ def predict(request):
 
 
     # ========================================================
-    # GET EMPLOYEE REFERENCE
-    # ========================================================
-
-    employee_reference = normalize_text(
-        request.POST.get(
-            "employee_reference"
-        )
-    )
-
-
-    if employee_reference == "":
-
-        employee_reference = None
-
-
-    # ========================================================
     # GET VALUES FROM FORM
     # ========================================================
 
@@ -680,6 +280,10 @@ def predict(request):
         request.POST.get(
             "years_at_company"
         ),
+
+        # ----------------------------------------------------
+        # Industry is stored in job_role field
+        # ----------------------------------------------------
 
         "Job Role":
         request.POST.get(
@@ -802,24 +406,6 @@ def predict(request):
 
 
     # ========================================================
-    # SAVE ORIGINAL HUMAN-READABLE VALUES
-    #
-    # These values are kept before categorical encoding.
-    # They are used for displaying HR suggestions.
-    # ========================================================
-
-    original_values = {
-
-        column:
-        normalize_text(value)
-
-        for column, value
-        in data.items()
-
-    }
-
-
-    # ========================================================
     # NUMERICAL FEATURES
     # ========================================================
 
@@ -838,7 +424,6 @@ def predict(request):
         "Number of Dependents",
 
         "Company Tenure (In Months)"
-
     ]
 
 
@@ -984,11 +569,6 @@ def predict(request):
     )
 
     print(
-        "Employee Reference:",
-        employee_reference
-    )
-
-    print(
         "Input after encoding:"
     )
 
@@ -1085,27 +665,12 @@ def predict(request):
 
 
     # ========================================================
-    # CREATE SHAP-BASED HR ACTIONS
-    # ========================================================
-
-    suggested_actions = (
-        create_shap_actions(
-            input_df,
-            original_values,
-            risk
-        )
-    )
-
-
-    # ========================================================
     # SAVE PREDICTION
     # ========================================================
 
     try:
 
         Prediction.objects.create(
-
-            employee_reference=employee_reference,
 
             age=int(
                 data["Age"]
@@ -1224,19 +789,11 @@ def predict(request):
         request,
         "result.html",
         {
+            "risk": risk,
 
-            "risk":
-            risk,
+            "probability": probability,
 
-            "probability":
-            probability,
-
-            "prediction":
-            prediction_text,
-
-            "suggested_actions":
-            suggested_actions,
-
+            "prediction": prediction_text,
         }
     )
 
@@ -1248,26 +805,60 @@ def predict(request):
 @admin_required
 def dashboard(request):
 
+    # ========================================================
+    # GET ALL PREDICTIONS
+    # ========================================================
+
     predictions = Prediction.objects.all()
 
+
+    # ========================================================
+    # TOTAL PREDICTIONS
+    # ========================================================
+
     total_predictions = predictions.count()
+
+
+    # ========================================================
+    # LEAVE COUNT
+    # ========================================================
 
     leave_count = predictions.filter(
         prediction="Employee likely to LEAVE"
     ).count()
 
+
+    # ========================================================
+    # STAY COUNT
+    # ========================================================
+
     stay_count = predictions.filter(
         prediction="Employee likely to STAY"
     ).count()
+
+
+    # ========================================================
+    # HIGH RISK COUNT
+    # ========================================================
 
     high_risk_count = predictions.filter(
         risk="High Risk"
     ).count()
 
+
+    # ========================================================
+    # RECENT PREDICTIONS
+    # ========================================================
+
     recent_predictions = (
         predictions
         .order_by("-created_at")[:10]
     )
+
+
+    # ========================================================
+    # SEND DATA TO DASHBOARD
+    # ========================================================
 
     return render(
         request,
@@ -1298,7 +889,16 @@ def dashboard(request):
 @admin_required
 def industry_predictions(request):
 
+    # ========================================================
+    # GET ALL PREDICTIONS
+    # ========================================================
+
     predictions = Prediction.objects.all()
+
+
+    # ========================================================
+    # GET UNIQUE INDUSTRIES
+    # ========================================================
 
     industries = (
         predictions
@@ -1309,6 +909,11 @@ def industry_predictions(request):
         .distinct()
     )
 
+
+    # ========================================================
+    # CREATE INDUSTRY DATA
+    # ========================================================
+
     industry_data = []
 
 
@@ -1318,28 +923,62 @@ def industry_predictions(request):
             job_role=industry
         )
 
+
+        # ----------------------------------------------------
+        # TOTAL
+        # ----------------------------------------------------
+
         total = industry_records.count()
+
+
+        # ----------------------------------------------------
+        # LEAVE
+        # ----------------------------------------------------
 
         leave = industry_records.filter(
             prediction="Employee likely to LEAVE"
         ).count()
 
+
+        # ----------------------------------------------------
+        # STAY
+        # ----------------------------------------------------
+
         stay = industry_records.filter(
             prediction="Employee likely to STAY"
         ).count()
+
+
+        # ----------------------------------------------------
+        # HIGH RISK
+        # ----------------------------------------------------
 
         high_risk = industry_records.filter(
             risk="High Risk"
         ).count()
 
+
+        # ----------------------------------------------------
+        # MODERATE RISK
+        # ----------------------------------------------------
+
         moderate_risk = industry_records.filter(
             risk="Moderate Risk"
         ).count()
+
+
+        # ----------------------------------------------------
+        # LOW RISK
+        # ----------------------------------------------------
 
         low_risk = industry_records.filter(
             risk="Low Risk"
         ).count()
 
+
+        # ----------------------------------------------------
+        # ATTRITION RATE
+        # ----------------------------------------------------
 
         if total > 0:
 
@@ -1352,6 +991,10 @@ def industry_predictions(request):
 
             attrition_rate = 0
 
+
+        # ----------------------------------------------------
+        # STORE DATA
+        # ----------------------------------------------------
 
         industry_data.append({
 
@@ -1378,18 +1021,24 @@ def industry_predictions(request):
 
             "low_risk":
             low_risk,
-
         })
 
 
+    # ========================================================
+    # SORT INDUSTRIES ALPHABETICALLY
+    # ========================================================
+
     industry_data = sorted(
         industry_data,
-        key=lambda x:
-        str(
+        key=lambda x: str(
             x["name"]
         ).lower()
     )
 
+
+    # ========================================================
+    # SEND DATA TO TEMPLATE
+    # ========================================================
 
     return render(
         request,
@@ -1399,15 +1048,9 @@ def industry_predictions(request):
             industry_data
         }
     )
-
-
 # ============================================================
 # OPENING PAGE
 # ============================================================
 
 def opening(request):
-
-    return render(
-        request,
-        "opening.html"
-    )
+    return render(request, "opening.html")
