@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body class="login-page">
+
+
+<div class="login-container">
+
+
+    <!-- ================= ADMIN ICON ================= -->
+
+    <div class="admin-icon">
+
+        🔐
+
+    </div>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <h1>
+            ADMIN LOGIN
+        </h1>
+
+        <p>
+            Employee Attrition Prediction System
+        </p>
+
+    </div>
+
+
+    <!-- ================= ERROR ================= -->
+
+    {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================= LOGIN FORM ================= -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <label for="username">
+
+                Username
+
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter admin username"
+                required
+                autofocus
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter admin password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-button">
+
+            LOGIN
+
+        </button>
+
+    </form>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="footer">
+
+        Employee Attrition Prediction System
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

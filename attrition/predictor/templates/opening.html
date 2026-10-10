@@ -1,0 +1,379 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Attrition Prediction System</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body class="opening-page">
+
+
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+
+    <nav class="opening-nav">
+
+        <div class="opening-logo">
+            ATTRITION<span>ML</span>
+        </div>
+
+        <div class="opening-nav-text">
+            EMPLOYEE ANALYTICS SYSTEM
+        </div>
+
+    </nav>
+
+
+    <!-- ============================================================
+         HERO SECTION
+         ============================================================ -->
+
+    <main class="opening-main">
+
+
+        <!-- LEFT CONTENT -->
+
+        <section class="opening-content">
+
+            <div class="opening-label">
+                MACHINE LEARNING • HR ANALYTICS
+            </div>
+
+
+            <h1>
+                EMPLOYEE
+                <span>ATTRITION</span>
+                PREDICTION
+            </h1>
+
+
+            <p class="opening-description">
+                A machine-learning based system for analysing employee
+                information and estimating attrition risk using workplace
+                and employee characteristics.
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="opening-buttons">
+
+                <a
+                    href="{% url 'admin_login' %}"
+                    class="opening-button primary"
+                >
+                    GET STARTED
+                    <span>→</span>
+                </a>
+
+
+                <a
+                    href="#about"
+                    class="opening-button secondary"
+                >
+                    EXPLORE SYSTEM
+                </a>
+
+            </div>
+
+
+            <!-- QUICK FEATURES -->
+
+            <div class="opening-features">
+
+
+                <div class="opening-feature">
+
+                    <div class="feature-number">
+                        22
+                    </div>
+
+                    <div class="feature-text">
+                        Employee<br>
+                        Features
+                    </div>
+
+                </div>
+
+
+                <div class="opening-feature">
+
+                    <div class="feature-number">
+                        ML
+                    </div>
+
+                    <div class="feature-text">
+                        XGBoost<br>
+                        Prediction
+                    </div>
+
+                </div>
+
+
+                <div class="opening-feature">
+
+                    <div class="feature-number">
+                        HR
+                    </div>
+
+                    <div class="feature-text">
+                        Risk<br>
+                        Analysis
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- RIGHT VISUAL -->
+
+        <section class="opening-visual">
+
+            <div class="visual-card">
+
+
+                <!-- TOP -->
+
+                <div class="visual-top">
+
+                    <span>
+                        ATTRITION ANALYSIS • LIVE
+                    </span>
+
+                    <span class="status-dot">
+                        ●
+                    </span>
+
+                </div>
+
+
+                <!-- CIRCLE -->
+
+                <div class="visual-circle">
+
+                    <div class="circle-inner">
+
+                        <span>
+                            ML
+                        </span>
+
+                        <strong>
+                            MODEL
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VISUAL LINES -->
+
+                <div class="visual-lines">
+
+
+                    <div class="visual-line">
+
+                        <span>
+                            DATA PREPARATION
+                        </span>
+
+                        <div class="line">
+
+                            <div class="line-fill one"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="visual-line">
+
+                        <span>
+                            RISK ANALYSIS
+                        </span>
+
+                        <div class="line">
+
+                            <div class="line-fill two"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="visual-line">
+
+                        <span>
+                            PREDICTION
+                        </span>
+
+                        <div class="line">
+
+                            <div class="line-fill three"></div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="visual-footer">
+
+                    <span>
+                        XGBOOST CLASSIFIER
+                    </span>
+
+                    <span>
+                        READY
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ============================================================
+         ABOUT SECTION
+         ============================================================ -->
+
+    <section
+        class="opening-about"
+        id="about"
+    >
+
+
+        <div class="about-heading">
+
+            <div class="opening-label">
+                SYSTEM OVERVIEW
+            </div>
+
+
+            <h2>
+                From employee data
+                <span>to useful insight.</span>
+            </h2>
+
+        </div>
+
+
+
+        <div class="about-grid">
+
+
+            <!-- CARD 1 -->
+
+            <div class="about-card">
+
+                <div class="about-number">
+                    01 / PREDICT
+                </div>
+
+                <h3>
+                    Predict
+                </h3>
+
+                <p>
+                    Analyse employee characteristics using a trained
+                    XGBoost machine learning model to estimate the
+                    likelihood of employee attrition.
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD 2 -->
+
+            <div class="about-card">
+
+                <div class="about-number">
+                    02 / ASSESS
+                </div>
+
+                <h3>
+                    Assess
+                </h3>
+
+                <p>
+                    Convert the model output into an understandable
+                    probability and classify the employee into
+                    Low, Moderate or High risk.
+                </p>
+
+            </div>
+
+
+
+            <!-- CARD 3 -->
+
+            <div class="about-card">
+
+                <div class="about-number">
+                    03 / ANALYSE
+                </div>
+
+                <h3>
+                    Analyse
+                </h3>
+
+                <p>
+                    View prediction records, dashboard statistics
+                    and industry-wise attrition information through
+                    the HR analytics interface.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+
+    <footer class="opening-footer">
+
+        <span>
+            EMPLOYEE ATTRITION PREDICTION SYSTEM
+        </span>
+
+       
+
+    </footer>
+
+
+</body>
+
+</html>
