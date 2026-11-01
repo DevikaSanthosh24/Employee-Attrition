@@ -1,38 +1,80 @@
-# Employee Attrition Prediction
+# Employee Attrition Prediction Using Machine Learning
 
-## Project Description
+An AI-powered web application that predicts whether an employee is likely to stay with or leave an organization using machine learning. The application integrates a trained classification model with a Django web interface to generate predictions based on employee-related attributes.
 
-This project predicts whether an employee is likely to leave the organization using Machine Learning. The system analyzes various employee-related factors and predicts whether the employee is likely to **stay** or **leave** the organization.
+## 1. Project Overview
 
-## Objectives
+Employee attrition is an important challenge for organizations because employee turnover can affect productivity, recruitment costs, and workforce stability.
 
-* Predict employee attrition using Machine Learning.
-* Identify factors that may influence employee turnover.
-* Compare different Machine Learning algorithms.
-* Develop a web-based prediction system using Django.
-* Provide an easy-to-use interface for entering employee details and viewing predictions.
+This project uses machine learning to analyze employee-related information and predict attrition status. Users can enter employee details through a web interface and receive a prediction indicating whether the employee is likely to stay with or leave the organization.
 
-## Technologies Used
+The application also includes a dashboard for presenting employee and attrition-related information.
+
+## 2. Objectives
+
+* Predict employee attrition using machine learning.
+* Analyze employee-related attributes associated with attrition.
+* Experiment with different classification algorithms.
+* Evaluate model performance using appropriate classification metrics.
+* Integrate the selected machine learning model into a Django web application.
+* Provide a user-friendly interface for entering employee details and viewing predictions.
+
+## 3. Key Features
+
+* Employee attrition prediction.
+* Stay/Leave classification.
+* Employee information input form.
+* Django-based web application.
+* Dashboard displaying employee and attrition-related information.
+* Integration of a trained machine learning model.
+* Prediction results displayed through a web interface.
+
+## 4. Technologies Used
+
+### Programming Language
 
 * Python
+
+### Backend
+
 * Django
-* Machine Learning
+
+### Frontend
+
+* HTML
+* CSS
+
+### Machine Learning and Data Processing
+
+* XGBoost
 * Pandas
 * NumPy
 * Scikit-learn
 * Joblib
-* HTML
-* CSS
 
-## Dataset
+### Development Tools
 
-The dataset contains employee-related information used to train the Machine Learning model.
+* Visual Studio Code
+* Git
+* GitHub
 
-The final dataset used for the project contains **15,000 employee records**.
+## 5. Dataset Description
 
-## Features Used
+The project uses an employee attrition dataset containing employee-related attributes and a target variable representing attrition status.
 
-The following features are used for prediction:
+* **Dataset:** Employee Attrition Dataset
+* **Number of records:** 15,000
+* **Number of fields:** 22
+* **Target variable:** `Attrition`
+* **Prediction classes:** Stay and Leave
+
+The dataset is used for data exploration, preprocessing, model training, and evaluation.
+
+The dataset statistics should correspond to the exact CSV file used in the final model-training process.
+
+## 6. Features Used
+
+The employee-related attributes considered in the project include:
 
 * Age
 * Years at Company
@@ -45,60 +87,86 @@ The following features are used for prediction:
 * Overtime
 * Distance from Home
 * Job Level
-* Company Tenure (In Months)
+* Company Tenure (in Months)
 * Remote Work
 * Leadership Opportunities
 * Employee Recognition
 
-## Data Preprocessing
+The actual input features depend on the final model configuration. The prediction form and Django backend must use the same features, in the correct order and format, as the trained model.
 
-The dataset was processed before training the Machine Learning models. The main preprocessing steps included:
+## 7. Data Preprocessing
 
-* Handling missing values
-* Selecting relevant features
-* Encoding categorical variables
-* Preparing the target variable
-* Splitting the dataset into training and testing sets
+The dataset is prepared before training the machine learning models.
 
-The dataset was divided into **80% training data and 20% testing data**.
+The preprocessing workflow includes:
 
-## Machine Learning Models
+1. Loading the dataset using Pandas.
+2. Examining the dataset structure and target distribution.
+3. Handling missing values, if present.
+4. Preparing the input features and target variable.
+5. Encoding categorical variables where required.
+6. Splitting the dataset into training and testing sets.
+7. Preparing the data for model training and evaluation.
 
-Different Machine Learning algorithms were experimented with and evaluated to identify a suitable model for employee attrition prediction.
+The dataset is divided into training and testing sets using an 80:20 split.
 
-The models included:
+## 8. Machine Learning Models
+
+Different classification algorithms are explored to evaluate their suitability for employee attrition prediction.
+
+The models experimented with include:
 
 * Logistic Regression
 * K-Nearest Neighbors (KNN)
 * Support Vector Machine (SVM)
 * Decision Tree
 * Random Forest
-* Balanced Random Forest
-* XGBoost
 * Gradient Boosting
 * Extra Trees
+* XGBoost
 
-## Model Used
+Only algorithms actually trained and evaluated should be listed here.
 
-Random Forest was selected as the Machine Learning model used in the Django application.
+## 9. Final Machine Learning Model
 
-The trained model was saved using Joblib and integrated into the Django application for making predictions on new employee data.
+The project uses an XGBoost classification model to predict employee attrition.
 
-## Django Web Application
+XGBoost is a gradient-boosting algorithm that builds an ensemble of decision trees to learn patterns from the training data.
 
-The Machine Learning model is integrated into a Django web application.
+The model analyzes employee-related attributes and predicts one of two outcomes:
 
-The application allows the user to:
+* **Stay:** The employee is predicted to remain with the organization.
+* **Leave:** The employee is predicted to leave the organization.
 
-1. Enter employee information.
-2. Submit the information for prediction.
-3. Process the input using the trained Machine Learning model.
-4. Display whether the employee is likely to **Stay** or **Leave**.
+The model's performance is evaluated using suitable classification metrics, including accuracy, precision, recall, F1-score, and ROC-AUC where applicable.
 
-## Project Structure
+The final reported performance should be based on the actual evaluation results obtained during testing.
+
+## 10. Django Web Application
+
+The trained machine learning model is integrated into a Django web application.
+
+The application allows users to enter employee information through a prediction form and view the resulting attrition prediction.
+
+### Application Workflow
+
+1. The user opens the employee prediction form.
+2. The user enters the required employee details.
+3. The Django backend receives the submitted information.
+4. The input data is prepared in the format expected by the trained model.
+5. The model generates an attrition prediction.
+6. The application displays whether the employee is predicted to stay or leave.
+
+The application also includes a dashboard for presenting employee and attrition-related information.
+
+## 11. Project Structure
+
+The project includes the Django application, machine learning notebook, and supporting files.
+
+The structure below is illustrative. Update it to match the actual files and folders in the repository.
 
 ```text
-Employee_attrition/
+Employee-Attrition/
 │
 ├── attrition/
 │   ├── settings.py
@@ -109,44 +177,134 @@ Employee_attrition/
 │   ├── model/
 │   │   └── employee_attrition_model.pkl
 │   ├── templates/
+│   ├── static/
 │   ├── views.py
 │   ├── urls.py
 │   └── ...
 │
 ├── Data cleaning and model training.ipynb
-├── README.md
-└── manage.py
+├── employee_attrition_dataset.csv
+├── manage.py
+├── requirements.txt
+├── .gitignore
+└── README.md
 ```
 
-## How to Run the Project
+## 12. Installation and Setup
 
-Clone the repository and navigate to the project directory.
+### Prerequisites
 
-Install the required Python packages:
+Install the following software:
+
+* Python
+* Git
+* Visual Studio Code (recommended)
+
+### Step 1: Clone the Repository
 
 ```bash
-pip install django pandas numpy scikit-learn joblib
+git clone https://github.com/DevikaSanthosh24/Employee-Attrition.git
 ```
 
-Run the Django development server:
+### Step 2: Navigate to the Project Directory
+
+```bash
+cd Employee-Attrition
+```
+
+### Step 3: Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Step 4: Activate the Virtual Environment
+
+On Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+On Windows Command Prompt:
+
+```bat
+venv\Scripts\activate
+```
+
+### Step 5: Install Dependencies
+
+If a `requirements.txt` file is provided, run:
+
+```bash
+pip install -r requirements.txt
+```
+
+Otherwise, install the packages required by the application:
+
+```bash
+pip install django pandas numpy scikit-learn joblib xgboost
+```
+
+### Step 6: Apply Database Migrations
+
+From the directory containing `manage.py`, run:
+
+```bash
+python manage.py migrate
+```
+
+### Step 7: Start the Development Server
 
 ```bash
 python manage.py runserver
 ```
 
-Open the application in a web browser and enter the required employee details to generate a prediction.
+Open the local development address displayed in the terminal in your web browser.
 
-## Team Members
+**Note:** These instructions assume that `manage.py` is located in the repository root and that the trained model file is available at the path expected by the Django application. Adjust the commands if your project structure differs.
 
-| Name            | Role      | Contact                                                           |
-| --------------- | --------- | ----------------------------------------------------------------- |
-| Devika Santhosh | Developer | [devikhasanthosh24@gmail.com](mailto:devikhasanthosh24@gmail.com) |
-| Reenu Sebu      | Guide     | [reenusebu@mbits.ac.in](mailto:reenusebu@mbits.ac.in)             |
+## 13. AI-Assisted Development
 
-## Future Scope
+AI tools were used during development to support code understanding, debugging, and exploration of implementation approaches.
 
-* Improve prediction performance using additional Machine Learning techniques.
-* Add more employee-related features.
-* Provide graphical analysis of attrition factors.
-* Deploy the application online.
-* Add authentication and employee management features.
+They assisted with tasks such as understanding Django application structure, troubleshooting Python errors, improving the user interface, and exploring machine learning implementation approaches.
+
+Suggested changes were reviewed and tested as part of the development process.
+
+The tools and activities described in this section should reflect the actual development experience.
+
+## 14. Learning Outcomes
+
+This project provided practical experience in:
+
+* Python programming.
+* Data preprocessing and exploratory data analysis.
+* Machine learning model training and evaluation.
+* Classification using XGBoost.
+* Django-based web application development.
+* Integrating a trained machine learning model into a web application.
+* Debugging and testing application functionality.
+* Using Git and GitHub for source code management.
+
+## 15. Future Enhancements
+
+* Deploy the application to a suitable hosting platform.
+* Improve the prediction interface and user experience.
+* Add authentication and access control.
+* Introduce additional visualizations for attrition analysis.
+* Explore model explainability and feature importance.
+* Improve model evaluation and validation.
+* Add automated tests for application functionality.
+
+## 16. Author
+
+**Devika Santhosh**
+
+MCA Student | Aspiring Software Developer
+
+GitHub: [DevikaSanthosh24](https://github.com/DevikaSanthosh24)
+
+## 17. Project Repository
+
+[Employee Attrition Prediction — GitHub](https://github.com/DevikaSanthosh24/Employee-Attrition)
